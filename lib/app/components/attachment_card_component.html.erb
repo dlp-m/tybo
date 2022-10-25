@@ -1,0 +1,26 @@
+<%= turbo_frame_tag @attachment do %>
+  <li class="col-span-1 flex rounded-md shadow-sm">
+    <div class="flex-shrink-0 flex items-center justify-center w-16 bg-gray-100 text-gray-500 text-sm font-medium rounded-l-md  border-t border-r border-b border-gray-200 ">
+
+      <% if @attachment.image? %>
+        <%= image_tag @attachment %>
+      <% else %>
+        <%= @attachment.blob.filename.extension.upcase %>
+      <% end %>
+
+    </div>
+
+    <div class="flex flex-1 items-center justify-between truncate rounded-r-md border-t border-r border-b border-gray-200 bg-white">
+      <div class="flex-1 truncate px-4 py-2 text-sm">
+        <span href="#" class="font-medium text-gray-900 hover:text-gray-600" title="<%= @attachment.blob.filename %>"><%= @attachment.blob.filename %></span>
+        <p class="text-gray-500"><%= (@attachment.blob.byte_size.to_f / 1000000).round(2) %> Mb</p>
+      </div>
+
+      <div class="flex-shrink-0 pr-2">
+        <%= button_tag type: :button, data: { controller: "attachments", attachments_method_value: 'delete', attachments_url_value: remove_attachment_admin_thematic_path(@attachment.record), attachments_attachment_id_value: @attachment.id, action: "click->attachments#toggle" } do %>
+        <span class="sr-only">Delete</span>
+        <%= render(Icons::TrashComponent.new) %>
+        <% end %>
+    </div>
+  </li>
+<% end %>

@@ -1,0 +1,15 @@
+<div class="sm:flex sm:items-center">
+  <div class="sm:flex-auto">
+    <h1 class="text-xl font-semibold text-gray-900">
+      <%= @title %>
+    </h1>
+    <p class="mt-2 text-sm text-gray-700">
+      <%= @subtitle %>
+    </p>
+  </div>
+
+  <% if add_button? %>
+    <%= add_button %>
+  <% end %>
+
+</div>

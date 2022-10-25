@@ -1,0 +1,36 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="max-w-2xl mx-auto ">
+
+    <% if breadcrumb? %>
+      <%= breadcrumb %>
+    <% end %>
+
+    <div class="my-5 mb-10">
+      <div class="mt-2 md:flex md:items-center md:justify-between">
+
+        <% if title? %>
+          <%= title %>
+        <% end %>
+
+        <% if delete_button? %>
+          <%= delete_button %>
+        <% end %>
+
+      </div>
+    </div>
+
+    <% if @nav_bar %>
+      <%= render(@nav_bar) %>
+    <% end %>
+
+    <% if item.is_a?(ApplicationRecord) && item.errors.any? %>
+      <div class="error-message">
+        <%= render('layouts/errors', errors: item.errors.full_messages.to_sentence.capitalize) %>
+      </div>
+    <% end %>
+
+    <div class="px-4 py-5 bg-white space-y-6 sm:p-6 shadow sm:rounded-md sm:overflow-hidden">
+      <%= content %>
+    </div>
+  </div>
+</div>
