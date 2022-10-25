@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "backoffice-components"
-  s.version     = "0.0.1.1"
+  s.version     = "0.0.1.2"
   s.summary     = ""
   s.description = "Collection of ViewComponents objects for backoffice"
   s.authors     = ["Julien Camblan"]
