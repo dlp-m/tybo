@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "backoffice-components"
-  s.version     = "0.0.1.2"
+  s.version     = "0.0.1.3"
   s.summary     = ""
   s.description = "Collection of ViewComponents objects for backoffice"
   s.authors     = ["Julien Camblan"]
@@ -11,6 +11,8 @@ Gem::Specification.new do |s|
   s.license       = "MIT"
   s.require_paths = ['lib']
 
-  s.add_dependency "turbo-rails",        ">= 1.1.1"
-  s.add_dependency "stimulus-rails",        ">= 1.1.0"
+  s.add_dependency "turbo-rails", ">= 1.1.1"
+  s.add_dependency "stimulus-rails", ">= 1.1.0"
+  s.add_dependency "view_component", ">= 2.62.0"
+  s.add_dependency "tailwindcss-rails", "~> 2.0"
 end
