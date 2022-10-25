@@ -41,9 +41,3 @@ module Tables
   autoload 'TheadComponent', 'app/components/tables/thead_component'
   autoload 'TrComponent', 'app/components/tables/tr_component'
 end
-
-class String
-  def julien
-    'wow2'
-  end
-end
