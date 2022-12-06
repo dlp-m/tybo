@@ -1,0 +1,28 @@
+{
+  "name": "@tymate/tybo",
+  "version": "0.0.2",
+  "description": "Stimulus controllers for tybo_ components",
+  "source": "lib/app/javascript/controllers/index.js",
+  "exports": "./dist/tybo.modern.js",
+  "main": "./dist/tybo.cjs",
+  "module": "./dist/tybo.module.js",
+  "unpkg": "./dist/tybo.umd.js",
+  "repository": "git@github.com:tymate/tybo.git",
+  "author": "Tymate <tech@tymate.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.1",
+    "@rails/request.js": "^0.0.8"
+  },
+  "peerDependencies": {
+    "@hotwired/stimulus": "^3.2.1",
+    "@rails/request.js": "^0.0.8"
+  },
+  "devDependencies": {
+    "microbundle": "^0.15.1"
+  },
+  "scripts": {
+    "build": "microbundle --globals @hotwired/stimulus=Stimulus",
+    "prepublish": "npm run build"
+  }
+}

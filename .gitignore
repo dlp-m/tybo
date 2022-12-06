@@ -1,3 +1,5 @@
 .DS_Store
 backoffice-components*.gem
 .vscode
+node_modules/
+*.gem
