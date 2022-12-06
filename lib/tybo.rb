@@ -8,6 +8,7 @@ autoload 'IndexHeaderComponent', 'app/components/index_header_component'
 autoload 'SidebarComponent', 'app/components/sidebar_component'
 autoload 'SidebarItemComponent', 'app/components/sidebar_item_component'
 autoload 'SignOutButtonComponent', 'app/components/sign_out_button_component'
+autoload 'ModalComponent', 'app/components/modal_component'
 
 module Forms
   autoload 'BreadcrumbComponent', 'app/components/forms/breadcrumb_component'
@@ -40,4 +41,5 @@ module Tables
   autoload 'ThComponent', 'app/components/tables/th_component'
   autoload 'TheadComponent', 'app/components/tables/thead_component'
   autoload 'TrComponent', 'app/components/tables/tr_component'
+  autoload 'ActiveRecordTotoComponent', 'app/components/tables/active_record_toto_component'
 end
