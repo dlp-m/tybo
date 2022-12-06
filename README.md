@@ -6,7 +6,7 @@ This is a collection of components built on [Tailwind CSS](https://tailwindcss.c
 
 ## Installation
 
-1. Add the gem to your Gemfile : `gem 'backoffice-components', '~> 0.0.1'`
+1. Add the gem to your Gemfile : `gem 'tybo', '~> 0.0.2'`
 2. Run `bundle install`
 3. Add the gem's HTML templates to the `config/tailwind.config.js` file :
 
@@ -17,7 +17,7 @@ module.exports = {
     './app/javascript/**/*.js',
     './app/views/**/*.{erb,haml,html,slim}',
     './app/components/**/*.html.erb',
-    process.env.BACKOFFICE_COMPONENTS_GEM_PATH
+    process.env.TYBO_GEM_PATH
   ],
   // ...
 }
@@ -25,10 +25,10 @@ module.exports = {
 
 ```
 # local example
-export BACKOFFICE_COMPONENTS_GEM_PATH=../../.gem/ruby/*/gems/backoffice-components-*/lib/app/components/**/*.html.erb
+export TYBO_GEM_PATH=../../.gem/ruby/*/gems/tybo-*/lib/app/components/**/*.html.erb
 
 # scalingo example
-BACKOFFICE_COMPONENTS_GEM_PATH=./vendor/bundle/ruby/*/gems/backoffice-components-*/lib/app/components/**/*.html.erb
+TYBO_GEM_PATH=./vendor/bundle/ruby/*/gems/tybo-*/lib/app/components/**/*.html.erb
 ```
 4. Run `bin/importmap pin @tymate/tybo`
 5. Edit `app/javascript/controllers/application.js` with :
