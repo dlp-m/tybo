@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "tybo"
-  s.version     = "0.0.2"
+  s.version     = "0.0.3"
   s.summary     = ""
   s.description = "Collection of ViewComponents objects for backoffice"
   s.authors     = ["Julien Camblan", "Michel Delpierre"]
