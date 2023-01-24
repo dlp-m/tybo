@@ -1,7 +1,7 @@
 require_relative "lib/tybo/version"
 
 Gem::Specification.new do |spec|
-  spec.name        = "ty-bo"
+  spec.name        = "tybo"
   spec.version     = Tybo::VERSION
   spec.authors     = ["dlp-m"]
   spec.email       = ["michel@tymate.com"]
@@ -23,4 +23,11 @@ Gem::Specification.new do |spec|
   end
 
   spec.add_dependency "rails", ">= 7.0.4.1"
+  spec.add_dependency 'view_component'
+  spec.add_dependency 'tailwindcss-rails'
+  spec.add_dependency 'simple_form'
+  spec.add_dependency 'simple_form-tailwind'
+  spec.add_dependency 'ransack'
+  spec.add_dependency 'pagy'
+  spec.add_dependency 'devise'
 end
