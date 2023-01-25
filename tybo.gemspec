@@ -23,6 +23,8 @@ Gem::Specification.new do |spec|
   end
 
   spec.add_dependency "rails", ">= 7.0.4.1"
+  spec.add_development_dependency "puma"
+    spec.add_development_dependency "importmap-rails"
   spec.add_dependency 'view_component'
   spec.add_dependency 'tailwindcss-rails'
   spec.add_dependency 'simple_form'

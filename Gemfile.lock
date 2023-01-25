@@ -1,9 +1,15 @@
 PATH
   remote: .
   specs:
-    ty-bo (0.1.0)
-      puma
+    tybo (0.1.0)
+      devise
+      pagy
       rails (>= 7.0.4.1)
+      ransack
+      simple_form
+      simple_form-tailwind
+      tailwindcss-rails
+      view_component
 
 GEM
   remote: https://rubygems.org/
@@ -73,15 +79,25 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
+    bcrypt (3.1.18)
     builder (3.2.4)
     concurrent-ruby (1.2.0)
     crass (1.0.6)
     date (3.3.3)
+    devise (4.8.1)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0)
+      responders
+      warden (~> 1.2.3)
     erubi (1.12.0)
     globalid (1.0.1)
       activesupport (>= 5.0)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
+    importmap-rails (1.1.5)
+      actionpack (>= 6.0.0)
+      railties (>= 6.0.0)
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -106,6 +122,8 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.14.0-arm64-darwin)
       racc (~> 1.4)
+    orm_adapter (0.5.0)
+    pagy (6.0.1)
     puma (5.6.5)
       nio4r (~> 2.0)
     racc (1.6.2)
@@ -139,6 +157,19 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rake (13.0.6)
+    ransack (3.2.1)
+      activerecord (>= 6.1.5)
+      activesupport (>= 6.1.5)
+      i18n
+    responders (3.0.1)
+      actionpack (>= 5.0)
+      railties (>= 5.0)
+    simple_form (5.1.0)
+      actionpack (>= 5.2)
+      activemodel (>= 5.2)
+    simple_form-tailwind (0.1.1)
+      railties (>= 4.0)
+      simple_form (>= 5.0)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -147,10 +178,18 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     sqlite3 (1.6.0-arm64-darwin)
+    tailwindcss-rails (2.0.21-arm64-darwin)
+      railties (>= 6.0.0)
     thor (1.2.1)
     timeout (0.3.1)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
+    view_component (2.82.0)
+      activesupport (>= 5.2.0, < 8.0)
+      concurrent-ruby (~> 1.0)
+      method_source (~> 1.0)
+    warden (1.2.9)
+      rack (>= 2.0.9)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -160,9 +199,11 @@ PLATFORMS
   arm64-darwin-21
 
 DEPENDENCIES
+  importmap-rails
+  puma
   sprockets-rails
   sqlite3
-  ty-bo!
+  tybo!
 
 BUNDLED WITH
    2.3.22

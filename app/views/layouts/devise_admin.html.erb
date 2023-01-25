@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Blorgh</title>
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
+    <html class="h-full bg-white">
+  <head>
+    <title>TY-BO</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tybo", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
 
-  <%= stylesheet_link_tag "tybo/application", media: "all" %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+  <body class="h-full">
+    <main class="flex min-h-full">
+      <%= yield %>
+    </main>
+  </body>
 </html>

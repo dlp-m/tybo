@@ -1,3 +1,4 @@
 Rails.application.routes.draw do
-  mount Tybo::Engine => "/tybo"
+  mount Tybo::Engine => "/"
+  root to: 'login#home'
 end

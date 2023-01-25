@@ -1,2 +1,1 @@
-//= link_directory ../stylesheets/tybo .css
-//= link tybo/application.css
+//= link_tree ../builds/ .css
