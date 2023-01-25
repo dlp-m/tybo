@@ -1,0 +1,17 @@
+<%%= render(FormComponent.new(item: <%= class_name.underscore %>)) do |form| %>
+  <%%
+    current_page = if <%= class_name.underscore
+  %>.persisted?
+                     { label: "Détails", path: <%= "#{options[:namespace]}_#{class_name.underscore}_path(#{class_name.underscore})"%> }
+                   else
+                     { label: "Nouvelle <%= class_name.underscore %>", path: <%= "new_#{options[:namespace]}_#{class_name.underscore}_path" %> }
+                   end
+    form.with_title(<%= class_name.underscore %>.persisted? ? <%= class_name.underscore %>.<%=bo_model_title(bo_model)%> : 'Nouvelle <%= class_name.underscore %>')
+    form.with_breadcrumb([
+          { label: I18n.t('bo.<%= class_name.underscore %>.others').capitalize, path: <%= "#{options[:namespace]}_#{class_name.pluralize.underscore}_path"%> },
+          current_page
+        ])
+  %>
+    <br>
+    <%%= render "form", <%= class_name.underscore %>: @<%= class_name.underscore %> %>
+<%% end %>

@@ -1,0 +1,12 @@
+Description:
+    Create CRUD views for a model
+    `rails g bo BlogPost`
+    By default it create views in the administrators namespace
+Example:
+    `rails g bo BlogPost --namespace employers`
+    This will create:
+        - CRUD views
+        - CRUD controllers
+        - Base filters on index pages
+        - base routes
+        - base seeds

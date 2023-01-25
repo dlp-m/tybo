@@ -1,0 +1,11 @@
+Description:
+    Explain the generator
+Example:
+    rails g bo_namespace Employer
+    This will create:
+        - a models Employer
+        - devise routes and namespace `employers`
+        - a base controller employer (base controller for this namespace)
+        - a controllers employers ( manage employers ) 
+        - a namespace for views 
+        - a namespace for controllers

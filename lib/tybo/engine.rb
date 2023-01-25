@@ -1,8 +1,12 @@
 require 'devise'
+require 'simple_form'
+require 'simple_form/tailwind'
+require 'pagy'
+require 'ransack'
 
 module Tybo
   class Engine < ::Rails::Engine
-    isolate_namespace Tybo
+    # isolate_namespace Tybo
     # Devise
     config.to_prepare do
       Devise::ConfirmationsController.layout "devise_admin"

@@ -1,0 +1,19 @@
+{
+  "id": "identifiant",
+  "email": "email",
+  "password": "mot de passe",
+  "created_at": "date de création",
+  "updated_at": "date de modification",
+  "title": "titre",
+  "content": "contenu",
+  "description": "description",
+  "name": "nom",
+  "position": "position",
+  "first_name": "prénom",
+  "last_name": "nom",
+  "full_name": "nom complet",
+  "updated": "modification effectuée",
+  "created": "création effectuée",
+  "destroyed": "suppression effectuée",
+  "filters": "filtres"
+}

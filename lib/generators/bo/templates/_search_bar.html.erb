@@ -1,0 +1,96 @@
+<div class="relative inline-block text-left" data-controller="dropdown">
+  <div>
+    <button data-action="click->dropdown#toggle click@window->dropdown#hide" type="button" class="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none " id="menu-button" aria-expanded="true" aria-haspopup="true">
+      <%%= I18n.t('bo.filters') %>
+      <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+      </svg>
+    </button>
+  </div>
+  <div data-dropdown-target="menu" class="drop-shadow-md hidden absolute py-5 px-5 left-0 z-10 mt-2 w-[40rem] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+    <%%= search_form_for [:<%=options[:namespace].underscore %>, @q],  method: :post, class: "", data: { controller: "search-form", search_form_target: "form", turbo_frame: '<%=class_name.underscore.pluralize%>' } do |f| %>
+    <%- bo_model.columns.group_by(&:type).each do |type| -%>
+    <!-- columns -->
+    <%- type.second.sort_by(&:type).each do |col| -%>
+    <%- next if bo_model.reflect_on_all_associations.map(&:foreign_key).include?(col.name) -%>
+    <%- if col.type == :string || col.type == :text -%>
+      <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4  pt-5">
+        <label class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+          <%%= I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>') %>
+        </label>
+        <div class="mt-1 sm:col-span-2 sm:mt-0">
+          <%%= f.text_field :<%= col.name %>_cont, placeholder: I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>'), data: { action: "input->search-form#search" }, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm" %>
+        </div>  
+      </div>
+    <%- elsif col.type ==:integer -%>
+      <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4  pt-5">
+        <label class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+          <%%= I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>') %>
+        </label>
+        <div class="mt-1 sm:col-span-2 sm:mt-0">
+          <%%= f.number_field :<%= col.name %>_eq, placeholder: I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>'), data: { action: "input->search-form#search" }, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm" %>
+        </div>
+      </div>
+    <%- elsif col.type == :boolean -%>
+      <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4  pt-5">
+        <label class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+          <%%= I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>') %>
+        </label>
+        <div class="mt-1 sm:col-span-2 sm:mt-0">
+          <span class="isolate inline-flex rounded-md shadow-sm">
+            <button type="button"
+                    data-target-id='q_<%= col.name %>_eq'
+                    data-action="click->search-form#setBooleanField" 
+                    class="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
+            -
+            </button>
+            <button type="button"
+                    data-action="click->search-form#setBooleanField" 
+                    data-value='true'
+                    data-target-id='q_<%= col.name %>_eq'
+                    class="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">ON
+                    </button>
+            <button type="button"
+                    data-action="click->search-form#setBooleanField" 
+                    data-value='false'
+                    data-target-id='q_<%= col.name %>_eq'
+                    class="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">OFF</button>
+          </span>
+          <%%= f.hidden_field :<%= col.name %>_eq, value: nil, data: { action: "change->search-form#search"}%>
+        </div>
+      </div>
+    <%- elsif col.type == :datetime || col.type == :date -%>
+      <div class="sm:grid sm:grid-cols-12 sm:items-start sm:gap-4  pt-5">
+        <div class="mt-1 sm:col-span-4 sm:mt-">
+          <label class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+            <%%= I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>') %>
+          </label>
+        </div>
+        <div class="mt-1 sm:col-span-3 sm:mt-0">
+        <%%= f.date_field :<%= col.name %>_from_date, data: { action: "input->search-form#search" }, class: "rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+        </div>
+        <div class="mt-1 sm:col-span-2 text-center">
+          to
+        </div>
+        <div class="mt-1 sm:col-span-3 sm:mt-0">
+        <%%= f.date_field :<%= col.name %>_to_date, data: { action: "input->search-form#search" }, class: "rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+        </div>
+      </div>
+    <%- end -%>
+    <%- end -%>
+    <%- end -%>
+    <!-- belongs_to Associations -->
+    <%- belongs_to_assoc.each do |association| -%>
+      <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4  pt-5">
+        <label for="<%=association.name%>" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+          <%%=I18n.t('bo.<%=association.klass.name.underscore%>.one')%>
+        </label>
+        <div class="mt-1 sm:col-span-2 sm:mt-0">
+          <%%= f.select :<%= association.foreign_key %>_eq, <%=association.klass.name.constantize%>.all.map { |value| [value.<%=bo_model_title(association.class_name.constantize)%>, value.id] }, { include_blank: true }, { class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm", data: { action: "input->search-form#search" } } %>
+        </div>
+      </div>
+    <%- end -%>
+    <%% end %>
+  </div>
+</div>
+

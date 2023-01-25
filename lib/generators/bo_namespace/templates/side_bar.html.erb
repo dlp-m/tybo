@@ -1,0 +1,4 @@
+<%%= render(SidebarComponent.new) do |sidebar| %>
+  <%%= sidebar.with_item(path: <%="#{plural_name}_#{plural_name}_path"%>, icon: Icons::UsersComponent, label: I18n.t('bo.<%= singular_name %>.others').capitalize) %>
+  <%%= sidebar.with_current_user_card(user: current_<%= singular_name %>) %>
+<%% end %>
