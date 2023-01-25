@@ -1,8 +1,7 @@
 require 'devise'
-require 'simple_form'
-require 'simple_form/tailwind'
 require 'pagy'
 require 'ransack'
+require 'view_component'
 
 module Tybo
   class Engine < ::Rails::Engine
