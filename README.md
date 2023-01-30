@@ -1,21 +1,21 @@
 # Tybo
-Short description and motivation.
-
-## Usage
-How to use my plugin.
+A custom admin engine for Ruby on Rails
 
 ## Installation
 Add this line to your application's Gemfile:
 
 ```ruby
-gem "tybo"
+gem 'tybo'
 ```
 
-And then execute:
+And
 ```bash
-$ bundle
+$ bundle install
 ```
-
+Then execute the generator
+```bash
+$ bundle exec rails g tybo_install
+```
 ## Contributing
 Contribution directions go here.
 
