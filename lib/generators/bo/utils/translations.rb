@@ -42,6 +42,6 @@ end
 def find_existing_translation(col, local)
   return col.to_s.humanize.downcase if local == 'en'
 
-  json = JSON.parse(File.read("#{_dir_}/files/#{local}.json"))
+  json = JSON.parse(File.read("#{__dir__}/files/#{local}.json"))
   json[col.to_s]
 end

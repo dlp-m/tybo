@@ -3,9 +3,9 @@ require_relative "lib/tybo/version"
 Gem::Specification.new do |spec|
   spec.name        = "tybo"
   spec.version     = Tybo::VERSION
-  spec.authors     = ["dlp-m"]
+  spec.authors     = ["Michel Delpierre"]
   spec.email       = ["michel@tymate.com"]
-  spec.homepage    = "https://rubygems.org/gems/ty-bo-generator"
+  spec.homepage    = "https://rubygems.org/gems/tybo"
   spec.summary     = "summary of Blorgh."
   spec.description = "Description of Blorgh."
   spec.license     = "MIT"
@@ -22,11 +22,10 @@ Gem::Specification.new do |spec|
     Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   end
 
-  spec.add_dependency "rails", ">= 7.0.4.1"
-  spec.add_development_dependency "puma"
-  spec.add_dependency 'view_component'
-  spec.add_dependency 'tailwindcss-rails'
-  spec.add_dependency 'ransack'
-  spec.add_dependency 'pagy'
-  spec.add_dependency 'devise'
+  spec.add_dependency 'rails', '>= 7.0.4.1'
+  spec.add_development_dependency 'puma'
+  spec.add_dependency 'view_component', '~> 2.82'
+  spec.add_dependency 'ransack', '~> 3.2', '>= 3.2.1'
+  spec.add_dependency 'pagy', '~> 6.0', '>= 6.0.1'
+  spec.add_dependency 'devise', '~> 4.8', '>= 4.8.1'
 end
