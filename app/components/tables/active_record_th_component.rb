@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'ransack/helpers/form_helper'
 
 module Tables
   class ActiveRecordThComponent < ViewComponent::Base
