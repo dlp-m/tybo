@@ -3,9 +3,9 @@ class TyboInstallGenerator < Rails::Generators::Base
   source_root File.expand_path("templates", __dir__)
 
   def install_dependencies
-    gem 'tailwindcss-rails', '~> 2.0', '>= 2.0.21'
-    gem 'simple_form', '~> 5.2'
-    gem 'simple_form-tailwind', '~> 0.1.1'
+    gem 'tailwindcss-rails', '~> 2.0', '>= 2.0.21' unless Bundler.locked_gems.specs.any? { |gem| gem.name == 'tailwindcss-rails' }
+    gem 'simple_form' unless Bundler.locked_gems.specs.any? { |gem| gem.name == 'simple_form' }
+    gem 'simple_form-tailwind', '~> 0.1.1' unless Bundler.locked_gems.specs.any? { |gem| gem.name == 'simple_form-tailwind' }
     run 'bundle install'
     run "rails tailwindcss:install"
   end
