@@ -59,7 +59,7 @@ class BoGenerator < Rails::Generators::NamedBase
       params["#{col.name.to_s.remove('rich_text_' )}".to_sym] = nil
     end
     has_many_assoc&.map do |association|
-       params["#{association.class_name.underscore}_ids".to_sym] = []
+       params["#{association.name.to_s.singularize}_ids".to_sym] = []
     end
     params
   end
