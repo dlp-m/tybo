@@ -6,23 +6,23 @@
   <%- end -%>
   <!-- belongs_to Associations -->
   <%- belongs_to_assoc.each do |association| -%>
-  <%%= f.association :<%= association.name %>, collection:  <%= association.class_name %>.all.map { |item| [item.<%=bo_model_title(association.class_name.constantize)%>, item.id] } %>
+  <%%= f.association :<%= association.name.to_s.singularize %>, collection:  <%= association.klass.name %>.all.map { |item| [item.<%=bo_model_title(association.klass.name.constantize)%>, item.id] } %>
   <%- end -%>
   <!-- has_one Associations -->
   <%- has_one_assoc.each do |association| -%>
   <%- if association.options[:class_name] == "ActionText::RichText" -%>
-  <%%= f.rich_text_area :<%= association.name.to_s.remove('rich_text_' )%> %>
+  <%%= f.rich_text_area :<%= association.name.to_s.singularize.to_s.remove('rich_text_' )%> %>
   <%- else -%>
-  <%%= f.input :<%= association.foreign_key %>, collection: <%= association.class_name %>.all.map { |item| [item.<%=bo_model_title(association.class_name.constantize)%>, item.id] } %>
+  <%%= f.input :<%= association.foreign_key %>, collection: <%= association.klass.name %>.all.map { |item| [item.<%=bo_model_title(association.klass.name.constantize)%>, item.id] } %>
   <%- end -%>
   <%- end -%>
 
   <!-- has_many Associations -->
   <%- has_many_assoc.each do |association| -%>
   <div class="my-5 select">
-    <label class="block text-sm font-medium text-gray-700 string optional text-sm font-medium text-gray-600" for="<%= "#{class_name.underscore}_#{association.class_name.underscore}_ids" %>"><%= association.class_name.underscore%></label>
-    <%%= f.select :<%= "#{association.class_name.underscore}_ids" %>,
-                  <%= association.class_name %>.all.map { |item| [item.<%=bo_model_title(association.class_name.constantize)%>, item.id] },
+    <label class="block text-sm font-medium text-gray-700 string optional text-sm font-medium text-gray-600" for="<%= "#{class_name.underscore}_#{association.name.to_s.singularize}_ids" %>"><%= association.name.to_s.singularize%></label>
+    <%%= f.select :<%= "#{association.name.to_s.singularize}_ids" %>,
+                  <%= association.klass.name %>.all.map { |item| [item.<%=bo_model_title(association.klass.name.constantize)%>, item.id] },
                   { include_blank: true },
                   multiple: true,
                   data: { controller: 'ts--select' } %>
