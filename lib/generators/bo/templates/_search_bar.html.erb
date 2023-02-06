@@ -19,7 +19,7 @@
           <%%= I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>') %>
         </label>
         <div class="mt-1 sm:col-span-2 sm:mt-0">
-          <%%= f.text_field :<%= col.name %>_cont, placeholder: I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>'), data: { action: "input->search-form#search" }, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm" %>
+          <%%= f.text_field :<%= col.name %>_cont, placeholder: I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>'), data: { action: "input->search-form#search" }, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-tybo-500 focus:ring-tybo-500 sm:max-w-xs sm:text-sm" %>
         </div>  
       </div>
     <%- elsif col.type ==:integer -%>
@@ -28,7 +28,7 @@
           <%%= I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>') %>
         </label>
         <div class="mt-1 sm:col-span-2 sm:mt-0">
-          <%%= f.number_field :<%= col.name %>_eq, placeholder: I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>'), data: { action: "input->search-form#search" }, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm" %>
+          <%%= f.number_field :<%= col.name %>_eq, placeholder: I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>'), data: { action: "input->search-form#search" }, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-tybo-500 focus:ring-tybo-500 sm:max-w-xs sm:text-sm" %>
         </div>
       </div>
     <%- elsif col.type == :boolean -%>
@@ -41,20 +41,20 @@
             <button type="button"
                     data-target-id='q_<%= col.name %>_eq'
                     data-action="click->search-form#setBooleanField" 
-                    class="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
+                    class="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-tybo-500 focus:outline-none focus:ring-1 focus:ring-tybo-500">
             -
             </button>
             <button type="button"
                     data-action="click->search-form#setBooleanField" 
                     data-value='true'
                     data-target-id='q_<%= col.name %>_eq'
-                    class="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">ON
+                    class="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-tybo-500 focus:outline-none focus:ring-1 focus:ring-tybo-500">ON
                     </button>
             <button type="button"
                     data-action="click->search-form#setBooleanField" 
                     data-value='false'
                     data-target-id='q_<%= col.name %>_eq'
-                    class="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">OFF</button>
+                    class="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-tybo-500 focus:outline-none focus:ring-1 focus:ring-tybo-500">OFF</button>
           </span>
           <%%= f.hidden_field :<%= col.name %>_eq, value: nil, data: { action: "change->search-form#search"}%>
         </div>
@@ -67,13 +67,13 @@
           </label>
         </div>
         <div class="mt-1 sm:col-span-3 sm:mt-0">
-        <%%= f.date_field :<%= col.name %>_from_date, data: { action: "input->search-form#search" }, class: "rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+        <%%= f.date_field :<%= col.name %>_from_date, data: { action: "input->search-form#search" }, class: "rounded-md border-gray-300 shadow-sm focus:border-tybo-500 focus:ring-tybo-500 sm:text-sm" %>
         </div>
         <div class="mt-1 sm:col-span-2 text-center">
           to
         </div>
         <div class="mt-1 sm:col-span-3 sm:mt-0">
-        <%%= f.date_field :<%= col.name %>_to_date, data: { action: "input->search-form#search" }, class: "rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+        <%%= f.date_field :<%= col.name %>_to_date, data: { action: "input->search-form#search" }, class: "rounded-md border-gray-300 shadow-sm focus:border-tybo-500 focus:ring-tybo-500 sm:text-sm" %>
         </div>
       </div>
     <%- end -%>
@@ -86,7 +86,7 @@
           <%%=I18n.t('bo.<%=association.klass.name.underscore%>.one')%>
         </label>
         <div class="mt-1 sm:col-span-2 sm:mt-0">
-          <%%= f.select :<%= association.foreign_key %>_eq, <%=association.klass.name.constantize%>.all.map { |value| [value.<%=bo_model_title(association.class_name.constantize)%>, value.id] }, { include_blank: true }, { class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm", data: { action: "input->search-form#search" } } %>
+          <%%= f.select :<%= association.foreign_key %>_eq, <%=association.klass.name.constantize%>.all.map { |value| [value.<%=bo_model_title(association.class_name.constantize)%>, value.id] }, { include_blank: true }, { class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-tybo-500 focus:ring-tybo-500 sm:text-sm", data: { action: "input->search-form#search" } } %>
         </div>
       </div>
     <%- end -%>
