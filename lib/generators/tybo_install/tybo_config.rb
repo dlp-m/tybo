@@ -15,6 +15,7 @@ class TyboInstallGenerator < Rails::Generators::Base
     template 'tailwind.config.js', File.join('config/tailwind.config.js'), force: true
     template 'tom-select.css', File.join('app/assets/stylesheets/tom-select.css')
     template 'simple_form_tailwind.rb', File.join('config/initializers/simple_form_tailwind.rb')
+    template 'tybo_config.rb', File.join('config/initializers/tybo.rb')
   end
 
   def pin_js_dependencies

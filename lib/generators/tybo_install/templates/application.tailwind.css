@@ -17,14 +17,14 @@
 .pagy-nav-js .page.active,
 .pagy-nav-js .page.prev.disabled,
 .pagy-nav-js .page.next.disabled {
-    @apply block rounded-lg px-3 py-1 text-sm text-indigo-500 font-semibold bg-indigo-200 shadow-md;
+    @apply block rounded-lg px-3 py-1 text-sm text-tybo-500 font-semibold bg-tybo-200 shadow-md;
 
     &:hover {
-        @apply bg-indigo-300;
+        @apply bg-tybo-300;
     }
 
     &:active {
-        @apply bg-indigo-400 text-white;
+        @apply bg-tybo-400 text-white;
     }
 }
 
@@ -32,33 +32,33 @@
 .pagy-nav .page.next.disabled,
 .pagy-nav-js .page.prev.disabled,
 .pagy-nav-js .page.next.disabled {
-    @apply text-indigo-400 cursor-default;
+    @apply text-tybo-400 cursor-default;
 
     &:hover {
-        @apply text-indigo-400 bg-indigo-200;
+        @apply text-tybo-400 bg-tybo-200;
     }
 
     &:active {
-        @apply text-indigo-400 bg-indigo-200;
+        @apply text-tybo-400 bg-tybo-200;
     }
 }
 
 .pagy-nav .page.active,
 .pagy-nav-js .page.active {
-    @apply text-white cursor-default bg-indigo-400;
+    @apply text-white cursor-default bg-tybo-400;
 
     &:hover {
-        @apply text-white bg-indigo-400;
+        @apply text-white bg-tybo-400;
     }
 
     &:active {
-        @apply bg-indigo-400 text-white;
+        @apply bg-tybo-400 text-white;
     }
 }
 
 
 .pagy-combo-nav-js {
-    @apply flex max-w-max rounded-full px-3 py-1 text-sm text-indigo-500 font-semibold bg-indigo-200 shadow-md;
+    @apply flex max-w-max rounded-full px-3 py-1 text-sm text-tybo-500 font-semibold bg-tybo-200 shadow-md;
 }
 
 .pagy-combo-nav-js .pagy-combo-input {
@@ -68,17 +68,17 @@
 .pagy-combo-nav-js .page.prev,
 .pagy-combo-nav-js .page.next {
     &:hover {
-        @apply text-indigo-800;
+        @apply text-tybo-800;
     }
 
     &:active {
-        @apply text-indigo-800;
+        @apply text-tybo-800;
     }
 }
 
 .pagy-combo-nav-js .page.prev.disabled,
 .pagy-combo-nav-js .page.next.disabled {
-    @apply text-indigo-400 cursor-default;
+    @apply text-tybo-400 cursor-default;
 }
 
 /* tom-select  */
@@ -87,11 +87,11 @@ ts-wrapper {
 }
 
 .ts-control {
-    @apply shadow-sm rounded-lg my-5 border-indigo-300 bg-white py-2 px-3 text-base;
+    @apply shadow-sm rounded-lg my-5 border-tybo-300 bg-white py-2 px-3 text-base;
 }
 
 .ts-dropdown {
-    @apply rounded-md border border-solid border-t border-indigo-300 text-base;
+    @apply rounded-md border border-solid border-t border-tybo-300 text-base;
 }
 
 .ts-dropdown [data-selectable].option:first-child {
@@ -108,5 +108,5 @@ ts-wrapper {
 }
 
 .ts-dropdown .active {
-    @apply bg-indigo-100 text-indigo-900;
+    @apply bg-tybo-100 text-tybo-900;
 }

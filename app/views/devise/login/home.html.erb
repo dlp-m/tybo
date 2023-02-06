@@ -1,20 +1,18 @@
 
 
-  <div class="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
-    <div class="mx-auto w-full max-w-sm lg:w-96">
-      <div>
-        <img class="h-12 w-auto" src="https://www.datocms-assets.com/33962/1667497145-logo-colored.svg" alt="Your Company">
-        <h2 class="mt-6 text-3xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>
-      </div>
-      <div class="mt-4">
-      <% @resources.each do |resource| %>
-      <a href="<%=send("new_#{resource.to_s}_session_path")%>" class="mt-2 flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-        Sign in as <%= I18n.t("bo.#{resource.to_s}.one")%>
-      </a>
-      <% end %>
-      </div>
+<div class="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
+  <div class="mx-auto w-full max-w-sm lg:w-96">
+    <div>
+      <img class="h-12 w-auto" src="<%= -Tybo.configuration.logo_url %>" alt="">
+      <h2 class="mt-6 text-3xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>
+    </div>
+    <div class="mt-4">
+    <% @resources.each do |resource| %>
+    <a href="<%=send("new_#{resource.to_s}_session_path")%>" class="mt-2 flex w-full justify-center rounded-md border border-transparent bg-tybo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-tybo-700 focus:outline-none focus:ring-2 focus:ring-tybo-500 focus:ring-offset-2">
+      Sign in as <%= I18n.t("bo.#{resource.to_s}.one")%>
+    </a>
+    <% end %>
     </div>
   </div>
-  <div class="relative hidden w-0 flex-1 lg:block">
-    <img class="absolute inset-0 h-full w-full object-cover" src="https://tymate.com/_next/image?url=https%3A%2F%2Fwww.datocms-assets.com%2F33962%2F1667561118-natif-dribbble-2.png%3Fw%3D1600&w=1920&q=75" alt="">
-  </div>
+</div>
+<%= render(CoverComponent.new) %>
