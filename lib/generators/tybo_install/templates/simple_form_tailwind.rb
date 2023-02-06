@@ -47,7 +47,7 @@ SimpleForm.setup do |config|
     b.optional :readonly
     b.use :label, class: 'block text-sm font-medium text-gray-700', error_class: 'text-red-500'
     b.use :input,
-          class: 'mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm', error_class: 'border-red-500', valid_class: 'border-green-400'
+          class: 'mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-tybo-500 focus:border-tybo-500 sm:text-sm', error_class: 'border-red-500', valid_class: 'border-green-400'
     b.use :full_error, wrap_with: { tag: 'p', class: 'mt-2 text-red-500 text-xs italic' }
     b.use :hint, wrap_with: { tag: 'p', class: 'mt-2 text-grey-700 text-xs italic' }
   end
@@ -58,7 +58,7 @@ SimpleForm.setup do |config|
     b.optional :readonly
     b.wrapper tag: 'div', class: 'flex items-center h-5' do |ba|
       ba.use :input,
-             class: 'focus:ring-2 focus:ring-indigo-500:focus ring-offset-2 h-4 w-4 text-indigo-600 border-gray-300 rounded'
+             class: 'focus:ring-2 focus:ring-tybo-500:focus ring-offset-2 h-4 w-4 text-tybo-600 border-gray-300 rounded'
     end
     b.wrapper tag: 'div', class: 'ml-3 text-sm' do |bb|
       bb.use :label, class: 'block', error_class: 'text-red-500'
@@ -77,7 +77,7 @@ SimpleForm.setup do |config|
       ba.use :label_text
     end
     b.use :input,
-          class: 'focus:ring-2 focus:ring-indigo-500 ring-offset-2 h-4 w-4 text-indigo-600 border-gray-300 rounded', error_class: 'text-red-500', valid_class: 'text-green-400'
+          class: 'focus:ring-2 focus:ring-tybo-500 ring-offset-2 h-4 w-4 text-tybo-600 border-gray-300 rounded', error_class: 'text-red-500', valid_class: 'text-green-400'
     b.use :full_error, wrap_with: { tag: 'p', class: 'block mt-2 text-red-500 text-xs italic' }
     b.use :hint, wrap_with: { tag: 'p', class: 'mt-2 text-grey-700 text-xs italic' }
   end

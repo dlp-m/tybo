@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tybo (0.1.0)
+    tybo (0.0.5)
       devise (~> 4.8, >= 4.8.1)
       pagy (~> 6.0, >= 6.0.1)
       rails (>= 7.0.4.1)
@@ -88,7 +88,7 @@ GEM
       responders
       warden (~> 1.2.3)
     erubi (1.12.0)
-    globalid (1.0.1)
+    globalid (1.1.0)
       activesupport (>= 5.0)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
@@ -155,9 +155,9 @@ GEM
       activerecord (>= 6.1.5)
       activesupport (>= 6.1.5)
       i18n
-    responders (3.0.1)
-      actionpack (>= 5.0)
-      railties (>= 5.0)
+    responders (3.1.0)
+      actionpack (>= 5.2)
+      railties (>= 5.2)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)

@@ -1,6 +1,15 @@
 require "tybo/version"
 require "tybo/engine"
+require "tybo/configuration"
 
 module Tybo
-  # Your code goes here...
+  class << self
+    def configuration
+      @configuration ||= Configuration.new
+    end
+
+    def configure
+      yield(configuration)
+    end
+  end
 end

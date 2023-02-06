@@ -9,16 +9,16 @@
     <%% @<%= class_name.underscore.pluralize %>&.each_with_index do |<%= class_name.underscore %>, i| %>
       <%%= tbody.with_tr(index: i) do |tr| %>
         <%- bo_model.column_names.each do |column| -%>
-          <%%= tr.with_td { <%= class_name.underscore %>.<%= column %>.to_s } -%>
+          <%%= tr.with_td { <%= class_name.underscore %>.<%= column %>.to_s } %>
         <%- end -%>
         <%%= tr.with_td do %>
-          <%%= link_to <%="#{options[:namespace]}_#{class_name.underscore}_path(#{class_name.underscore})"%>, class: "text-indigo-600 hover:text-indigo-900"  do %>
+          <%%= link_to <%="#{options[:namespace]}_#{class_name.underscore}_path(#{class_name.underscore})"%>, class: "text-tybo-600 hover:text-tybo-900"  do %>
             Détails
           <%% end %>
         <%% end %>
         <%%= tr.with_td do %>
           <%%= link_to <%="#{options[:namespace]}_#{class_name.underscore}_path(#{class_name.underscore})"%>,
-          class: "text-indigo-600 hover:text-indigo-900",
+          class: "text-tybo-600 hover:text-tybo-900",
           data: {turbo_method: :delete, turbo_confirm: "êtes vous sur ?"} do %>
             <%%= render(Icons::TrashComponent.new) %>
           <%% end %>
