@@ -6,6 +6,7 @@ class BoGenerator < Rails::Generators::NamedBase
 
   check_class_collision suffix: 'bo'
   class_option :namespace, type: :string, default: 'administrators'
+
   def create_bo_file
     # Template method
     # First argument is the name of the template
@@ -21,12 +22,11 @@ class BoGenerator < Rails::Generators::NamedBase
     create_translations
   end
 
-  def bo_model
-    class_name.constantize
-  end
 
-  def plural_name
-    file_name.pluralize
+  def add_link_to_side_bar
+    inject_into_file "app/views/#{options[:namespace]}/layouts/_side_bar.html.erb", before: "  <%= sidebar.with_current_user_card(user: current_#{options[:namespace].singularize}) %>\n" do 
+      "  <%= sidebar.with_item(path: #{options[:namespace]}_#{plural_name}_path, icon: Icons::UsersComponent, label: I18n.t('bo.#{file_name}.others').capitalize) %>\n"
+    end
   end
 
   def create_routes
@@ -35,8 +35,22 @@ class BoGenerator < Rails::Generators::NamedBase
     end
   end
 
+  private
+
+  def bo_model
+    class_name.constantize
+  end
+
+  def plural_name
+    file_name.pluralize
+  end
+
   def model_columns
     bo_model.column_names.map(&:to_sym)
+  end
+
+  def simple_form_conflict_keywords
+    %w[country country_code]
   end
 
   def bo_model_title(model=nil)
@@ -61,6 +75,10 @@ class BoGenerator < Rails::Generators::NamedBase
     has_many_assoc&.map do |association|
        params["#{association.name.to_s.singularize}_ids".to_sym] = []
     end
+    has_one_assoc&.map do |association|
+       attributes = association.klass.column_names.map(&:to_sym).delete_if {|attr| excluded_columns.include?(attr)}
+       params["#{association.name.to_s.singularize}_attributes".to_sym] = attributes
+    end
     params
   end
 
@@ -80,9 +98,4 @@ class BoGenerator < Rails::Generators::NamedBase
     model_columns - excluded_columns
   end
 
-  def add_link_to_side_bar
-    inject_into_file "app/views/#{options[:namespace]}/layouts/_side_bar.html.erb", before: "  <%= sidebar.with_current_user_card(user: current_#{options[:namespace].singularize}) %>\n" do 
-      "  <%= sidebar.with_item(path: #{options[:namespace]}_#{plural_name}_path, icon: Icons::UsersComponent, label: I18n.t('bo.#{file_name}.others').capitalize) %>\n"
-    end
-  end
 end
