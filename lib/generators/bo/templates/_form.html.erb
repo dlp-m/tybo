@@ -13,7 +13,15 @@
   <%- if association.options[:class_name] == "ActionText::RichText" -%>
   <%%= f.rich_text_area :<%= association.name.to_s.singularize.to_s.remove('rich_text_' )%> %>
   <%- else -%>
-  <%%= f.input :<%= association.foreign_key %>, collection: <%= association.klass.name %>.all.map { |item| [item.<%=bo_model_title(association.klass.name.constantize)%>, item.id] } %>
+  <%%= render(Forms::HasOneFormComponent.new(title: I18n.t('bo.<%= association.name %>.one') )) do %>
+    <%%= f.simple_fields_for :<%= association.name.to_s %> do |<%= association.name.to_s %>_form| %>
+      <%- association.klass.column_names.each do |column| -%>
+      <%- next if excluded_columns.include?(column.to_sym) || bo_model.reflect_on_all_associations.map(&:foreign_key).include?(column) -%>
+      <%- simple_form_alias = %w[country country_code].include?(column) ? ',as: :string' : nil -%>
+      <%%= <%= association.name.to_s %>_form.input :<%= column %> <%= simple_form_alias %> %>
+      <%- end -%>
+    <%% end %>
+  <%% end %>
   <%- end -%>
   <%- end -%>
 
