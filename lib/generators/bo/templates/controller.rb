@@ -9,11 +9,22 @@ module <%= options[:namespace].camelize %>
       @pagy, @<%= class_name.pluralize.underscore %> = pagy(@q.result(distinct: true))
     end
 
-    def show; end
+    def show
+    <%- has_one_assoc.each do |association| -%>
+    <%- next if association.options[:class_name] == "ActionText::RichText" -%>
+      @<%= class_name.underscore %>.build_<%= association.name %> if @<%= class_name.underscore %>.<%= association.name %>.nil?
+    <%- end -%>
+    end
 
     def new
       @<%= class_name.underscore %> = <%= class_name %>.new
+      <%- has_one_assoc.each do |association| -%>
+      <%- next if association.options[:class_name] == "ActionText::RichText" -%>
+      @<%= class_name.underscore %>.build_<%= association.name %>
+      <%- end -%>
     end
+
+    def edit; end
 
     def create
       @<%= class_name.underscore %> = <%= class_name %>.new(<%= class_name.underscore %>_params)
@@ -21,13 +32,10 @@ module <%= options[:namespace].camelize %>
       if @<%= class_name.underscore %>.save
         flash[:success] = t('bo.record.created')
         redirect_to <%="#{options[:namespace]}_#{class_name.underscore.pluralize}_path"%>
-        
       else
         render :new, status: :unprocessable_entity
       end
     end
-
-    def edit; end
 
     def update
       if @<%= class_name.underscore %>.update(<%= class_name.underscore %>_params)
@@ -44,7 +52,7 @@ module <%= options[:namespace].camelize %>
 
       redirect_to <%="#{options[:namespace]}_#{class_name.underscore.pluralize}_path"%>, status: :see_other
     end
-        
+
     private
 
     def set_<%= class_name.underscore %>
@@ -57,7 +65,7 @@ module <%= options[:namespace].camelize %>
         <%- if value.nil? -%>
         :<%= key %><%=permited_params.count == (index +1) ? '' : ',' %>
         <%- else -%>
-        <%= "#{key}: []" %><%=permited_params.count == (index +1) ? '' : ',' %>
+        <%= "#{key}: %i[#{value.join(" ")}]" %><%=permited_params.count == (index +1) ? '' : ',' %>
         <%- end -%>
         <%- end -%>
       )

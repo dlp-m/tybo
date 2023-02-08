@@ -17,24 +17,24 @@
     <%%= f.simple_fields_for :<%= association.name.to_s %> do |<%= association.name.to_s %>_form| %>
       <%- association.klass.column_names.each do |column| -%>
       <%- next if excluded_columns.include?(column.to_sym) || bo_model.reflect_on_all_associations.map(&:foreign_key).include?(column) -%>
-      <%- simple_form_alias = %w[country country_code].include?(column) ? ',as: :string' : nil -%>
+      <%- simple_form_alias = simple_form_conflict_keywords.include?(column) ? ',as: :string' : nil -%>
       <%%= <%= association.name.to_s %>_form.input :<%= column %> <%= simple_form_alias %> %>
       <%- end -%>
-    <%% end %>
+    <%% end %> 
   <%% end %>
-  <%- end -%>
-  <%- end -%>
 
+  <%- end -%>
+  <%- end -%>
   <!-- has_many Associations -->
   <%- has_many_assoc.each do |association| -%>
-  <div class="my-5 select">
-    <label class="block text-sm font-medium text-gray-700 string optional text-sm font-medium text-gray-600" for="<%= "#{class_name.underscore}_#{association.name.to_s.singularize}_ids" %>"><%= association.name.to_s.singularize%></label>
+  <%%= render(Forms::HasManyFormComponent.new(title: I18n.t('bo.<%= association.name.to_s.singularize%>.others') )) do %>
     <%%= f.select :<%= "#{association.name.to_s.singularize}_ids" %>,
-                  <%= association.klass.name %>.all.map { |item| [item.<%=bo_model_title(association.klass.name.constantize)%>, item.id] },
-                  { include_blank: true },
-                  multiple: true,
-                  data: { controller: 'ts--select' } %>
-  </div>
+                <%= association.klass.name %>.all.map { |item| [item.<%=bo_model_title(association.klass.name.constantize)%>, item.id] },
+                { include_blank: true },
+                multiple: true,
+                data: { controller: 'ts--select' } %>
+  <%% end %>
+
   <%- end -%>
   <%%= render(Forms::SubmitButtonComponent.new) %>
 <%% end %>
