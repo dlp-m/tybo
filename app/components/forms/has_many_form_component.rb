@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Forms
   class HasManyFormComponent < ViewComponent::Base
-    def initialize(title:, label:)
+    def initialize(title:)
       @title = title
     end
   end
