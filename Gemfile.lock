@@ -1,10 +1,10 @@
 PATH
   remote: .
   specs:
-    tybo (0.0.9)
+    tybo (0.0.11)
       devise (~> 4.8, >= 4.8.1)
       pagy (~> 6.0, >= 6.0.1)
-      rails (>= 7.0.4.1)
+      rails (~> 7.0, >= 7.0.4.1)
       ransack (~> 3.2, >= 3.2.1)
       view_component (~> 2.82)
 

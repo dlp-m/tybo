@@ -1,10 +1,9 @@
 <div class="flex min-h-full">
   <div class="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
     <div class="mx-auto w-full max-w-sm lg:w-96">
-      <%= render 'devise/shared/devise_errors' %>
-      <div>
+      <%= render('layouts/flash') %>
         <%= image_tag Tybo.configuration.logo_url, class: 'h-12 w-auto'%>
-        <h2 class="mt-6 text-3xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>
+        <h2 class="mt-6 text-3xl font-bold tracking-tight text-gray-900"><%=I18n.t("bo.devise.sign_in_as.#{resource_name}")%></h2>
       </div>
       <div class="mt-8">
         <div class="mt-6">
@@ -28,16 +27,18 @@
             <div class="flex items-center justify-between">
               <div class="flex items-center">
                 <input id="remember_me" name="remember_me" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-tybo-600 focus:ring-tybo-500">
-                <label for="remember_me" class="ml-2 block text-sm text-gray-900">Remember me</label>
+                <label for="remember_me" class="ml-2 block text-sm text-gray-900"><%=I18n.t("activerecord.attributes.user.remember_me")%></label>
               </div>
 
               <div class="text-sm">
-                <a href="<%= new_password_path(Administrator)%>" class="font-medium text-tybo-600 hover:text-tybo-500">Forgot your password?</a>
+                <a href="<%= new_password_path(Administrator)%>" class="font-medium text-tybo-600 hover:text-tybo-500">
+                  <%=I18n.t("devise.passwords.new.forgot_your_password")%>
+                </a>
               </div>
             </div>
 
             <div class="mt-5">
-              <%= f.button :submit, "Sign in", class: "flex w-full justify-center rounded-md border border-transparent bg-tybo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-tybo-700 focus:outline-none focus:ring-2 focus:ring-tybo-500 focus:ring-offset-2"  %>
+              <%= f.button :submit, I18n.t("devise.sessions.new.sign_in"), class: "flex w-full justify-center rounded-md border border-transparent bg-tybo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-tybo-700 focus:outline-none focus:ring-2 focus:ring-tybo-500 focus:ring-offset-2"  %>
             </div>
           <% end %>
         </div>
