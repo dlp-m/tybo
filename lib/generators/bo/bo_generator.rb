@@ -82,7 +82,7 @@ class BoGenerator < Rails::Generators::NamedBase
     has_one_assoc&.map do |association|
       next if association.options[:class_name] == 'ActionText::RichText'
 
-      attributes = association.klass.column_names.map(&:to_sym).delete_if {|attr| excluded_columns.include?(attr)}
+      attributes = association.klass.column_names.map(&:to_sym).delete_if { |attr| excluded_columns.include?(attr) }
       params["#{association.name.to_s.singularize}_attributes".to_sym] = attributes
     end
     params
