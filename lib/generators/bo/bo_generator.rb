@@ -69,7 +69,7 @@ class BoGenerator < Rails::Generators::NamedBase
 
   def permited_params
     params = {}
-    action_text_columns= has_one_assoc&.select {|a| a.options[:class_name] == 'ActionText::RichText'}
+    action_text_columns = has_one_assoc&.select { |a| a.options[:class_name] == 'ActionText::RichText' }
     model_columns&.map do |col|
       params["#{col}".to_sym] = nil
     end
