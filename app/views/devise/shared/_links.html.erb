@@ -1,6 +1,6 @@
 <div class="space-y-1 mt-1">
   <%- if controller_name != 'sessions' %>
-    <%= link_to "Log in", new_session_path(resource_name), class: "inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50" %><br />
+    <%= link_to I18n.t('devise.sessions.new.sign_in'), new_session_path(resource_name), class: "inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50" %><br />
   <% end %>
 
   <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
