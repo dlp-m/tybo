@@ -9,7 +9,7 @@ class BoNamespaceGenerator < Rails::Generators::NamedBase
     template 'admin_controller.rb', File.join('app/controllers/', "#{singular_name}_controller.rb")
     template 'seeds.rb', File.join('db/seeds/', "#{plural_name}.rb")
     template 'side_bar.html.erb', File.join('app/views/', "#{plural_name}/layouts/_side_bar.html.erb")
-    #remove_devise_registration
+    remove_devise_registration
   end
 
   def create_directories
