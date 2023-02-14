@@ -34,6 +34,18 @@ $ bundle exec rails g tybo_install
 
 ```
 
+## Policy
+add your policy logic in ApplicationController eg:
+```
+  rescue_from ActionPolicy::Unauthorized, with: :not_authorized
+
+
+  def not_authorized
+    flash[:alert] = I18n.t('bo.unauthorized')
+    redirect_to(request.referrer || root_path)
+  end
+```
+
 ## Customize
 
 **Update images**: change `logo_url` and `cover_url` in `config/initializer/tybo.rb`

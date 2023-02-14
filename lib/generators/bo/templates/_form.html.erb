@@ -11,7 +11,10 @@
   <!-- has_one Associations -->
   <%- has_one_assoc.each do |association| -%>
   <%- if association.options[:class_name] == "ActionText::RichText" -%>
-  <%%= f.rich_text_area :<%= association.name.to_s.singularize.to_s.remove('rich_text_' )%> %>
+  <label class="block my-5 block text-sm font-medium text-gray-700 string optional text-sm font-medium text-gray-600">
+    <%%= I18n.t('bo.<%= class_name.underscore %>.attributes.<%=- association.name.to_s.singularize.to_s.remove('rich_text_') -%>') %>
+  </label>
+  <%%= f.rich_text_area :<%= association.name.to_s.singularize.to_s.remove('rich_text_')%> %>
   <%- else -%>
   <%%= render(Forms::HasOneFormComponent.new(title: I18n.t('bo.<%= association.name %>.one') )) do %>
     <%%= f.simple_fields_for :<%= association.name.to_s %> do |<%= association.name.to_s %>_form| %>
