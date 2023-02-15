@@ -5,11 +5,15 @@ module <%= options[:namespace].camelize %>
     before_action :set_<%= class_name.underscore %>, only: %i[show edit destroy update]
 
     def index
-      @q = <%=class_name%>.ransack(params[:q])
+      @q = authorized_scope(
+        <%=class_name%>.all,
+        with: Bo::<%= options[:namespace].camelize %>::<%= class_name %>Policy
+      ).ransack(params[:q])
       @pagy, @<%= class_name.pluralize.underscore %> = pagy(@q.result(distinct: true))
     end
 
     def show
+      authorize! @<%= class_name.underscore %>, to: :show?, namespace:, strict_namespace: true
     <%- has_one_assoc.each do |association| -%>
     <%- next if association.options[:class_name] == "ActionText::RichText" -%>
       @<%= class_name.underscore %>.build_<%= association.name %> if @<%= class_name.underscore %>.<%= association.name %>.nil?
@@ -18,16 +22,20 @@ module <%= options[:namespace].camelize %>
 
     def new
       @<%= class_name.underscore %> = <%= class_name %>.new
+      authorize! @<%= class_name.underscore %>, to: :new?, namespace:, strict_namespace: true
       <%- has_one_assoc.each do |association| -%>
       <%- next if association.options[:class_name] == "ActionText::RichText" -%>
       @<%= class_name.underscore %>.build_<%= association.name %>
       <%- end -%>
     end
 
-    def edit; end
+    def edit
+      authorize! @<%= class_name.underscore %>, to: :edit?, namespace:, strict_namespace: true
+    end
 
     def create
       @<%= class_name.underscore %> = <%= class_name %>.new(<%= class_name.underscore %>_params)
+      authorize! @<%= class_name.underscore %>, to: :create?, namespace:, strict_namespace: true
 
       if @<%= class_name.underscore %>.save
         flash[:success] = t('bo.record.created')
@@ -38,6 +46,8 @@ module <%= options[:namespace].camelize %>
     end
 
     def update
+      authorize! @<%= class_name.underscore %>, to: :update?, namespace:, strict_namespace: true
+
       if @<%= class_name.underscore %>.update(<%= class_name.underscore %>_params)
         flash[:success] = t('bo.record.updated')
         redirect_to <%="#{options[:namespace]}_#{class_name.underscore}_path"%>
@@ -47,6 +57,8 @@ module <%= options[:namespace].camelize %>
     end
 
     def destroy
+      authorize! @<%= class_name.underscore %>, to: :destroy?, namespace:, strict_namespace: true
+
       @<%= class_name.underscore %>.destroy
       flash[:success] = t('bo.record.destroyed')
 
@@ -69,6 +81,10 @@ module <%= options[:namespace].camelize %>
         <%- end -%>
         <%- end -%>
       )
+    end
+
+    def namespace
+      @namespace ||= Bo::<%= options[:namespace].camelize %>
     end
   end
 end

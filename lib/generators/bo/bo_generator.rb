@@ -19,6 +19,10 @@ class BoGenerator < Rails::Generators::NamedBase
     template '_search_bar.html.erb', File.join("app/views/#{options[:namespace]}", "#{plural_name}/_search_bar.html.erb")
     template 'show.html.erb', File.join("app/views/#{options[:namespace]}", "#{plural_name}/show.html.erb")
     template 'controller.rb', File.join("app/controllers/#{options[:namespace]}", "#{plural_name}_controller.rb")
+    template 'policy.rb', File.join("app/policies/bo/#{options[:namespace]}", "#{file_name.underscore}_policy.rb")
+    unless File.exists?("app/policies/bo/#{options[:namespace]}.rb")
+      template 'namespace_policy.rb', "app/policies/bo/#{options[:namespace]}_policy.rb"
+    end
     create_translations
   end
 
@@ -65,7 +69,7 @@ class BoGenerator < Rails::Generators::NamedBase
 
   def permited_params
     params = {}
-    action_text_columns= has_one_assoc&.select {|a| a.name == :rich_text_content}
+    action_text_columns = has_one_assoc&.select { |a| a.options[:class_name] == 'ActionText::RichText' }
     model_columns&.map do |col|
       params["#{col}".to_sym] = nil
     end
@@ -76,8 +80,10 @@ class BoGenerator < Rails::Generators::NamedBase
        params["#{association.name.to_s.singularize}_ids".to_sym] = []
     end
     has_one_assoc&.map do |association|
-       attributes = association.klass.column_names.map(&:to_sym).delete_if {|attr| excluded_columns.include?(attr)}
-       params["#{association.name.to_s.singularize}_attributes".to_sym] = attributes
+      next if association.options[:class_name] == 'ActionText::RichText'
+
+      attributes = association.klass.column_names.map(&:to_sym).delete_if { |attr| excluded_columns.include?(attr) }
+      params["#{association.name.to_s.singularize}_attributes".to_sym] = attributes
     end
     params
   end

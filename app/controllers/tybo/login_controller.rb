@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Tybo::LoginController < ::ApplicationController
   layout 'devise_admin'
   def home
