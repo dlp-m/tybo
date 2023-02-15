@@ -1,4 +1,10 @@
 ### 0.0.15
+- add new configurable images for bo sidebar
+add into `tybo.rb`
+```
+  config.nav_logo_url = 'nav_logo.png'
+```
+### 0.0.14
 - add translated labels for base fields
 ### 0.0.13
 - add labels for action_text fields

@@ -48,7 +48,12 @@ add your policy logic in ApplicationController eg:
 
 ## Customize
 
-**Update images**: change `logo_url` and `cover_url` in `config/initializer/tybo.rb`
+**Update images**: change image url in `config/initializer/tybo.rb`
+```
+  config.logo_url = 'your_logo.png'
+  config.nav_logo_url = 'your_nav_logo.png'
+  config.cover_url = 'your_cover.png'
+```
 
 **Customize colors**: Change the `tybo` colors  class in `tailwind.config.js`, 
 you can use https://uicolors.app/create to generate complete palette
