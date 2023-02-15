@@ -1,3 +1,5 @@
+### 0.0.15
+- add translated labels for base fields
 ### 0.0.13
 - add labels for action_text fields
 - add policies for all ressources

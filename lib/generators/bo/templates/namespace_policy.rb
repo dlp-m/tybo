@@ -1,27 +1,27 @@
 module Bo
   class <%= options[:namespace].camelize %>Policy < ActionPolicy::Base
     def show?
-      true
+      raise "Add custom policy scope in #{__FILE__}"
     end
 
     def new?
-      true
+      raise "Add custom policy scope in #{__FILE__}"
     end
 
     def edit?
-      true
+      raise "Add custom policy scope in #{__FILE__}"
     end
 
     def create?
-      true
+      raise "Add custom policy scope in #{__FILE__}"
     end
 
     def update?
-      true
+      raise "Add custom policy scope in #{__FILE__}"
     end
 
     def destroy?
-      true
+      raise "Add custom policy scope in #{__FILE__}"
     end
 
     relation_scope(&:all)
