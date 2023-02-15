@@ -68,7 +68,10 @@ module <%= options[:namespace].camelize %>
     private
 
     def set_<%= class_name.underscore %>
-      @<%= class_name.underscore %> = <%= class_name %>.find(params[:id])
+      @<%= class_name.underscore %> = authorized_scope(
+        <%= class_name %>.all,
+        with: Bo::<%= options[:namespace].camelize %>::<%= class_name %>Policy
+      ).find(params[:id])
     end
 
     def <%= class_name.underscore %>_params
@@ -81,10 +84,6 @@ module <%= options[:namespace].camelize %>
         <%- end -%>
         <%- end -%>
       )
-    end
-
-    def namespace
-      @namespace ||= Bo::<%= options[:namespace].camelize %>
     end
   end
 end

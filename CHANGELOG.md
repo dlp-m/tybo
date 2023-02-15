@@ -1,3 +1,7 @@
+### 0.0.16
+- move policy namespace into parent controller
+- add translations for show view and create view
+- remove some params into permited_params 
 ### 0.0.15
 - add new configurable images for bo sidebar
 add into `tybo.rb`
