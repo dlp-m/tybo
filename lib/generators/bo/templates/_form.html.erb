@@ -2,7 +2,7 @@
   <!-- Model columns --> 
   <%- bo_model.column_names.each do |column| -%>
   <%- next if excluded_columns.include?(column.to_sym) || bo_model.reflect_on_all_associations.map(&:foreign_key).include?(column) -%>
-  <%%= f.input :<%= column %> %>
+  <%%= f.input :<%= column %>,label: I18n.t('bo.<%= class_name.underscore %>.attributes.<%= column %>')  %>
   <%- end -%>
   <!-- belongs_to Associations -->
   <%- belongs_to_assoc.each do |association| -%>
