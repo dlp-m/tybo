@@ -1,3 +1,9 @@
+### 0.0.19
+- disable turbo for devise reset password
+### 0.0.18
+- disable turbo for devise forms
+### 0.0.17
+- disable turbo for devise session form
 ### 0.0.16
 - move policy namespace into parent controller
 - add translations for show view and create view
