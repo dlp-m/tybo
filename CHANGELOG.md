@@ -1,3 +1,5 @@
+### 0.0.19
+- disable turbo for devise reset password
 ### 0.0.18
 - disable turbo for devise forms
 ### 0.0.17

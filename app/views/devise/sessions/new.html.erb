@@ -31,7 +31,7 @@
               </div>
 
               <div class="text-sm">
-                <a href="<%= new_password_path(Administrator)%>" class="font-medium text-tybo-600 hover:text-tybo-500">
+                <a href="<%= new_password_path(Administrator)%>" class="font-medium text-tybo-600 hover:text-tybo-500", data-turbo='false' >
                   <%=I18n.t("devise.passwords.new.forgot_your_password")%>
                 </a>
               </div>
