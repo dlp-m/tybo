@@ -1,3 +1,5 @@
+### 0.0.18
+- disable turbo for devise forms
 ### 0.0.17
 - disable turbo for devise session form
 ### 0.0.16
