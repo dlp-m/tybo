@@ -15,7 +15,6 @@ module <%= options[:namespace].camelize %>
     def show
       authorize! @<%= class_name.underscore %>, to: :show?, namespace:, strict_namespace: true
     <%- has_one_assoc.each do |association| -%>
-    <%- next if association.options[:class_name] == "ActionText::RichText" -%>
       @<%= class_name.underscore %>.build_<%= association.name %> if @<%= class_name.underscore %>.<%= association.name %>.nil?
     <%- end -%>
     end
@@ -24,7 +23,6 @@ module <%= options[:namespace].camelize %>
       @<%= class_name.underscore %> = <%= class_name %>.new
       authorize! @<%= class_name.underscore %>, to: :new?, namespace:, strict_namespace: true
       <%- has_one_assoc.each do |association| -%>
-      <%- next if association.options[:class_name] == "ActionText::RichText" -%>
       @<%= class_name.underscore %>.build_<%= association.name %>
       <%- end -%>
     end
