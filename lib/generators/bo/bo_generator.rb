@@ -69,19 +69,19 @@ class BoGenerator < Rails::Generators::NamedBase
 
   def permited_params
     params = {}
-    action_text_columns = has_one_assoc&.select { |a| a.options[:class_name] == 'ActionText::RichText' }
     permitted_columns&.map do |col|
       params["#{col}".to_sym] = nil
     end
-    action_text_columns&.map do |col|
-      params["#{col.name.to_s.remove('rich_text_' )}".to_sym] = nil
+    storage_assoc&.map do |col|
+      params["#{col.name.to_s.remove('_attachment' )}".to_sym] = nil
+    end
+    rich_text_assoc&.map do |col|
+      params["#{col.name.to_s.remove('rich_text_')}".to_sym] = nil
     end
     has_many_assoc&.map do |association|
        params["#{association.name.to_s.singularize}_ids".to_sym] = []
     end
     has_one_assoc&.map do |association|
-      next if association.options[:class_name] == 'ActionText::RichText'
-
       attributes = association.klass.column_names.map(&:to_sym).delete_if { |attr| excluded_columns.include?(attr) }
       params["#{association.name.to_s.singularize}_attributes".to_sym] = attributes
     end
@@ -97,7 +97,22 @@ class BoGenerator < Rails::Generators::NamedBase
   end
 
   def has_one_assoc
-    bo_model.reflect_on_all_associations(:has_one)
+    excluded = ['ActiveStorage::Attachment', 'ActionText::RichText', 'ActiveStorage::Blob']
+    bo_model.reflect_on_all_associations(:has_one).reject do |assoc|
+       excluded.include?(assoc.options[:class_name])
+    end
+  end
+
+  def storage_assoc
+    bo_model.reflect_on_all_associations(:has_one).select do |assoc|
+      assoc.options[:class_name] == 'ActiveStorage::Attachment'
+    end
+  end
+
+  def rich_text_assoc
+    bo_model.reflect_on_all_associations(:has_one).select do |assoc|
+      assoc.options[:class_name] == 'ActionText::RichText'
+    end
   end
 
   def permitted_columns
