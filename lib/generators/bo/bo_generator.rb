@@ -20,7 +20,7 @@ class BoGenerator < Rails::Generators::NamedBase
     template 'show.html.erb', File.join("app/views/#{options[:namespace]}", "#{plural_name}/show.html.erb")
     template 'controller.rb', File.join("app/controllers/#{options[:namespace]}", "#{plural_name}_controller.rb")
     template 'policy.rb', File.join("app/policies/bo/#{options[:namespace]}", "#{file_name.underscore}_policy.rb")
-    unless File.exists?("app/policies/bo/#{options[:namespace]}.rb")
+    unless File.exists?("app/policies/bo/#{options[:namespace]}_policy.rb")
       template 'namespace_policy.rb', "app/policies/bo/#{options[:namespace]}_policy.rb"
     end
     create_translations
@@ -64,7 +64,7 @@ class BoGenerator < Rails::Generators::NamedBase
   end
 
   def excluded_columns
-    %i[id created_at updated_at]
+    %i[id created_at updated_at encrypted_password]
   end
 
   def permited_params
