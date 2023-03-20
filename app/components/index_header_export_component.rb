@@ -4,5 +4,4 @@ class IndexHeaderExportComponent < ViewComponent::Base
   def initialize(path:)
     @path = path
   end
-
 end
