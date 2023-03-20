@@ -9,6 +9,6 @@ class <%= class_name %>Controller < ApplicationController
   private
 
   def namespace
-    @namespace ||= Bo::<%= class_name %>
+    @namespace ||= Bo::<%= class_name %>.pluralize
   end
 end

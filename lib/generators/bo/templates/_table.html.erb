@@ -19,7 +19,7 @@
         <%%= tr.with_td do %>
           <%%= link_to <%="#{options[:namespace]}_#{class_name.underscore}_path(#{class_name.underscore})"%>,
           class: "text-tybo-600 hover:text-tybo-900",
-          data: {turbo_method: :delete, turbo_confirm: "êtes vous sur ?"} do %>
+          data: {turbo_method: :delete, turbo_confirm: "êtes-vous sûr ?"} do %>
             <%%= render(Icons::TrashComponent.new) %>
           <%% end %>
         <%% end %>

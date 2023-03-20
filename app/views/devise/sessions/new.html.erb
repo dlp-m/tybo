@@ -1,49 +1,35 @@
-<div class="flex min-h-full">
-  <div class="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
-    <div class="mx-auto w-full max-w-sm lg:w-96">
-      <%= render('layouts/flash') %>
-        <%= image_tag Tybo.configuration.logo_url, class: 'h-12 w-auto'%>
-        <h2 class="mt-6 text-3xl font-bold tracking-tight text-gray-900"><%=I18n.t("bo.devise.sign_in_as.#{resource_name}")%></h2>
+<%= render(Devise::FormComponent.new(title: I18n.t("bo.devise.sign_in_as.#{resource_name}") )) do %>
+  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'space-y-6'}) do |f| %>
+    <div>
+      <%= f.input :email,
+          required: false,
+          autofocus: true,
+          input_html: { autocomplete: "email" },
+          class: 'block text-sm font-medium text-gray-700' %>
+    </div>
+
+    <div class="space-y-1">
+      <%= f.input :password,
+          required: false,
+          input_html: { autocomplete: "current-password" },
+          class: 'block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-tybo-500 focus:outline-none focus:ring-tybo-500 sm:text-sm' %>
+    </div>
+
+    <div class="flex items-center justify-between">
+      <div class="flex items-center">
+        <input id="remember_me" name="remember_me" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-tybo-600 focus:ring-tybo-500">
+        <label for="remember_me" class="ml-2 block text-sm text-gray-900"><%=I18n.t("activerecord.attributes.user.remember_me")%></label>
       </div>
-      <div class="mt-8">
-        <div class="mt-6">
-          <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'space-y-6'}) do |f| %>
-            <div>
-             <%= f.input :email,
-                required: false,
-                autofocus: true,
-                input_html: { autocomplete: "email" },
-                class: 'block text-sm font-medium text-gray-700' %>
-            </div>
 
-            <div class="space-y-1">
-             <%= f.input :password,
-                required: false,
-                input_html: { autocomplete: "current-password" },
-                class: 'block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-tybo-500 focus:outline-none focus:ring-tybo-500 sm:text-sm' %>
-              </div>
-            </div>
-
-            <div class="flex items-center justify-between">
-              <div class="flex items-center">
-                <input id="remember_me" name="remember_me" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-tybo-600 focus:ring-tybo-500">
-                <label for="remember_me" class="ml-2 block text-sm text-gray-900"><%=I18n.t("activerecord.attributes.user.remember_me")%></label>
-              </div>
-
-              <div class="text-sm">
-                <a href="<%= new_password_path(resource)%>" class="font-medium text-tybo-600 hover:text-tybo-500", data-turbo='false' >
-                  <%=I18n.t("devise.passwords.new.forgot_your_password")%>
-                </a>
-              </div>
-            </div>
-
-            <div class="mt-5">
-              <%= f.button :submit, I18n.t("devise.sessions.new.sign_in"), class: "flex w-full justify-center rounded-md border border-transparent bg-tybo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-tybo-700 focus:outline-none focus:ring-2 focus:ring-tybo-500 focus:ring-offset-2", data: { turbo: false }  %>
-            </div>
-          <% end %>
-        </div>
+      <div class="text-sm">
+        <a href="<%= new_password_path(resource)%>" class="font-medium text-tybo-600 hover:text-tybo-500", data-turbo='false' >
+          <%=I18n.t("devise.passwords.new.forgot_your_password")%>
+        </a>
       </div>
     </div>
-  </div>
-  <%= render(CoverComponent.new) %>
-</div>
+
+    <div class="mt-5">
+      <%= f.button :submit, I18n.t("devise.sessions.new.sign_in"), class: "flex w-full justify-center rounded-md border border-transparent bg-tybo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-tybo-700 focus:outline-none focus:ring-2 focus:ring-tybo-500 focus:ring-offset-2", data: { turbo: false }  %>
+    </div>
+  <% end %>
+<% end %>
