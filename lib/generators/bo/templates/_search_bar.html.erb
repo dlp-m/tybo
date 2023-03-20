@@ -14,23 +14,13 @@
     <%- type.second.sort_by(&:type).each do |col| -%>
     <%- next if bo_model.reflect_on_all_associations.map(&:foreign_key).include?(col.name) -%>
     <%- if col.type == :string || col.type == :text -%>
-      <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4  pt-5">
-        <label class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-          <%%= I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>') %>
-        </label>
-        <div class="mt-1 sm:col-span-2 sm:mt-0">
-          <%%= f.text_field :<%= col.name %>_cont, placeholder: I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>'), data: { action: "input->search-form#search" }, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-tybo-500 focus:ring-tybo-500 sm:max-w-xs sm:text-sm" %>
-        </div>  
-      </div>
+    <%%= render(Forms::SearchInputComponent.new(label: I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>'))) do %>
+      <%%= f.text_field :<%= col.name %>_cont, placeholder: I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>'), data: { action: "input->search-form#search" }, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-tybo-500 focus:ring-tybo-500 sm:max-w-xs sm:text-sm" %>
+    <%% end %>
     <%- elsif col.type ==:integer -%>
-      <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4  pt-5">
-        <label class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-          <%%= I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>') %>
-        </label>
-        <div class="mt-1 sm:col-span-2 sm:mt-0">
-          <%%= f.number_field :<%= col.name %>_eq, placeholder: I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>'), data: { action: "input->search-form#search" }, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-tybo-500 focus:ring-tybo-500 sm:max-w-xs sm:text-sm" %>
-        </div>
-      </div>
+      <%%= render(Forms::SearchInputComponent.new(label: I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>'))) do %>
+        <%%= f.number_field :<%= col.name %>_eq, placeholder: I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>'), data: { action: "input->search-form#search" }, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-tybo-500 focus:ring-tybo-500 sm:max-w-xs sm:text-sm" %>
+    <%% end %>
     <%- elsif col.type == :boolean -%>
       <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4  pt-5">
         <label class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">

@@ -1,3 +1,5 @@
+### 0.0.32
+- add components for search form fields
 ### 0.0.19
 - disable turbo for devise reset password
 ### 0.0.18
