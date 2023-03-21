@@ -20,21 +20,20 @@ class BoGenerator < Rails::Generators::NamedBase
     template 'show.html.erb', File.join("app/views/#{options[:namespace]}", "#{plural_name}/show.html.erb")
     template 'controller.rb', File.join("app/controllers/#{options[:namespace]}", "#{plural_name}_controller.rb")
     template 'policy.rb', File.join("app/policies/bo/#{options[:namespace]}", "#{file_name.underscore}_policy.rb")
-    unless File.exists?("app/policies/bo/#{options[:namespace]}_policy.rb")
+    unless File.exist?("app/policies/bo/#{options[:namespace]}_policy.rb")
       template 'namespace_policy.rb', "app/policies/bo/#{options[:namespace]}_policy.rb"
     end
     create_translations
   end
 
-
   def add_link_to_side_bar
-    inject_into_file "app/views/#{options[:namespace]}/layouts/_side_bar.html.erb", before: "  <%= sidebar.with_current_user_card(user: current_#{options[:namespace].singularize}) %>\n" do 
+    inject_into_file "app/views/#{options[:namespace]}/layouts/_side_bar.html.erb", before: "  <%= sidebar.with_current_user_card(user: current_#{options[:namespace].singularize}) %>\n" do
       "  <%= sidebar.with_item(path: #{options[:namespace]}_#{plural_name}_path, icon: Icons::UsersComponent, label: I18n.t('bo.#{file_name}.others').capitalize) %>\n"
     end
   end
 
   def create_routes
-    inject_into_file 'config/routes.rb', after: " namespace :#{options[:namespace]} do\n" do 
+    inject_into_file 'config/routes.rb', after: " namespace :#{options[:namespace]} do\n" do
       "    resources :#{plural_name} \n"
     end
   end
