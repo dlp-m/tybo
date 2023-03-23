@@ -8,6 +8,8 @@ def create_translations
         local => {
           'bo' => {
             'filters' => find_existing_translation('filters', local),
+            'details' => find_existing_translation('details', local),
+            'confirm_delete' => find_existing_translation('confirm_delete', local),
             'record' => {
             'created' => find_existing_translation('created', local),
             'updated' => find_existing_translation('updated', local),

@@ -9,8 +9,8 @@
   </div>
   <div data-dropdown-target="menu" class="drop-shadow-md hidden absolute py-5 px-5 left-0 z-10 mt-2 w-[40rem] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
     <%%= search_form_for [:<%=options[:namespace].underscore %>, @q],  method: :post, class: "", data: { controller: "search-form", search_form_target: "form", turbo_frame: '<%=class_name.underscore.pluralize%>' } do |f| %>
-    <%- bo_model.columns.group_by(&:type).each do |type| -%>
     <!-- columns -->
+    <%- bo_model.columns.group_by(&:type).each do |type| -%>
     <%- type.second.sort_by(&:type).each do |col| -%>
     <%- next if bo_model.reflect_on_all_associations.map(&:foreign_key).include?(col.name) -%>
     <%- if col.type == :string || col.type == :text -%>
@@ -50,22 +50,11 @@
         </div>
       </div>
     <%- elsif col.type == :datetime || col.type == :date -%>
-      <div class="sm:grid sm:grid-cols-12 sm:items-start sm:gap-4  pt-5">
-        <div class="mt-1 sm:col-span-4 sm:mt-">
-          <label class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-            <%%= I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>') %>
-          </label>
-        </div>
-        <div class="mt-1 sm:col-span-3 sm:mt-0">
-        <%%= f.date_field :<%= col.name %>_from_date, data: { action: "input->search-form#search" }, class: "rounded-md border-gray-300 shadow-sm focus:border-tybo-500 focus:ring-tybo-500 sm:text-sm" %>
-        </div>
-        <div class="mt-1 sm:col-span-2 text-center">
-          to
-        </div>
-        <div class="mt-1 sm:col-span-3 sm:mt-0">
-        <%%= f.date_field :<%= col.name %>_to_date, data: { action: "input->search-form#search" }, class: "rounded-md border-gray-300 shadow-sm focus:border-tybo-500 focus:ring-tybo-500 sm:text-sm" %>
-        </div>
-      </div>
+    <%%= render(Forms::SearchDateInputComponent.new(
+      label: I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>'),
+      form: f,
+      field: "<%= col.name %>")
+    ) %>
     <%- end -%>
     <%- end -%>
     <%- end -%>
@@ -73,7 +62,7 @@
     <%- belongs_to_assoc.each do |association| -%>
       <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4  pt-5">
         <label for="<%=association.name%>" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-          <%%=I18n.t('bo.<%=association.klass.name.underscore%>.one')%>
+          <%%= I18n.t('bo.<%=association.klass.name.underscore%>.one') %>
         </label>
         <div class="mt-1 sm:col-span-2 sm:mt-0">
           <%%= f.select :<%= association.foreign_key %>_eq, <%=association.klass.name.constantize%>.all.map { |value| [value.<%=bo_model_title(association.class_name.constantize)%>, value.id] }, { include_blank: true }, { class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-tybo-500 focus:ring-tybo-500 sm:text-sm", data: { action: "input->search-form#search" } } %>
@@ -83,4 +72,3 @@
     <%% end %>
   </div>
 </div>
-
