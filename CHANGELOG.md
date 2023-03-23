@@ -1,3 +1,7 @@
+### 0.0.33
+- add components search form date_fields 
+- better html.erb generated
+- Add some translations for actions
 ### 0.0.32
 - add components for search form fields
 ### 0.0.19
