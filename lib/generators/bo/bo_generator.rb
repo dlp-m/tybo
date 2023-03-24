@@ -8,6 +8,7 @@ class BoGenerator < Rails::Generators::NamedBase
   class_option :namespace, type: :string, default: 'administrators'
 
   def create_bo_file
+    check_model_existence
     # Template method
     # First argument is the name of the template
     # Second argument is where to create the resulting file. In this case, app/bo/my_bo.rb
@@ -33,12 +34,21 @@ class BoGenerator < Rails::Generators::NamedBase
   end
 
   def create_routes
+    rails_routes = Rails.application.routes.named_routes.names.map(&:to_s)
+    return if rails_routes.any?("#{options[:namespace]}_#{plural_name}")
+
     inject_into_file 'config/routes.rb', after: " namespace :#{options[:namespace]} do\n" do
-      "    resources :#{plural_name} \n"
+      "    resources :#{plural_name}\n"
     end
   end
 
   private
+
+  def check_model_existence
+    return if Object.const_defined?(class_name) && Object.const_get(class_name).ancestors.include?(ActiveRecord::Base)
+
+    raise ArgumentError, "The model #{class_name} does not exist or is not an ActiveRecord model. Ensure the model exists before running the generator."
+  end
 
   def bo_model
     class_name.constantize
