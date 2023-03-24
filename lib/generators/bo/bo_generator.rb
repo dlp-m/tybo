@@ -8,6 +8,7 @@ class BoGenerator < Rails::Generators::NamedBase
   class_option :namespace, type: :string, default: 'administrators'
 
   def create_bo_file
+    check_model_existence
     # Template method
     # First argument is the name of the template
     # Second argument is where to create the resulting file. In this case, app/bo/my_bo.rb
@@ -39,6 +40,12 @@ class BoGenerator < Rails::Generators::NamedBase
   end
 
   private
+
+  def check_model_existence
+    return if Object.const_defined?(class_name) && Object.const_get(class_name).ancestors.include?(ActiveRecord::Base)
+
+    raise ArgumentError, "The model #{class_name} does not exist or is not an ActiveRecord model. Ensure the model exists before running the generator."
+  end
 
   def bo_model
     class_name.constantize
