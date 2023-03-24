@@ -1,8 +1,8 @@
  <%%= simple_form_for [:<%= options[:namespace] %>, <%= class_name.underscore %>], html: { class: "<%= class_name.underscore %> form" } do |f| %>
-  <!-- Model columns --> 
+  <!-- Model columns -->
   <%- bo_model.column_names.each do |column| -%>
   <%- next if excluded_columns.include?(column.to_sym) || bo_model.reflect_on_all_associations.map(&:foreign_key).include?(column) -%>
-  <%%= f.input :<%= column %>,label: I18n.t('bo.<%= class_name.underscore %>.attributes.<%= column %>')  %>
+  <%%= f.input :<%= column %>,label: I18n.t('bo.<%= class_name.underscore %>.attributes.<%= column %>') %>
   <%- end -%>
   <!-- belongs_to Associations -->
   <%- belongs_to_assoc.each do |association| -%>
@@ -14,7 +14,7 @@
     <%%= I18n.t('bo.<%= class_name.underscore %>.attributes.<%=- association.name.to_s.singularize.to_s.remove('rich_text_') -%>') %>
   </label>
   <%%= f.rich_text_area :<%= association.name.to_s.singularize.to_s.remove('rich_text_')%> %>
-  <% end %>
+  <%- end -%>
   <!-- File Associations -->
   <%- storage_assoc.each do |association| -%>
   <%%= render(Input::FileComponent.new(item: <%= class_name.underscore %>, field: '<%= association.name.to_s.singularize.to_s.remove('_attachment') %>', form: f)) %>
@@ -40,7 +40,6 @@
                 multiple: true,
                 data: { controller: 'ts--select' } %>
   <%% end %>
-
   <%- end -%>
   <%%= render(Forms::SubmitButtonComponent.new) %>
 <%% end %>
