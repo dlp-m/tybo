@@ -1,5 +1,6 @@
 ### 0.0.34
 - Raise error if the model argument doesn't exist
+- Add routes check to prevent duplication
 ### 0.0.33
 - add components search form date_fields 
 - better html.erb generated

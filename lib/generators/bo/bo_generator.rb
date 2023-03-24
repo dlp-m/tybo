@@ -34,8 +34,11 @@ class BoGenerator < Rails::Generators::NamedBase
   end
 
   def create_routes
+    rails_routes = Rails.application.routes.named_routes.names.map(&:to_s)
+    return if rails_routes.any?("#{options[:namespace]}_#{plural_name}")
+
     inject_into_file 'config/routes.rb', after: " namespace :#{options[:namespace]} do\n" do
-      "    resources :#{plural_name} \n"
+      "    resources :#{plural_name}\n"
     end
   end
 
