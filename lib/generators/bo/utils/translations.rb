@@ -25,8 +25,10 @@ def create_translations
     data[local]['bo'][file_name.underscore] = {
       'one' => find_existing_translation(bo_model.to_s.downcase, local),
       'others' => find_existing_translation(bo_model.to_s.pluralize.downcase, local),
+      'new' => find_existing_translation(bo_model.to_s.pluralize.downcase, local),
       'subtitle' => find_existing_translation("list of #{bo_model.to_s.pluralize.downcase}", local),
       'attributes' => model_attributes(data, local)
+
     }
     output = YAML.dump data
     File.write(locale_file, output)
