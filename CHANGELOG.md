@@ -1,3 +1,5 @@
+### 0.0.37
+- fix attachment component
 ### 0.0.36
 - add better turbo link
 - fix policy namespace error
