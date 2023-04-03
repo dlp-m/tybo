@@ -10,7 +10,6 @@
       <%== link.call(pagy.next, pagy_t('pagy.nav.prev'), 'aria-label="next" class="hidden"') %>
     </div>
   <% end -%>
-<% if pagy.next -%> 
   <% pagy.series.each do |item| # series example: [1, :gap, 7, 8, "9", 10, 11, :gap, 36] -%>
     <% if item.is_a?(Integer) -%>
         <%== link.call(item, item, 'class="inline-flex h-10 items-center rounded-md border border-gray-300 bg-white px-4 hover:bg-gray-100 focus:border-tybo-600 focus:outline-none focus:ring-2 focus:ring-tybo-600 focus:ring-opacity-25 focus:ring-offset-1 focus:ring-offset-tybo-600"') %>
@@ -22,7 +21,6 @@
       </span>
     <% end -%>
   <% end -%>
-<% end -%>
 
   <% if pagy.next -%> 
     <div class="flex min-w-0 flex-1 justify-end">
