@@ -1,3 +1,5 @@
+### 0.0.38
+- fix translation errors
 ### 0.0.37
 - fix attachment component
 ### 0.0.36
