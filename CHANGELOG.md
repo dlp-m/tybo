@@ -1,7 +1,9 @@
+### 0.0.39
+- fix paginations errors
 ### 0.0.38
-- fix translation errors
+- fix translations errors
 ### 0.0.37
-- fix attachment component
+- fix attachments component
 ### 0.0.36
 - add better turbo link
 - fix policy namespace error
