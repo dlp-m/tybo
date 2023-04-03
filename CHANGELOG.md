@@ -1,3 +1,11 @@
+### 0.0.38
+- fix translation errors
+### 0.0.37
+- fix attachment component
+### 0.0.36
+- add better turbo link
+- fix policy namespace error
+- fix attachment component path
 ### 0.0.34
 - Raise error if the model argument doesn't exist
 - Add routes check to prevent duplication
