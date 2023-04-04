@@ -1,21 +1,26 @@
  <%%= simple_form_for [:<%= options[:namespace] %>, <%= class_name.underscore %>], html: { class: "<%= class_name.underscore %> form" } do |f| %>
-  <!-- Model columns --> 
+  <!-- Model columns -->
   <%- bo_model.column_names.each do |column| -%>
   <%- next if excluded_columns.include?(column.to_sym) || bo_model.reflect_on_all_associations.map(&:foreign_key).include?(column) -%>
-  <%%= f.input :<%= column %>,label: I18n.t('bo.<%= class_name.underscore %>.attributes.<%= column %>')  %>
+  <%%= f.input :<%= column %>,label: I18n.t('bo.<%= class_name.underscore %>.attributes.<%= column %>') %>
   <%- end -%>
   <!-- belongs_to Associations -->
   <%- belongs_to_assoc.each do |association| -%>
   <%%= f.association :<%= association.name.to_s.singularize %>, collection:  <%= association.klass.name %>.all.map { |item| [item.<%=bo_model_title(association.klass.name.constantize)%>, item.id] } %>
   <%- end -%>
-  <!-- has_one Associations -->
-  <%- has_one_assoc.each do |association| -%>
-  <%- if association.options[:class_name] == "ActionText::RichText" -%>
+  <!-- RichText Associations -->
+  <%- rich_text_assoc.each do |association| -%>
   <label class="block my-5 block text-sm font-medium text-gray-700 string optional text-sm font-medium text-gray-600">
     <%%= I18n.t('bo.<%= class_name.underscore %>.attributes.<%=- association.name.to_s.singularize.to_s.remove('rich_text_') -%>') %>
   </label>
   <%%= f.rich_text_area :<%= association.name.to_s.singularize.to_s.remove('rich_text_')%> %>
-  <%- else -%>
+  <%- end -%>
+  <!-- File Associations -->
+  <%- storage_assoc.each do |association| -%>
+  <%%= render(Input::FileComponent.new(item: <%= class_name.underscore %>, field: '<%= association.name.to_s.singularize.to_s.remove('_attachment') %>', form: f)) %>
+  <%- end -%>
+  <!-- has_one Associations -->
+  <%- has_one_assoc.each do |association| -%>
   <%%= render(Forms::HasOneFormComponent.new(title: I18n.t('bo.<%= association.name %>.one') )) do %>
     <%%= f.simple_fields_for :<%= association.name.to_s %> do |<%= association.name.to_s %>_form| %>
       <%- association.klass.column_names.each do |column| -%>
@@ -25,8 +30,6 @@
       <%- end -%>
     <%% end %> 
   <%% end %>
-
-  <%- end -%>
   <%- end -%>
   <!-- has_many Associations -->
   <%- has_many_assoc.each do |association| -%>
@@ -37,7 +40,6 @@
                 multiple: true,
                 data: { controller: 'ts--select' } %>
   <%% end %>
-
   <%- end -%>
   <%%= render(Forms::SubmitButtonComponent.new) %>
 <%% end %>

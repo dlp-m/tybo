@@ -1,5 +1,5 @@
 <%%= render(IndexComponent.new) do |index| %>
-  <!-- Header --> 
+  <!-- Header -->
   <%%= index.with_header(
     title: I18n.t('bo.<%= class_name.underscore %>.others').capitalize,
     subtitle: I18n.t('bo.<%= class_name.underscore %>.subtitle').capitalize,
@@ -7,10 +7,10 @@
     <%%= header.with_add_button(path: <%="new_#{options[:namespace]}_#{class_name.underscore}_path" %>) %>
   <%% end %>
 
-  <!-- Search Bar --> 
+  <!-- Search Bar -->
   <%%= render('search_bar') %>
-  <!-- Table --> 
-  <%%= turbo_frame_tag "<%= class_name.underscore.pluralize %>", class: "shadow overflow-hidden rounded border-b border-gray-200" do %>
+  <!-- Table -->
+  <%%= turbo_frame_tag "<%= class_name.underscore.pluralize %>", target: '_top', class: "shadow overflow-hidden rounded border-b border-gray-200" do %>
     <%%= render('table') %>
     <div class="py-2">
       <%%== render partial: 'shared/pagination', locals: { pagy: @pagy } %>

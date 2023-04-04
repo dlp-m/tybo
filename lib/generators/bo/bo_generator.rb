@@ -8,6 +8,7 @@ class BoGenerator < Rails::Generators::NamedBase
   class_option :namespace, type: :string, default: 'administrators'
 
   def create_bo_file
+    check_model_existence
     # Template method
     # First argument is the name of the template
     # Second argument is where to create the resulting file. In this case, app/bo/my_bo.rb
@@ -20,26 +21,34 @@ class BoGenerator < Rails::Generators::NamedBase
     template 'show.html.erb', File.join("app/views/#{options[:namespace]}", "#{plural_name}/show.html.erb")
     template 'controller.rb', File.join("app/controllers/#{options[:namespace]}", "#{plural_name}_controller.rb")
     template 'policy.rb', File.join("app/policies/bo/#{options[:namespace]}", "#{file_name.underscore}_policy.rb")
-    unless File.exists?("app/policies/bo/#{options[:namespace]}.rb")
+    unless File.exist?("app/policies/bo/#{options[:namespace]}_policy.rb")
       template 'namespace_policy.rb', "app/policies/bo/#{options[:namespace]}_policy.rb"
     end
     create_translations
   end
 
-
   def add_link_to_side_bar
-    inject_into_file "app/views/#{options[:namespace]}/layouts/_side_bar.html.erb", before: "  <%= sidebar.with_current_user_card(user: current_#{options[:namespace].singularize}) %>\n" do 
+    inject_into_file "app/views/#{options[:namespace]}/layouts/_side_bar.html.erb", before: "  <%= sidebar.with_current_user_card(user: current_#{options[:namespace].singularize}) %>\n" do
       "  <%= sidebar.with_item(path: #{options[:namespace]}_#{plural_name}_path, icon: Icons::UsersComponent, label: I18n.t('bo.#{file_name}.others').capitalize) %>\n"
     end
   end
 
   def create_routes
-    inject_into_file 'config/routes.rb', after: " namespace :#{options[:namespace]} do\n" do 
-      "    resources :#{plural_name} \n"
+    rails_routes = Rails.application.routes.named_routes.names.map(&:to_s)
+    return if rails_routes.any?("#{options[:namespace]}_#{plural_name}")
+
+    inject_into_file 'config/routes.rb', after: " namespace :#{options[:namespace]} do\n" do
+      "    resources :#{plural_name}\n"
     end
   end
 
   private
+
+  def check_model_existence
+    return if Object.const_defined?(class_name) && Object.const_get(class_name).ancestors.include?(ActiveRecord::Base)
+
+    raise ArgumentError, "The model #{class_name} does not exist or is not an ActiveRecord model. Ensure the model exists before running the generator."
+  end
 
   def bo_model
     class_name.constantize
@@ -64,24 +73,24 @@ class BoGenerator < Rails::Generators::NamedBase
   end
 
   def excluded_columns
-    %i[id created_at updated_at]
+    %i[id created_at updated_at encrypted_password]
   end
 
   def permited_params
     params = {}
-    action_text_columns = has_one_assoc&.select { |a| a.options[:class_name] == 'ActionText::RichText' }
-    model_columns&.map do |col|
+    permitted_columns&.map do |col|
       params["#{col}".to_sym] = nil
     end
-    action_text_columns&.map do |col|
-      params["#{col.name.to_s.remove('rich_text_' )}".to_sym] = nil
+    storage_assoc&.map do |col|
+      params["#{col.name.to_s.remove('_attachment' )}".to_sym] = nil
+    end
+    rich_text_assoc&.map do |col|
+      params["#{col.name.to_s.remove('rich_text_')}".to_sym] = nil
     end
     has_many_assoc&.map do |association|
        params["#{association.name.to_s.singularize}_ids".to_sym] = []
     end
     has_one_assoc&.map do |association|
-      next if association.options[:class_name] == 'ActionText::RichText'
-
       attributes = association.klass.column_names.map(&:to_sym).delete_if { |attr| excluded_columns.include?(attr) }
       params["#{association.name.to_s.singularize}_attributes".to_sym] = attributes
     end
@@ -97,10 +106,25 @@ class BoGenerator < Rails::Generators::NamedBase
   end
 
   def has_one_assoc
-    bo_model.reflect_on_all_associations(:has_one)
+    excluded = ['ActiveStorage::Attachment', 'ActionText::RichText', 'ActiveStorage::Blob']
+    bo_model.reflect_on_all_associations(:has_one).reject do |assoc|
+       excluded.include?(assoc.options[:class_name])
+    end
   end
 
-  def permited_columns
+  def storage_assoc
+    bo_model.reflect_on_all_associations(:has_one).select do |assoc|
+      assoc.options[:class_name] == 'ActiveStorage::Attachment'
+    end
+  end
+
+  def rich_text_assoc
+    bo_model.reflect_on_all_associations(:has_one).select do |assoc|
+      assoc.options[:class_name] == 'ActionText::RichText'
+    end
+  end
+
+  def permitted_columns
     model_columns - excluded_columns
   end
 

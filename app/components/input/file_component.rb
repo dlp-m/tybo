@@ -13,7 +13,7 @@ module Input
     end
 
     def label
-      I18n.t("#{@item.class.name.downcase}.attributes.#{@field}")
+      I18n.t("bo.#{@item.class.name.downcase}.attributes.#{@field}")
     end
 
     def picture

@@ -5,7 +5,7 @@ module Tybo
       if %w[error alert].include?(key)
         'bg-red-100 text-red-700'
       else
-        'bg-green-50 text-green-700'
+        'bg-tybo text-white'
       end
     end
   end

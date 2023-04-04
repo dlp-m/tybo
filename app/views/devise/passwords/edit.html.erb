@@ -1,34 +1,18 @@
-<div class="flex min-h-full">
-  <div class="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
-    <div class="mx-auto w-full max-w-sm lg:w-96">
-      <div>
-        <%= render('layouts/flash') %>
-        <%= image_tag Tybo.configuration.logo_url, class: 'h-12 w-auto'%>
-        <h2 class="mt-6 text-3xl font-bold tracking-tight text-gray-900">Créer un nouveau mot de passe</h2>
-      </div>
-
-      <div class="mt-8">
-        <div class="mt-6">
-        <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-          <%= f.input :reset_password_token, as: :hidden %>
-          <%= f.input :password,
-                      label: 'Mot de passe',
-                      required: true,
-                      autofocus: true,
-                      hint: ("#{@minimum_password_length} caractères minimum" if @minimum_password_length),
-                      class: 'block text-sm font-medium text-gray-700' %>
-          <%= f.input :password_confirmation,
-                      label: 'Confirmez votre mot de passe',
-                      required: true,
-                      class: 'block text-sm font-medium text-gray-700' %>
-            </div>
-            <div class="mt-5">
-              <%= f.button :submit, "Sauvegarder", class: "flex w-full justify-center rounded-md border border-transparent bg-tybo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-tybo-700 focus:outline-none focus:ring-2 focus:ring-tybo-500 focus:ring-offset-2"  %>
-            </div>
-          <% end %>
-        </div>
-      </div>
+<%= render(Devise::FormComponent.new(title: I18n.t("bo.devise.password.new") )) do %>
+  <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+    <%= f.input :reset_password_token, as: :hidden %>
+    <%= f.input :password,
+                label: 'Mot de passe',
+                required: true,
+                autofocus: true,
+                hint: ("#{@minimum_password_length} caractères minimum" if @minimum_password_length),
+                class: 'block text-sm font-medium text-gray-700' %>
+    <%= f.input :password_confirmation,
+                label: 'Confirmez votre mot de passe',
+                required: true,
+                class: 'block text-sm font-medium text-gray-700' %>
+    <div class="mt-5">
+      <%= f.button :submit, "Sauvegarder", class: "flex w-full justify-center rounded-md border border-transparent bg-tybo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-tybo-700 focus:outline-none focus:ring-2 focus:ring-tybo-500 focus:ring-offset-2", data: { turbo: false }    %>
     </div>
-  </div>
-<%= render(CoverComponent.new) %>
-</div>
+  <% end %>
+<% end %>

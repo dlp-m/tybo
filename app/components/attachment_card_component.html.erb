@@ -17,7 +17,7 @@
       </div>
 
       <div class="flex-shrink-0 pr-2">
-        <%= button_tag type: :button, data: { controller: "attachments", attachments_method_value: 'delete', attachments_url_value: remove_attachment_admin_thematic_path(@attachment.record), attachments_attachment_id_value: @attachment.id, action: "click->attachments#toggle" } do %>
+        <%= button_tag type: :button, data: { controller: "attachments", attachments_method_value: 'delete', attachments_url_value: @url, attachments_attachment_id_value: @attachment.id, action: "click->attachments#toggle" } do %>
         <span class="sr-only">Delete</span>
         <%= render(Icons::TrashComponent.new) %>
         <% end %>

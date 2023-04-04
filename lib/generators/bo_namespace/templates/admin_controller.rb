@@ -5,4 +5,10 @@ class <%= class_name %>Controller < ApplicationController
   layout '<%= class_name.underscore %>'
   before_action :authenticate_<%= class_name.underscore %>!
   authorize :user, through: :current_<%= class_name.underscore %>
+
+  private
+
+  def namespace
+    @namespace ||= Bo::<%= class_name.pluralize %>
+  end
 end
