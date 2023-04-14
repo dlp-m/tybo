@@ -6,7 +6,7 @@
     </div>
   <% else -%> 
     <div class="min-w-0 flex-1">
-      <%== link.call(pagy.prev, pagy_t('bo.pagy.nav.next'), 'aria-label="previous" class="hidden"') %>
+      <%== link.call(pagy.prev, pagy_t('bo.pagy.nav.prev'), 'aria-label="previous" class="hidden"') %>
     </div>
   <% end -%>
   <% pagy.series.each do |item| # series example: [1, :gap, 7, 8, "9", 10, 11, :gap, 36] -%>
