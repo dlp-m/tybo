@@ -1,3 +1,5 @@
+### 0.0.40
+- add translations for pagination Previous & Next buttons, separator 'to' of DateSearchComponent
 ### 0.0.39
 - fix paginations errors
 ### 0.0.38
