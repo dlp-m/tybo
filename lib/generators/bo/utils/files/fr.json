@@ -17,5 +17,8 @@
   "destroyed": "Suppression effectuée",
   "filters": "Filtres",
   "confirm_delete": "Êtes-vous sûr ?",
-  "details": "Détails"
+  "details": "Détails",
+  "to": "à",
+  "next": "Suivant",
+  "prev": "Précédent"
 }

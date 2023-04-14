@@ -9,6 +9,7 @@ def create_translations
           'bo' => {
             'filters' => find_existing_translation('filters', local),
             'details' => find_existing_translation('details', local),
+            'to' => find_existing_translation('to', local),
             'confirm_delete' => find_existing_translation('confirm_delete', local),
             'record' => {
             'created' => find_existing_translation('created', local),
@@ -29,6 +30,10 @@ def create_translations
       'subtitle' => find_existing_translation("list of #{bo_model.to_s.pluralize.downcase}", local),
       'attributes' => model_attributes(data, local)
 
+    }
+    data[local]['bo']['pagy']['nav'] = {
+      'next' => find_existing_translation('next', local),
+      'prev' => find_existing_translation('prev', local)
     }
     output = YAML.dump data
     File.write(locale_file, output)
