@@ -2,11 +2,11 @@
 <nav class="mx-auto mt-6 flex max-w-7xl justify-between px-4 text-sm font-medium text-gray-700 sm:px-6 lg:px-8" role="navigation">
   <% if pagy.prev -%>  
     <div class="min-w-0 flex-1">
-      <%== link.call(pagy.prev, pagy_t('bo.pagy.nav.prev'), 'aria-label="previous" class="inline-flex h-10 items-center rounded-md border border-gray-300 bg-white px-4 hover:bg-gray-100 focus:border-tybo-600 focus:outline-none focus:ring-2 focus:ring-tybo-600 focus:ring-opacity-25 focus:ring-offset-1 focus:ring-offset-tybo-600""') %>
+      <%== link.call(pagy.prev, I18n.t('bo.nav.prev'), 'aria-label="previous" class="inline-flex h-10 items-center rounded-md border border-gray-300 bg-white px-4 hover:bg-gray-100 focus:border-tybo-600 focus:outline-none focus:ring-2 focus:ring-tybo-600 focus:ring-opacity-25 focus:ring-offset-1 focus:ring-offset-tybo-600""') %>
     </div>
   <% else -%> 
     <div class="min-w-0 flex-1">
-      <%== link.call(pagy.prev, pagy_t('bo.pagy.nav.prev'), 'aria-label="previous" class="hidden"') %>
+      <%== link.call(pagy.prev, I18n.t('bo.nav.prev'), 'aria-label="previous" class="hidden"') %>
     </div>
   <% end -%>
   <% pagy.series.each do |item| # series example: [1, :gap, 7, 8, "9", 10, 11, :gap, 36] -%>
@@ -22,11 +22,11 @@
   <% end -%>
   <% if pagy.next -%> 
     <div class="flex min-w-0 flex-1 justify-end">
-      <%== link.call(pagy.next, pagy_t('bo.pagy.nav.next'), 'aria-label="next" class="inline-flex h-10 items-center rounded-md border border-gray-300 bg-white px-4 hover:bg-gray-100 focus:border-tybo-600 focus:outline-none focus:ring-2 focus:ring-tybo-600 focus:ring-opacity-25 focus:ring-offset-1 focus:ring-offset-tybo-600"') %>
+      <%== link.call(pagy.next, I18n.t('bo.nav.next'), 'aria-label="next" class="inline-flex h-10 items-center rounded-md border border-gray-300 bg-white px-4 hover:bg-gray-100 focus:border-tybo-600 focus:outline-none focus:ring-2 focus:ring-tybo-600 focus:ring-opacity-25 focus:ring-offset-1 focus:ring-offset-tybo-600"') %>
     </div>
   <% else -%>
     <div class="flex min-w-0 flex-1 justify-end">
-      <%== link.call(pagy.next, pagy_t('bo.pagy.nav.next'), 'aria-label="next" class="hidden"') %>
+      <%== link.call(pagy.next, I18n.t('bo.nav.next'), 'aria-label="next" class="hidden"') %>
     </div>
   <% end -%>
 </nav>
