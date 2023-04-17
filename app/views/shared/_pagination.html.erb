@@ -13,7 +13,7 @@
     <% if item.is_a?(Integer) -%>
       <%== link.call(item, item, 'class="inline-flex h-10 items-center rounded-md border border-gray-300 bg-white px-4 hover:bg-gray-100 focus:border-tybo-600 focus:outline-none focus:ring-2 focus:ring-tybo-600 focus:ring-opacity-25 focus:ring-offset-1 focus:ring-offset-tybo-600"') %>
     <% elsif item.is_a?(String)  -%>
-      <%== link.call(item, item, 'class="toto inline-flex h-10 items-center rounded-md border border-tybo-600 bg-white px-4 ring-1 ring-tybo-600 hover:bg-gray-100 focus:border-tybo-600 focus:outline-none focus:ring-2 focus:ring-tybo-600 focus:ring-opacity-25 focus:ring-offset-1 focus:ring-offset-tybo-600"') %>
+      <%== link.call(item, item, 'class="inline-flex h-10 items-center rounded-md border border-tybo-600 bg-white px-4 ring-1 ring-tybo-600 hover:bg-gray-100 focus:border-tybo-600 focus:outline-none focus:ring-2 focus:ring-tybo-600 focus:ring-opacity-25 focus:ring-offset-1 focus:ring-offset-tybo-600"') %>
     <% elsif item == :gap -%>
       <span class="inline-flex h-10 items-center px-1.5 text-gray-500">
         <%== I18n.t('bo.nav.gap') %>
