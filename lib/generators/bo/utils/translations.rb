@@ -9,11 +9,17 @@ def create_translations
           'bo' => {
             'filters' => find_existing_translation('filters', local),
             'details' => find_existing_translation('details', local),
+            'to' => find_existing_translation('to', local),
             'confirm_delete' => find_existing_translation('confirm_delete', local),
             'record' => {
             'created' => find_existing_translation('created', local),
             'updated' => find_existing_translation('updated', local),
-            'destroyed' => find_existing_translation('destroyed', local)
+            'destroyed' => find_existing_translation('destroyed', local),
+            'nav' => {
+              'prev' => find_existing_translation('prev', local),
+              'next' => find_existing_translation('next', local),
+              'gap' => find_existing_translation('gap', local)
+            }
           }
          }
         }
