@@ -15,11 +15,16 @@ def create_translations
             'created' => find_existing_translation('created', local),
             'updated' => find_existing_translation('updated', local),
             'destroyed' => find_existing_translation('destroyed', local),
-            'nav' => {
-              'prev' => find_existing_translation('prev', local),
-              'next' => find_existing_translation('next', local),
-              'gap' => find_existing_translation('gap', local)
-            }
+          },
+          'nav' => {
+            'prev' => find_existing_translation('prev', local),
+            'next' => find_existing_translation('next', local),
+            'gap' => find_existing_translation('gap', local)
+          },
+          'devise' => {
+            'password' => find_existing_translation('password', local),
+            'new' => find_existing_translation('new', local),
+            'forgot_password' => find_existing_translation('forgot_password', local),
           }
          }
         }
@@ -50,7 +55,7 @@ def model_attributes(data, local)
 end
 
 def find_existing_translation(col, local)
-  return col.to_s.humanize.downcase if local == 'en'
+  return col.to_s.humanize.capitalize if local == 'en'
 
   json = JSON.parse(File.read("#{__dir__}/files/#{local}.json"))
   json[col.to_s]

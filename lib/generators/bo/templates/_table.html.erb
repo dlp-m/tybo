@@ -13,7 +13,7 @@
         <%- end -%>
         <%%= tr.with_td do %>
           <%%= link_to <%="#{options[:namespace]}_#{class_name.underscore}_path(#{class_name.underscore})"%>, class: "text-tybo-600 hover:text-tybo-900"  do %>
-            <%%= I18n.t('bo.details') %>
+            <%%= I18n.t('bo.show') %>
           <%% end %>
         <%% end %>
         <%%= tr.with_td do %>
