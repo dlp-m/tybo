@@ -46,7 +46,5 @@ class TyboInstallGenerator < Rails::Generators::Base
       "application.register('dropdown', Dropdown)\napplication.register('flash', Flash)\napplication.register('search-form', SearchForm)\napplication.register('ts--search', TsSearch)\napplication.register('ts--select', TsSelect)\n"
     end
   end
-
-  private
 end
 

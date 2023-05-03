@@ -1,6 +1,6 @@
 ### 0.1.0
 - /!\ change errors and alert class for customisation.
-  add 'read-alert' colors in your `config/tailwind.config.js`
+  add 'red-alert' colors in your `config/tailwind.config.js`
   ```js
   colors: {
     tybo: {
