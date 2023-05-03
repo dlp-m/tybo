@@ -11,9 +11,9 @@
             'to' => find_existing_translation('to', locale),
             'confirm_delete' => find_existing_translation('confirm_delete', locale),
             'record' => {
-            'created' => find_existing_translation('created', locale),
-            'updated' => find_existing_translation('updated', locale),
-            'destroyed' => find_existing_translation('destroyed', locale),
+              'created' => find_existing_translation('created', locale),
+              'updated' => find_existing_translation('updated', locale),
+              'destroyed' => find_existing_translation('destroyed', locale),
           },
           'nav' => {
             'prev' => find_existing_translation('prev', locale),
