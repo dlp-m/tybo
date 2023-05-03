@@ -7,7 +7,7 @@
         local => {
           'bo' => {
             'filters' => find_existing_translation('filters', local),
-            'details' => find_existing_translation('details', local),
+            'show' => find_existing_translation('show', local),
             'to' => find_existing_translation('to', local),
             'confirm_delete' => find_existing_translation('confirm_delete', local),
             'record' => {
@@ -22,13 +22,12 @@
             },
             'devise' => {
               'password' => find_existing_translation('password', local),
-              'new' => find_existing_translation('new', local),
               'forgot_password' => find_existing_translation('forgot_password', local),
               'reset_password_instructions' => find_existing_translation('reset_password_instructions', local),
               'remember_me' => find_existing_translation('remember_me', local),
               'sign_in' => find_existing_translation('sign_in', local),
               'send_me_reset_password_instructions' => find_existing_translation('send_me_reset_password_instructions', local),
-              'save' => find_existing_translation('save', local)
+              'save' => find_existing_translation('save', local),
               }
             }
           }

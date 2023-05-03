@@ -15,6 +15,7 @@ def create_translations
             'created' => find_existing_translation('created', local),
             'updated' => find_existing_translation('updated', local),
             'destroyed' => find_existing_translation('destroyed', local),
+            'show' => find_existing_translation('show', local),
           },
           'nav' => {
             'prev' => find_existing_translation('prev', local),
