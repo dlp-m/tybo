@@ -4,7 +4,7 @@
     %w[en fr].each do |locale|
       locale_file = "config/locales/bo.#{locale}.yml"
       File.write(locale_file, {
-        local => {
+        locale => {
           'bo' => {
             'filters' => find_existing_translation('filters', locale),
             'show' => find_existing_translation('show', locale),
