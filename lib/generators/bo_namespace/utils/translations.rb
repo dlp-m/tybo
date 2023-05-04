@@ -24,7 +24,7 @@ def create_translations
   end
 end
 
-def find_existing_translation(col, locael)
+def find_existing_translation(col, locale)
   json = {
     sign_in_as_administrator:{
       fr: "Espace administrateur",
