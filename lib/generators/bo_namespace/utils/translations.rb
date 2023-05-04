@@ -31,7 +31,7 @@ def find_existing_translation(col, locael)
       en: "Namespace administrator"
     },
     sign_in_as_user: {
-      fr: "Espace user",
+      fr: "Espace utilisateur",
       en: "Namespace user"
     }
   }
