@@ -7,7 +7,7 @@
       ...
     },
     'red-alert': {
-      DEFAULT: '#D0342C',
+      DEFAULT: '#d0342c',
       '50': '#fdf3f3',
       '100': '#fde4e3',
       '200': '#fbcfcd',
