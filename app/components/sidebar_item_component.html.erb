@@ -1,6 +1,4 @@
-<% current_class = current_page?(@path) ? 'bg-sidebar-900 text-white hover:bg-sidebar-900' : '' %>
-
-<%= link_to @path, class: "#{current_class} group flex items-center px-2 py-2 text-sm font-medium rounded-md hover:bg-sidebar-200" do %>
+<%= link_to @path, class: "#{current_page?(@path) ? 'bg-tybo-800 text-white hover:bg-tybo-800' : ''} group flex items-center px-2 py-2 text-sm font-medium rounded-md hover:bg-tybo-800" do %>
   <%= render(@icon.new) %>
 
   <span class="flex-1 text-white">

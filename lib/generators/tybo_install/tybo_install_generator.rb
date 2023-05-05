@@ -2,6 +2,7 @@
 
 class TyboInstallGenerator < Rails::Generators::Base
   source_root File.expand_path("templates", __dir__)
+  require_relative "./utils/translations.rb"
 
   def install_dependencies
     gem 'tailwindcss-rails', '~> 2.0', '>= 2.0.21' unless Bundler.locked_gems.specs.any? { |gem| gem.name == 'tailwindcss-rails' }
@@ -12,6 +13,7 @@ class TyboInstallGenerator < Rails::Generators::Base
   end
 
   def create_configuration_files
+    create_base_translation_files
     template 'application.tailwind.css', File.join('app/assets/stylesheets/application.tailwind.css'), force: true
     template 'tailwind.config.js', File.join('config/tailwind.config.js'), force: true
     template 'tom-select.css', File.join('app/assets/stylesheets/tom-select.css')
@@ -28,6 +30,8 @@ class TyboInstallGenerator < Rails::Generators::Base
     route "root to: 'tybo/login#home'"
     route "mount Tybo::Engine => \"/tybo\""
   end
+
+
 
   def install_administrators
     run 'rails g bo_namespace Administrator'
