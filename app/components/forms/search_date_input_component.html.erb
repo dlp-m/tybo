@@ -8,7 +8,7 @@
     <%= @form.date_field @from_field, data: { action: "input->search-form#search" }, class: "rounded-md border-gray-300 shadow-sm focus:border-tybo-500 focus:ring-tybo-500 sm:text-sm" %>
   </div>
   <div class="mt-1 sm:col-span-2 text-center">
-    to
+    <%= I18n.t('bo.to') %>
   </div>
   <div class="mt-1 sm:col-span-3 sm:mt-0">
     <%= @form.date_field @to_field, data: { action: "input->search-form#search" }, class: "rounded-md border-gray-300 shadow-sm focus:border-tybo-500 focus:ring-tybo-500 sm:text-sm" %>

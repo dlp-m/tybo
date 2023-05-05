@@ -22,5 +22,10 @@
   "next": "Suivant",
   "prev": "Précédent",
   "gap": "...",
-  "show": "Détails"
+  "show": "Détails",
+  "forgot_password": "Mot de passe oublié ?",
+  "remember_me": "Se souvenir de moi ?",
+  "sign_in": "Connexion",
+  "send_me_reset_password_instructions": "Réinitialiser mon mot de passe",
+  "save": "Sauvegarder"
 }

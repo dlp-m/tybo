@@ -2,7 +2,8 @@
 
 class BoNamespaceGenerator < Rails::Generators::NamedBase
   source_root File.expand_path("templates", __dir__)
-  
+  require_relative "./utils/translations.rb"
+
   def create_bo_namespace_files
     run "bundle exec rails g devise #{file_name.capitalize}"
     run 'bundle exec rails db:migrate'
@@ -11,6 +12,7 @@ class BoNamespaceGenerator < Rails::Generators::NamedBase
     template 'admin_controller.rb', File.join('app/controllers/', "#{singular_name}_controller.rb")
     template 'seeds.rb', File.join('db/seeds/', "#{plural_name}.rb")
     template 'side_bar.html.erb', File.join('app/views/', "#{plural_name}/layouts/_side_bar.html.erb")
+    create_translations
     remove_devise_registration
   end
 

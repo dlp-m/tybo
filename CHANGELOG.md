@@ -1,3 +1,31 @@
+### 0.1.0
+- /!\ change errors and alert class for customisation.
+  add 'red-alert' colors in your `config/tailwind.config.js`
+  ```js
+  colors: {
+    tybo: {
+      ...
+    },
+    'red-alert': {
+      DEFAULT: '#d0342c',
+      '50': '#fdf3f3',
+      '100': '#fde4e3',
+      '200': '#fbcfcd',
+      '300': '#f8ada9',
+      '400': '#f17e78',
+      '500': '#e7544c',
+      '600': '#d0342c',
+      '700': '#b12b24',
+      '800': '#932721',
+      '900': '#7a2622',
+      '950': '#42100d',
+    }
+  }
+  ```
+- add better translations
+- fix the Tailwind CSS classes that were not being interpreted dynamically
+### 0.0.40
+- add translations for pagination Previous & Next buttons, separator 'to' of DateSearchComponent
 ### 0.0.39
 - fix paginations errors
 ### 0.0.38
