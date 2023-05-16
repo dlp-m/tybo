@@ -1,3 +1,5 @@
+### 0.1.3
+- add better paginations
 ### 0.1.0
 - /!\ change errors and alert class for customisation.
   add 'red-alert' colors in your `config/tailwind.config.js`

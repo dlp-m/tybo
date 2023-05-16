@@ -1,34 +1,29 @@
-<% link = pagy_link_proc(pagy) -%>
-<nav class="mx-auto mt-6 flex max-w-7xl justify-between px-4 text-sm font-medium text-gray-700 sm:px-6 lg:px-8" role="navigation">
-
-  <% if pagy.prev -%>
-    <div class="min-w-0 flex-1">
-      <%== link.call(pagy.prev, I18n.t('bo.nav.prev'), 'aria-label="previous" class="inline-flex h-10 items-center rounded-md border border-gray-300 bg-white px-4 hover:bg-gray-100 focus:border-tybo-600 focus:outline-none focus:ring-2 focus:ring-tybo-600 focus:ring-opacity-25 focus:ring-offset-1 focus:ring-offset-tybo-600""') %>
+<% link = pagy_link_proc(pagy) %>
+<div class="flex items-center justify-between bg-white py-3">
+  <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+    <div>
+      <p class="text-sm text-tybo-700">
+        <%= I18n.t('bo.pagy.showing') %>
+        <span class="font-bold"><%= pagy.from %></span>
+          <%= I18n.t('bo.pagy.to') %>
+        <span class="font-bold"><%= pagy.to %></span>
+          <%= I18n.t('bo.pagy.of') %>
+        <span class="font-bold"><%= pagy.count %></span>
+        <%= I18n.t('bo.pagy.results') %>
+      </p>
     </div>
-  <% else -%>
-    <div class="min-w-0 flex-1">
-      <%== link.call(pagy.prev, I18n.t('bo.nav.prev'), 'aria-label="previous" class="hidden"') %>
+    <div>
+      <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+        <% pagy.series.each do |item| %>
+          <% if item.is_a?(Integer) %>
+            <%== link.call(item, item.to_s, 'class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"') %>
+          <% elsif item.is_a?(String) %>
+            <span class="relative z-10 inline-flex items-center bg-tybo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tybo-600"><%= item %></span>
+          <% elsif item == :gap %>
+            <span class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0">...</span>
+          <% end %>
+        <% end %>
+      </nav>
     </div>
-  <% end -%>
-  <% if pagy.next -%>
-    <% pagy.series.each do |item|
-      # series example: [1, :gap, 7, 8, "9", 10, 11, :gap, 36]  -%>
-      <% if item.is_a?(Integer) -%>
-        <%== link.call(item, item, 'class="inline-flex h-10 items-center rounded-md border border-gray-300 bg-white px-4 hover:bg-gray-100 focus:border-tybo-600 focus:outline-none focus:ring-2 focus:ring-tybo-600 focus:ring-opacity-25 focus:ring-offset-1 focus:ring-offset-tybo-600"') %>
-      <% elsif item.is_a?(String) -%>
-        <%== link.call(item, item, 'class="inline-flex h-10 items-center rounded-md border border-tybo-600 bg-white px-4 ring-1 ring-tybo-600 hover:bg-gray-100 focus:border-tybo-600 focus:outline-none focus:ring-2 focus:ring-tybo-600 focus:ring-opacity-25 focus:ring-offset-1 focus:ring-offset-tybo-600"') %>
-      <% elsif item == :gap -%>
-        <span class="inline-flex h-10 items-center px-1.5 text-gray-500">
-          <%== I18n.t('bo.nav.gap') %>
-        </span>
-      <% end -%>
-    <% end -%>
-    <div class="flex min-w-0 flex-1 justify-end">
-      <%== link.call(pagy.next, I18n.t('bo.nav.next'), 'aria-label="next" class="inline-flex h-10 items-center rounded-md border border-gray-300 bg-white px-4 hover:bg-gray-100 focus:border-tybo-600 focus:outline-none focus:ring-2 focus:ring-tybo-600 focus:ring-opacity-25 focus:ring-offset-1 focus:ring-offset-tybo-600"') %>
-    </div>
-  <% else -%>
-    <div class="flex min-w-0 flex-1 justify-end">
-      <%== link.call(pagy.next, I18n.t('bo.nav.next'), 'aria-label="next" class="hidden"') %>
-    </div>
-  <% end -%>
-</nav>
+  </div>
+</div>
