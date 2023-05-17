@@ -20,6 +20,13 @@
             'next' => find_existing_translation('next', locale),
             'gap' => find_existing_translation('gap', locale)
           },
+          'pagy' => {
+            'showing' =>  find_existing_translation('showing', locale),
+            'to' =>  find_existing_translation('to', locale),
+            'of' =>  find_existing_translation('of', locale),
+            'show' =>  find_existing_translation('show', locale),
+            'results' =>  find_existing_translation('results', locale)
+           },
           'devise' => {
             'password' => find_existing_translation('password', locale),
             'forgot_password' => find_existing_translation('forgot_password', locale),

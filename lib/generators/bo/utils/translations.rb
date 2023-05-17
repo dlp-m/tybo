@@ -3,35 +3,6 @@
 def create_translations
   %w[en fr].each do |locale|
     locale_file = "config/locales/bo.#{locale}.yml"
-    unless File.exist?(locale_file)
-      File.write(locale_file, {
-        locale => {
-          'bo' => {
-            'filters' => find_existing_translation('filters', locale),
-            'details' => find_existing_translation('details', locale),
-            'to' => find_existing_translation('to', locale),
-            'confirm_delete' => find_existing_translation('confirm_delete', locale),
-            'record' => {
-            'created' => find_existing_translation('created', locale),
-            'updated' => find_existing_translation('updated', locale),
-            'destroyed' => find_existing_translation('destroyed', locale),
-            'show' => find_existing_translation('show', locale),
-          },
-          'nav' => {
-            'prev' => find_existing_translation('prev', locale),
-            'next' => find_existing_translation('next', locale),
-            'gap' => find_existing_translation('gap', locale)
-          },
-          'devise' => {
-            'password' => find_existing_translation('password', locale),
-            'new' => find_existing_translation('new', locale),
-            'forgot_password' => find_existing_translation('forgot_password', locale),
-          }
-         }
-        }
-      }.to_yaml)
-    end
-
     yaml_string = File.open locale_file
     data = YAML.load yaml_string
     data[locale]['bo'][file_name.underscore] = {
