@@ -1,112 +1,287 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import 'actiontext.css';
 
-/* pagination  */
-.pagy-nav,
-.pagy-nav-js {
-    @apply flex space-x-2;
+/*
+
+@layer components {
+  .btn-primary {
+    @apply py-2 px-4 bg-blue-200;
+  }
 }
 
-.pagy-nav .page a,
-.pagy-nav .page.active,
-.pagy-nav .page.prev.disabled,
-.pagy-nav .page.next.disabled,
-.pagy-nav-js .page a,
-.pagy-nav-js .page.active,
-.pagy-nav-js .page.prev.disabled,
-.pagy-nav-js .page.next.disabled {
-    @apply block rounded-lg px-3 py-1 text-sm text-tybo-500 font-semibold bg-tybo-200 shadow-md;
+*/
 
-    &:hover {
-        @apply bg-tybo-300;
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@layer base {
+    :root {
+        -webkit-font-smoothing: antialiased;
+
+        --scrollbar-size: 10px;
+
+        --be-vietnam-pro-font: 'Be Vietnam Pro', sans-serif;
+
+        /* Palettes */
+
+        --colors-white: #ffffff;
+        --colors-whitesAlpha-50: rgba(255, 255, 255, 0.04);
+        --colors-whitesAlpha-100: rgba(255, 255, 255, 0.08);
+        --colors-whitesAlpha-200: rgba(255, 255, 255, 0.12);
+        --colors-whitesAlpha-300: rgba(255, 255, 255, 0.16);
+        --colors-whitesAlpha-400: rgba(255, 255, 255, 0.24);
+        --colors-whitesAlpha-500: rgba(255, 255, 255, 0.38);
+        --colors-whitesAlpha-600: rgba(255, 255, 255, 0.5);
+        --colors-whitesAlpha-700: rgba(255, 255, 255, 0.75);
+        --colors-whitesAlpha-800: rgba(255, 255, 255, 0.87);
+        --colors-whitesAlpha-900: rgba(255, 255, 255, 0.95);
+
+        --colors-blacksAlpha-50: rgba(0, 0, 0, 0.02);
+        --colors-blacksAlpha-100: rgba(0, 0, 0, 0.04);
+        --colors-blacksAlpha-200: rgba(0, 0, 0, 0.08);
+        --colors-blacksAlpha-300: rgba(0, 0, 0, 0.12);
+        --colors-blacksAlpha-400: rgba(0, 0, 0, 0.16);
+        --colors-blacksAlpha-500: rgba(0, 0, 0, 0.24);
+        --colors-blacksAlpha-600: rgba(0, 0, 0, 0.38);
+        --colors-blacksAlpha-700: rgba(0, 0, 0, 0.6);
+        --colors-blacksAlpha-800: rgba(0, 0, 0, 0.87);
+        --colors-blacksAlpha-900: rgba(0, 0, 0, 1);
+
+        --purple-hue: 256;
+        --purple-hs: var(--purple-hue), 70%;
+
+        --colors-purple-50: hsl(var(--purple-hs), 96%);
+        --colors-purple-100: hsl(var(--purple-hs), 92%);
+        --colors-purple-200: hsl(var(--purple-hs), 80%);
+        --colors-purple-300: hsl(var(--purple-hs), 70%);
+        --colors-purple-400: hsl(var(--purple-hs), 60%);
+        --colors-purple-500: hsl(var(--purple-hs), 50%);
+        --colors-purple-600: hsl(var(--purple-hs), 40%);
+        --colors-purple-700: hsl(var(--purple-hs), 30%);
+        --colors-purple-800: hsl(var(--purple-hs), 10%);
+        --colors-purple-900: hsl(var(--purple-hs), 6%);
+
+        --colors-purplesAlpha-50: hsla(var(--purple-hs), 50%, 0.02);
+        --colors-purplesAlpha-100: hsla(var(--purple-hs), 50%, 0.04);
+        --colors-purplesAlpha-200: hsla(var(--purple-hs), 50%, 0.08);
+        --colors-purplesAlpha-300: hsla(var(--purple-hs), 50%, 0.12);
+        --colors-purplesAlpha-400: hsla(var(--purple-hs), 50%, 0.16);
+        --colors-purplesAlpha-500: hsla(var(--purple-hs), 50%, 0.24);
+        --colors-purplesAlpha-600: hsla(var(--purple-hs), 50%, 0.38);
+        --colors-purplesAlpha-700: hsla(var(--purple-hs), 50%, 0.6);
+        --colors-purplesAlpha-800: hsla(var(--purple-hs), 50%, 0.87);
+        --colors-purplesAlpha-900: var(--colors-purple-500);
+
+        --pink-hue: 280;
+        --pink-hs: var(--pink-hue), 90%;
+        --colors-pink-500: hsl(var(--pink-hs), 60%);
+
+        --colors-pinksAlpha-50: hsla(var(--pink-hs), 60%, 0.02);
+        --colors-pinksAlpha-100: hsla(var(--pink-hs), 60%, 0.04);
+        --colors-pinksAlpha-200: hsla(var(--pink-hs), 60%, 0.08);
+        --colors-pinksAlpha-300: hsla(var(--pink-hs), 60%, 0.12);
+        --colors-pinksAlpha-400: hsla(var(--pink-hs), 60%, 0.16);
+        --colors-pinksAlpha-500: hsla(var(--pink-hs), 60%, 0.24);
+        --colors-pinksAlpha-600: hsla(var(--pink-hs), 60%, 0.38);
+        --colors-pinksAlpha-700: hsla(var(--pink-hs), 60%, 0.6);
+        --colors-pinksAlpha-800: hsla(var(--pink-hs), 60%, 0.87);
+        --colors-pinksAlpha-900: hsla(var(--pink-hs), 60%, 1);
+
+        --colors-orange-500: hsl(30, 90%, 62%);
+        --colors-orangesAlpha-50: hsla(30, 90%, 62%, 0.02);
+        --colors-orangesAlpha-100: hsla(30, 90%, 62%, 0.04);
+        --colors-orangesAlpha-200: hsla(30, 90%, 62%, 0.08);
+        --colors-orangesAlpha-300: hsla(30, 90%, 62%, 0.12);
+        --colors-orangesAlpha-400: hsla(30, 90%, 62%, 0.16);
+        --colors-orangesAlpha-500: hsla(30, 90%, 62%, 0.24);
+        --colors-orangesAlpha-600: hsla(30, 90%, 62%, 0.38);
+        --colors-orangesAlpha-700: hsla(30, 90%, 62%, 0.6);
+        --colors-orangesAlpha-800: hsla(30, 90%, 62%, 0.87);
+        --colors-orangesAlpha-900: hsla(30, 90%, 62%, 1);
+
+        --colors-blue-500: hsl(190, 80%, 50%);
+        --colors-bluesAlpha-50: hsla(190, 80%, 50%, 0.02);
+        --colors-bluesAlpha-100: hsla(190, 80%, 50%, 0.04);
+        --colors-bluesAlpha-200: hsla(190, 80%, 50%, 0.08);
+        --colors-bluesAlpha-300: hsla(190, 80%, 50%, 0.12);
+        --colors-bluesAlpha-400: hsla(190, 80%, 50%, 0.16);
+        --colors-bluesAlpha-500: hsla(190, 80%, 50%, 0.24);
+        --colors-bluesAlpha-600: hsla(190, 80%, 50%, 0.38);
+        --colors-bluesAlpha-700: hsla(190, 80%, 50%, 0.6);
+        --colors-bluesAlpha-800: hsla(190, 80%, 50%, 0.87);
+        --colors-bluesAlpha-900: hsla(190, 80%, 50%, 1);
+
+        --colors-green-500: hsl(113, 80%, 50%);
+        --colors-greensAlpha-50: hsla(113, 80%, 50%, 0.02);
+        --colors-greensAlpha-100: hsla(113, 80%, 50%, 0.04);
+        --colors-greensAlpha-200: hsla(113, 80%, 50%, 0.08);
+        --colors-greensAlpha-300: hsla(113, 80%, 50%, 0.12);
+        --colors-greensAlpha-400: hsla(113, 80%, 50%, 0.16);
+        --colors-greensAlpha-500: hsla(113, 80%, 50%, 0.24);
+        --colors-greensAlpha-600: hsla(113, 80%, 50%, 0.38);
+        --colors-greensAlpha-700: hsla(113, 80%, 50%, 0.6);
+        --colors-greensAlpha-800: hsla(113, 80%, 50%, 0.87);
+        --colors-greensAlpha-900: hsla(113, 80%, 50%, 1);
+
+        /* Palettes */
+
+        --ui-primary: var(--colors-purple-500);
+        --ui-secondary: var(--colors-pink-500);
+        --ui-tertiary: var(--colors-orange-500);
+        --ui-quaternary: var(--colors-blue-500);
+
+        --ui-background: var(--colors-white);
+        --ui-background-alt: hsl(var(--purple-hue), 29%, 96%);
+
+        --ui-app-background: var(--ui-background);
+        --ui-sidebar-background: var(--ui-background-alt);
+
+        --ui-text-primary: hsl(var(--purple-hue), 47%, 16%);
+        --ui-text-secondary: hsl(var(--purple-hue), 14%, 39%);
+        --ui-text-tertiary: hsl(var(--purple-hue), 12%, 59%);
+
+        --ui-divider: var(--colors-purplesAlpha-200);
+        --ui-divider-strong: var(--colors-purplesAlpha-300);
+        --ui-divider-faded: var(--colors-purplesAlpha-100);
+
+        --ui-gradient-primary-from: var(--ui-primary);
+        --ui-gradient-primary-to: var(--ui-secondary);
+        --ui-gradient-primary-stops: var(--ui-primary), var(--ui-secondary);
+        --ui-gradient-secondary-stops: var(--ui-primary), var(--ui-secondary),
+            var(--ui-teriary);
+
+        --ui-accent: var(--ui-primary);
     }
 
-    &:active {
-        @apply bg-tybo-400 text-white;
+    [data-mode="dark"] {
+        --ui-text-primary: hsl(var(--purple-hue), 11%, 83%);
+        --ui-text-secondary: hsl(var(--purple-hue), 8%, 66%);
+        --ui-text-tertiary: hsl(var(--purple-hue), 13%, 44%);
+
+        --ui-background: var(--colors-purple-900);
+        --ui-background-alt: var(--colors-purple-800);
+
+        --ui-app-background: var(--ui-background);
+        --ui-sidebar-background: var(--ui-background);
+
+        --ui-divider: #282336;
+        --ui-divider-strong: var(--colors-whitesAlpha-400);
+        --ui-divider-faded: var(--colors-whitesAlpha-100);
+
+        --ui-gradient-primary-from: hsl(280, 100%, 70%);
+        --ui-gradient-primary-to: hsl(256, 100%, 70%);
+        --ui-gradient-primary-stops: hsl(280, 100%, 70%), hsl(256, 100%, 70%);
+
+        --ui-accent: var(--ui-secondary);
+    }
+
+    :not(code, kbd, samp, pre) {
+        font-family: var(--be-vietnam-pro-font);
+    }
+
+    code *,
+    kbd *,
+    samp *,
+    pre * {
+        font-family: inherit;
+    }
+
+    html {
+        background-color: var(--ui-app-background);
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
     }
 }
 
-.pagy-nav .page.prev.disabled,
-.pagy-nav .page.next.disabled,
-.pagy-nav-js .page.prev.disabled,
-.pagy-nav-js .page.next.disabled {
-    @apply text-tybo-400 cursor-default;
-
-    &:hover {
-        @apply text-tybo-400 bg-tybo-200;
+@layer components {
+    .container-narrow {
+        @apply container;
+        max-width: 45rem;
     }
 
-    &:active {
-        @apply text-tybo-400 bg-tybo-200;
+    .container-default {
+        @apply container;
+        max-width: 62rem;
+    }
+
+    .container-large {
+        @apply container;
+        max-width: 75rem;
+    }
+
+    .text-gradient-primary {
+        @apply bg-gradient-to-r from-purple-500 to-pink-500 text-transparent dark: from-[#CC66FF] dark:to-[#8F66FF];
+
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+    }
+
+    .link-gradient-primary {
+        @apply bg-gradient-primary font-semibold text-transparent transition-all;
+
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+
+        border-bottom: 1px solid;
+        border-image-source: linear-gradient(to right,
+                var(--ui-gradient-primary-from),
+                var(--ui-gradient-primary-to));
+        border-image-slice: 1;
+    }
+
+    .link-gradient-primary:hover {
+        border-image-source: linear-gradient(to right,
+                var(--ui-gradient-primary-from),
+                var(--ui-gradient-primary-to));
+    }
+
+    :disabled .link-gradient-primary,
+    :disabled .link-gradient-primary:hover {
+        border-bottom: 0;
+        border-image-source: none !important;
     }
 }
 
-.pagy-nav .page.active,
-.pagy-nav-js .page.active {
-    @apply text-white cursor-default bg-tybo-400;
-
-    &:hover {
-        @apply text-white bg-tybo-400;
-    }
-
-    &:active {
-        @apply bg-tybo-400 text-white;
-    }
+.card {
+    @apply bg-gradient-to-r p-4 md: p-6 ring-1 rounded-2xl from-purplesAlpha-100 to-pinksAlpha-100 ring-ui-divider dark:ring-ui-divider flex flex-col gap-2 text-ui-text transition-opacity;
 }
 
-
-.pagy-combo-nav-js {
-    @apply flex max-w-max rounded-full px-3 py-1 text-sm text-tybo-500 font-semibold bg-tybo-200 shadow-md;
+.card h2 {
+    @apply flex flex-col items-start gap-2 text-2xl font-bold;
 }
 
-.pagy-combo-nav-js .pagy-combo-input {
-    @apply bg-white px-2 rounded-sm
+.card h2 span {
+    @apply text-gradient-primary;
 }
 
-.pagy-combo-nav-js .page.prev,
-.pagy-combo-nav-js .page.next {
-    &:hover {
-        @apply text-tybo-800;
-    }
-
-    &:active {
-        @apply text-tybo-800;
-    }
+.button__primary {
+    @apply border-0 inline-flex items-center rounded-md focus: outline-none focus:ring-[3px] transition-all disabled: !ring-0 whitespace-nowrap bg-gradient-button-primary from-[hsl(280, 100%, 65%)] to-[hsl(256, 70%, 50%)] hover:from-[hsl(280, 100%, 65%)] hover:to-[hsl(256, 100%, 59%)] focus:from-[hsl(280, 100%, 65%)] focus:to-[hsl(256, 70%, 50%)] focus:ring-purplesAlpha-600 disabled:from-purplesAlpha-200 disabled:to-purplesAlpha-200 dark:from-[hsl(280, 90%, 60%)] dark:to-[hsla(256, 70%, 50%, 0.5)] dark:hover:from-[hsl(280, 100%, 65%)] dark:hover:to-[hsla(256, 70%, 50%, 0.75)] dark:focus:from-[hsl(280, 90%, 60%)] dark:focus:to-[hsla(256, 70%, 50%, 0.5)] dark:focus:ring-pinksAlpha-600 dark:disabled:from-[var(--colors-pinksAlpha-400)] dark:disabled:to-[var(--colors-pinksAlpha-400)] px-4 py-2;
 }
 
-.pagy-combo-nav-js .page.prev.disabled,
-.pagy-combo-nav-js .page.next.disabled {
-    @apply text-tybo-400 cursor-default;
+.button__primary span {
+    @apply text-sm font-semibold group-disabled: !text-[hsl(var(--purple-hue), 12%, 59%)] flex items-center gap-2 text-white;
 }
 
-/* tom-select  */
-ts-wrapper {
-    @apply w-full !ml-0;
+.button__secondary {
+    @apply border-0 inline-flex items-center rounded-md focus: outline-none focus:ring-[3px] transition-all disabled: !ring-0 whitespace-nowrap bg-purplesAlpha-300 hover:bg-purplesAlpha-500 focus:bg-purplesAlpha-300 focus:ring-[var(--colors-purplesAlpha-600)] disabled:bg-purplesAlpha-200 dark:bg-pinksAlpha-400 dark:hover:bg-pinksAlpha-500 dark:focus:bg-pinksAlpha-400 dark:focus:ring-pinksAlpha-600 disabled:dark:bg-pinksAlpha-400 px-4 py-2
 }
 
-.ts-control {
-    @apply shadow-sm rounded-lg my-5 border-tybo-300 bg-white py-2 px-3 text-base;
+.button__secondary span {
+    @apply text-sm font-semibold group-disabled: !text-[hsl(var(--purple-hue), 12%, 59%)] flex items-center gap-2 text-gradient-primary group-disabled:from-[hsl(var(--purple-hue), 12%, 59%)] group-disabled:to-[hsl(var(--purple-hue), 12%, 59%)];
 }
 
-.ts-dropdown {
-    @apply rounded-md border border-solid border-t border-tybo-300 text-base;
+.pagination span {
+    @apply border-0 inline-flex items-center rounded-md focus: outline-none focus:ring-[3px] transition-all disabled: !ring-0 whitespace-nowrap bg-purplesAlpha-300 hover:bg-purplesAlpha-500 focus:bg-purplesAlpha-300 focus:ring-[var(--colors-purplesAlpha-600)] disabled:bg-purplesAlpha-200 dark:bg-pinksAlpha-400 dark:hover:bg-pinksAlpha-500 dark:focus:bg-pinksAlpha-400 dark:focus:ring-pinksAlpha-600 disabled:dark:bg-pinksAlpha-400 px-4 py-2
 }
 
-.ts-dropdown [data-selectable].option:first-child {
-    @apply rounded-t-lg;
+.pagination span.active {
+    @apply border-0 inline-flex items-center rounded-md focus: outline-none focus:ring-[3px] transition-all disabled: !ring-0 whitespace-nowrap bg-gradient-button-primary from-[hsl(280, 100%, 65%)] to-[hsl(256, 70%, 50%)] hover:from-[hsl(280, 100%, 65%)] hover:to-[hsl(256, 100%, 59%)] focus:from-[hsl(280, 100%, 65%)] focus:to-[hsl(256, 70%, 50%)] focus:ring-purplesAlpha-600 disabled:from-purplesAlpha-200 disabled:to-purplesAlpha-200 dark:from-[hsl(280, 90%, 60%)] dark:to-[hsla(256, 70%, 50%, 0.5)] dark:hover:from-[hsl(280, 100%, 65%)] dark:hover:to-[hsla(256, 70%, 50%, 0.75)] dark:focus:from-[hsl(280, 90%, 60%)] dark:focus:to-[hsla(256, 70%, 50%, 0.5)] dark:focus:ring-pinksAlpha-600 dark:disabled:from-[var(--colors-pinksAlpha-400)] dark:disabled:to-[var(--colors-pinksAlpha-400)] px-4 py-2;
 }
 
-.ts-dropdown [data-selectable].option:last-child {
-    @apply rounded-b-lg;
-}
-
-.ts-dropdown .create:hover,
-.ts-dropdown .option:hover {
-    @apply bg-sky-50 text-sky-900;
-}
-
-.ts-dropdown .active {
-    @apply bg-tybo-100 text-tybo-900;
+.pagination span a {
+    @apply text-sm font-semibold group-disabled: !text-[hsl(var(--purple-hue), 12%, 59%)] flex items-center gap-2 text-gradient-primary group-disabled:from-[hsl(var(--purple-hue), 12%, 59%)] group-disabled:to-[hsl(var(--purple-hue), 12%, 59%)];
 }
