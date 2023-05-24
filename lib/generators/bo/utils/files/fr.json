@@ -22,5 +22,8 @@
   "next": "Suivant",
   "prev": "Précédent",
   "gap": "...",
-  "show": "Détails"
+  "show": "Détails",
+  "showing": "Affichage de",
+  "of": "de",
+  "results": "resultats"
 }

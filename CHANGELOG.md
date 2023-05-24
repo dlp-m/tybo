@@ -1,5 +1,28 @@
+### 0.2.0
+- :warning: remove the 'target_top' from index and add in your `_model_name.html.erb` a turbo frame  tag with a target '_top' 
+  eg: for a `BlogPost` model :
+```
+# _blog_post.html.erb
+<%= turbo_frame_tag "blog_posts", target: '_top' do %> # add this
+  <%= render(FormComponent.new(item: blog_post)) do |form| %>
+    <% current_page = if blog_post.persisted?
+                      { label: I18n.t('bo.show'), path: administrators_blog_post_path(blog_post) }
+                    else
+                      { label: I18n.t('bo.blog_post.new').capitalize, path: new_administrators_blog_post_path }
+                    end
+      form.with_title(blog_post.persisted? ? blog_post.title : I18n.t('bo.blog_post.new').capitalize)
+      form.with_breadcrumb([
+            { label: I18n.t('bo.blog_post.others').capitalize, path: administrators_blog_posts_path },
+            current_page
+          ]) %>
+      <br>
+      <%= render "form", blog_post: @blog_post %>
+  <% end %>
+<% end %> # add this
+```
+- add better paginations
 ### 0.1.0
-- /!\ change errors and alert class for customisation.
+- :warning: change errors and alert class for customisation.
   add 'red-alert' colors in your `config/tailwind.config.js`
   ```js
   colors: {
@@ -81,7 +104,7 @@ add into `tybo.rb`
 ```
 
 ### 0.0.12
-- /!\ add in your translations files `bo.locale.yml` and for all devices ressources
+- :warning: add in your translations files `bo.locale.yml` and for all devices ressources
   eg for `Administrator`: 
   ```
     bo:
