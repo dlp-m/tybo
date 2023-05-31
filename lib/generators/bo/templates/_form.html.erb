@@ -1,8 +1,12 @@
  <%%= simple_form_for [:<%= options[:namespace] %>, <%= class_name.underscore %>], html: { class: "<%= class_name.underscore %> form" } do |f| %>
   <!-- Model columns -->
-  <%- bo_model.column_names.each do |column| -%>
-  <%- next if excluded_columns.include?(column.to_sym) || bo_model.reflect_on_all_associations.map(&:foreign_key).include?(column) -%>
-  <%%= f.input :<%= column %>,label: I18n.t('bo.<%= class_name.underscore %>.attributes.<%= column %>') %>
+  <%- bo_model.columns.each do |column| -%>
+  <%- next if excluded_columns.include?(column.name.to_sym) || bo_model.reflect_on_all_associations.map(&:foreign_key).include?(column.name) -%>
+  <%- if column.type == :datetime -%>
+  <%%= render(Input::DatetimeComponent.new(item: <%= class_name.underscore %>, field: '<%= column.name %>', form: f)) %>
+  <%- else -%>
+  <%%= f.input :<%= column.name %>,label: I18n.t('bo.<%= class_name.underscore %>.attributes.<%= column.name %>') %>
+  <%- end -%>
   <%- end -%>
   <!-- belongs_to Associations -->
   <%- belongs_to_assoc.each do |association| -%>
