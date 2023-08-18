@@ -10,7 +10,6 @@
             { label: I18n.t('bo.<%= class_name.underscore %>.others').capitalize, path: <%= "#{options[:namespace]}_#{class_name.pluralize.underscore}_path"%> },
             current_page
           ]) %>
-      <br>
       <%%= render "form", <%= class_name.underscore %>: @<%= class_name.underscore %> %>
   <%% end %>
 <%% end %>
