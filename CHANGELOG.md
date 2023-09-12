@@ -1,3 +1,6 @@
+### 0.2.2
+- readjust spacing between titles in form
+- remove useless br in forms template
 ### 0.2.0
 - :warning: remove the 'target_top' from index and add in your `_model_name.html.erb` a turbo frame  tag with a target '_top' 
   eg: for a `BlogPost` model :
