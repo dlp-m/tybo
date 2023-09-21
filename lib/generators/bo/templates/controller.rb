@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'csv'
+
 module <%= options[:namespace].camelize %>
   class <%= class_name.pluralize %>Controller < <%= options[:namespace].singularize.camelize %>Controller
     before_action :set_<%= class_name.underscore %>, only: %i[show edit destroy update]
@@ -63,7 +65,39 @@ module <%= options[:namespace].camelize %>
       redirect_to <%="#{options[:namespace]}_#{class_name.underscore.pluralize}_path"%>, status: :see_other
     end
 
+    def export_csv
+      @<%= class_name.pluralize.underscore %> = fetch_authorized_<%= class_name.pluralize.underscore %>
+      csv_data = generate_csv_data
+
+      send_data csv_data,
+                type: 'text/csv; charset=utf-8; header=present',
+                disposition: "attachment; filename=<%= class_name.pluralize.underscore %>_#{Time.zone.now}.csv"
+    end
+
     private
+
+    def fetch_authorized_<%= class_name.pluralize.underscore %>
+      authorized_scope(
+        <%=class_name%>.all,
+        with: Bo::Administrators::<%=class_name%>Policy
+      ).ransack(params[:q]).result(distinct: true)
+    end
+
+    def generate_csv_data
+      CSV.generate(headers: true) do |csv|
+        csv << translated_headers
+
+        @<%= class_name.pluralize.underscore %>.each do |instance|
+          csv << <%=class_name%>.column_names.map { |col| instance.send(col) }
+        end
+      end
+    end
+
+    def translated_headers
+      <%=class_name%>.column_names.map do |col|
+        I18n.t("bo.<%=class_name.downcase%>.attributes.#{col}")
+      end
+    end
 
     def set_<%= class_name.underscore %>
       @<%= class_name.underscore %> = authorized_scope(

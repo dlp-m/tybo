@@ -25,5 +25,6 @@
   "show": "Détails",
   "showing": "Affichage de",
   "of": "de",
-  "results": "resultats"
+  "results": "resultats",
+  "export_btn": "Export CSV"
 }

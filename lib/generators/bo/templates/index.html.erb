@@ -1,19 +1,20 @@
-<%%= render(IndexComponent.new) do |index| %>
-  <!-- Header -->
-  <%%= index.with_header(
-    title: I18n.t('bo.<%= class_name.underscore %>.others').capitalize,
-    subtitle: I18n.t('bo.<%= class_name.underscore %>.subtitle').capitalize,
-      ) do |header| %>
-    <%%= header.with_add_button(path: <%="new_#{options[:namespace]}_#{class_name.underscore}_path" %>) %>
-  <%% end %>
+<%%= turbo_frame_tag "<%= class_name.underscore.pluralize %>", target: '_top', class: "shadow overflow-hidden rounded border-b border-gray-200" do %>
+  <%%= render(IndexComponent.new) do |index| %>
+    <!-- Header -->
+    <%%= index.with_header(
+      title: I18n.t('bo.<%= class_name.underscore %>.others').capitalize,
+      subtitle: I18n.t('bo.<%= class_name.underscore %>.subtitle').capitalize,
+        ) do |header| %>
+      <%%= header.with_add_button(path: <%="new_#{options[:namespace]}_#{class_name.underscore}_path" %>) %>
+      <%%= header.with_export_button(path: <%= "export_csv_#{options[:namespace]}_#{class_name.pluralize.underscore}_path(format: :csv, params: {q: params.permit!['q']})"%>)%>
+    <%% end %>
 
-  <!-- Search Bar -->
-  <%%= render('search_bar') %>
-  <!-- Table -->
-  <%%= turbo_frame_tag "<%= class_name.underscore.pluralize %>", target: '_top', class: "shadow overflow-hidden rounded border-b border-gray-200" do %>
-    <%%= render('table') %>
-    <div class="py-2">
-      <%%== render partial: 'shared/pagination', locals: { pagy: @pagy } %>
-    </div>
+    <!-- Search Bar -->
+    <%%= render('search_bar') %>
+    <!-- Table -->
+      <%%= render('table') %>
+      <div class="py-2">
+        <%%== render partial: 'shared/pagination', locals: { pagy: @pagy } %>
+      </div>
   <%% end %>
 <%% end %>
