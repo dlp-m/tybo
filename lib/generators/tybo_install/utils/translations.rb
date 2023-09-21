@@ -9,7 +9,7 @@
             'filters' => find_existing_translation('filters', locale),
             'show' => find_existing_translation('show', locale),
             'to' => find_existing_translation('to', locale),
-            'export_btn' => find_existing_translation('to', locale),
+            'export_btn' => find_existing_translation('export_btn', locale),
             'confirm_delete' => find_existing_translation('confirm_delete', locale),
             'record' => {
               'created' => find_existing_translation('created', locale),

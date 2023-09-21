@@ -43,7 +43,7 @@ class BoNamespaceGenerator < Rails::Generators::NamedBase
     # devise_route = "devise_for :#{singular_name},\n           path: '#{plural_name}',\n           controllers: {\n             sessions: 'custom_devise/sessions',\n             passwords: 'custom_devise/passwords',\n             registrations: 'custom_devise/registrations'\n           }"
     gsub_file('config/routes.rb', /devise_for :#{plural_name}/, "devise_for :#{plural_name}, path: '#{plural_name}'")
     # route devise_route
-    route "# #{plural_name.capitalize}\nnamespace :#{plural_name} do\n  root to: '#{plural_name}#index'\n  resources :#{plural_name}\nend"
+    route "# #{plural_name.capitalize}\nnamespace :#{plural_name} do\n  root to: '#{plural_name}#index'\n  resources :#{plural_name} do\n      get 'export_csv', on: :collection\n    end\n\nend"
   end
 
   def remove_devise_registration

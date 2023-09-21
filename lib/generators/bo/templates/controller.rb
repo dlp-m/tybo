@@ -71,7 +71,7 @@ module <%= options[:namespace].camelize %>
 
       send_data csv_data,
                 type: 'text/csv; charset=utf-8; header=present',
-                disposition: "attachment; filename=<%= class_name.pluralize.underscore %>_#{Time.zone.now}.csv"
+                disposition: "attachment; filename=#{I18n.t(bo.<%= class_name.underscore %>.other)}_#{Time.zone.now}.csv"
     end
 
     private
