@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'csv'
-
 module <%= options[:namespace].camelize %>
   class <%= class_name.pluralize %>Controller < <%= options[:namespace].singularize.camelize %>Controller
     before_action :set_<%= class_name.underscore %>, only: %i[show edit destroy update]
@@ -71,7 +69,7 @@ module <%= options[:namespace].camelize %>
 
       send_data csv_data,
                 type: 'text/csv; charset=utf-8; header=present',
-                disposition: "attachment; filename=#{I18n.t(bo.<%= class_name.underscore %>.other)}_#{Time.zone.now}.csv"
+                disposition: "attachment; filename=#{I18n.t("bo.<%= class_name.underscore %>.other")}_#{Time.zone.now}.csv"
     end
 
     private
