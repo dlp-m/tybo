@@ -40,7 +40,7 @@ In `app/controllers/administrators/blog_posts_controller.rb`, add the following 
 ```
 
 Add the route:
-```
+```ruby
   resources :blog_posts do
     get 'export_csv', on: :collection
   end
