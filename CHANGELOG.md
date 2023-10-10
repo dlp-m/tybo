@@ -46,7 +46,7 @@ Add the route:
   end
 ```
 In `app/views/administrators/blog_posts/index.html.erb`, you need to modify the turbo frame to encompass the entire view and add before `header.with_add_button`:
-```
+```ruby
   <%= header.with_export_button(path: export_csv_administrators_blog_posts_path(format: :csv, params: {q: params.permit!['q']}))%>
 ```
 ### 0.2.2
