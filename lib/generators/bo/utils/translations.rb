@@ -11,7 +11,6 @@ def create_translations
       'new' => find_existing_translation(nil, locale),
       'subtitle' => find_existing_translation("list of #{bo_model.to_s.pluralize.downcase}", locale),
       'attributes' => model_attributes(data, locale)
-
     }
     output = YAML.dump data
     File.write(locale_file, output)

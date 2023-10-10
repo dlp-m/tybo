@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require 'pry'
 def create_translations
   %w[en fr].each do |locale|
     locale_file = "config/locales/bo.#{locale}.yml"
