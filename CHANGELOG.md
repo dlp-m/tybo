@@ -3,7 +3,7 @@ To add a CSV export with Tybo, you need to add the following methods.
 Example for a BlogPost model:
 
 In `app/controllers/administrators/blog_posts_controller.rb`, add the following methods:
-```
+```ruby
   def export_csv
     @blog_posts = fetch_authorized_blog_posts
     csv_data = generate_csv_data
