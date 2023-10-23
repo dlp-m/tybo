@@ -57,7 +57,8 @@ add your policy logic in ApplicationController eg:
 
 **Customize colors**: Change the `tybo` colors  class in `tailwind.config.js`, 
 you can use https://uicolors.app/create to generate complete palette
-
+## Customize trix editor
+https://gist.github.com/dhairyagabha/034f5baefb054b7b960438aaf3d88341
 ## Contributing
 
 Contribution directions go here.

@@ -5,6 +5,7 @@
     subtitle: I18n.t('bo.<%= class_name.underscore %>.subtitle').capitalize,
       ) do |header| %>
     <%%= header.with_add_button(path: <%="new_#{options[:namespace]}_#{class_name.underscore}_path" %>) %>
+    <%%= header.with_export_button(path: <%= "export_csv_#{options[:namespace]}_#{class_name.pluralize.underscore}_path(format: :csv)"%>)%>
   <%% end %>
 
   <!-- Search Bar -->

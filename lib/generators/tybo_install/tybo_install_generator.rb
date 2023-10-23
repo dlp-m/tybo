@@ -23,7 +23,7 @@ class TyboInstallGenerator < Rails::Generators::Base
 
   def pin_js_dependencies
     run "./bin/importmap pin tom-select --download"
-    run "./bin/importmap pin @tymate/tybo"
+    run "./bin/importmap pin @tymate/tybo_js"
   end
 
   def create_routes
@@ -39,7 +39,7 @@ class TyboInstallGenerator < Rails::Generators::Base
 
   def add_javascript_controllers
     inject_into_file 'app/javascript/controllers/application.js', after: "const application = Application.start()\n" do 
-      "import { Dropdown, Flash, SearchForm, TsSearch, TsSelect } from \"@tymate/tybo\"\n"
+      "import { Dropdown, Flash, SearchForm, TsSearch, TsSelect } from \"@tymate/tybo_js\"\n"
     end
 
     inject_into_file 'app/javascript/controllers/application.js', before: "export { application }" do 

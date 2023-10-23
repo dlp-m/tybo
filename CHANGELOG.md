@@ -1,3 +1,54 @@
+### 0.3.0
+To add a CSV export with Tybo, you need to add the following methods.
+Example for a BlogPost model:
+
+In `app/controllers/administrators/blog_posts_controller.rb`, add the following methods:
+```ruby
+  def export_csv
+    @blog_posts = fetch_authorized_blog_posts
+    csv_data = generate_csv_data
+
+    send_data csv_data,
+              type: 'text/csv; charset=utf-8; header=present',
+              disposition: "attachment; filename=#{I18n.t('bo.blog_post.others')}_#{Time.zone.now}.csv"
+  end
+
+  private
+
+  def fetch_authorized_blog_posts
+    authorized_scope(
+      BlogPost.all,
+      with: Bo::Administrators::BlogPostPolicy
+    ).ransack(params[:q]).result(distinct: true)
+  end
+
+  def generate_csv_data
+    CSV.generate(headers: true) do |csv|
+      csv << translated_headers
+
+      @blog_posts.each do |instance|
+        csv << BlogPost.column_names.map { |col| instance.send(col) }
+      end
+    end
+  end
+
+  def translated_headers
+    BlogPost.column_names.map do |col|
+      I18n.t("bo.blogpost.attributes.#{col}")
+    end
+  end
+```
+
+Add the route:
+```ruby
+  resources :blog_posts do
+    get 'export_csv', on: :collection
+  end
+```
+In `app/views/administrators/blog_posts/index.html.erb`, you need to modify the turbo frame to encompass the entire view and add before `header.with_add_button`:
+```ruby
+  <%= header.with_export_button(path: export_csv_administrators_blog_posts_path(format: :csv, params: {q: params.permit!['q']}))%>
+```
 ### 0.2.2
 - readjust spacing between titles in form
 - remove useless br in forms template

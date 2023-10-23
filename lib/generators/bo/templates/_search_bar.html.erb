@@ -1,8 +1,8 @@
-<div class="relative mt-3 inline-block text-left" data-controller="dropdown">
+<div class="relative inline-block mt-3 text-left" data-controller="dropdown">
   <div>
-    <button data-action="click->dropdown#toggle click@window->dropdown#hide" type="button" class="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none " id="menu-button" aria-expanded="true" aria-haspopup="true">
+    <button data-action="click->dropdown#toggle click@window->dropdown#hide" type="button" class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none " id="menu-button" aria-expanded="true" aria-haspopup="true">
       <%%= I18n.t('bo.filters') %>
-      <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <svg class="w-5 h-5 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
         <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
       </svg>
     </button>
@@ -22,29 +22,29 @@
         <%%= f.number_field :<%= col.name %>_eq, placeholder: I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>'), data: { action: "input->search-form#search" }, class: "block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-tybo-500 focus:ring-tybo-500 sm:max-w-xs sm:text-sm" %>
     <%% end %>
     <%- elsif col.type == :boolean -%>
-      <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4  pt-5">
+      <div class="pt-5 sm:grid sm:grid-cols-3 sm:items-start sm:gap-4">
         <label class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
           <%%= I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>') %>
         </label>
         <div class="mt-1 sm:col-span-2 sm:mt-0">
-          <span class="isolate inline-flex rounded-md shadow-sm">
+          <span class="inline-flex rounded-md shadow-sm isolate">
             <button type="button"
                     data-target-id='q_<%= col.name %>_eq'
                     data-action="click->search-form#setBooleanField" 
-                    class="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-tybo-500 focus:outline-none focus:ring-1 focus:ring-tybo-500">
+                    class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-l-md hover:bg-gray-50 focus:z-10 focus:border-tybo-500 focus:outline-none focus:ring-1 focus:ring-tybo-500">
             -
             </button>
             <button type="button"
                     data-action="click->search-form#setBooleanField" 
                     data-value='true'
                     data-target-id='q_<%= col.name %>_eq'
-                    class="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-tybo-500 focus:outline-none focus:ring-1 focus:ring-tybo-500">ON
+                    class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-l-md hover:bg-gray-50 focus:z-10 focus:border-tybo-500 focus:outline-none focus:ring-1 focus:ring-tybo-500">ON
                     </button>
             <button type="button"
                     data-action="click->search-form#setBooleanField" 
                     data-value='false'
                     data-target-id='q_<%= col.name %>_eq'
-                    class="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:border-tybo-500 focus:outline-none focus:ring-1 focus:ring-tybo-500">OFF</button>
+                    class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-l-md hover:bg-gray-50 focus:z-10 focus:border-tybo-500 focus:outline-none focus:ring-1 focus:ring-tybo-500">OFF</button>
           </span>
           <%%= f.hidden_field :<%= col.name %>_eq, value: nil, data: { action: "change->search-form#search"}%>
         </div>
@@ -60,7 +60,7 @@
     <%- end -%>
     <!-- belongs_to Associations -->
     <%- belongs_to_assoc.each do |association| -%>
-      <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4  pt-5">
+      <div class="pt-5 sm:grid sm:grid-cols-3 sm:items-start sm:gap-4">
         <label for="<%=association.name%>" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
           <%%= I18n.t('bo.<%=association.klass.name.underscore%>.one') %>
         </label>
