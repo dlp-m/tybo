@@ -30,5 +30,6 @@
   "save": "Sauvegarder",
   "showing": "Affichage de",
   "of": "de",
-  "results": "resultats"
+  "results": "résultats",
+  "export_btn": "Export CSV"
 }

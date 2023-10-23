@@ -30,5 +30,6 @@
   "save": "Save",
   "showing": "Showing",
   "of": "of",
-  "results": "results"
+  "results": "results",
+  "export_btn": "CSV export"
 }

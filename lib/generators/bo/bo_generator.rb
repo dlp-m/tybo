@@ -38,7 +38,7 @@ class BoGenerator < Rails::Generators::NamedBase
     return if rails_routes.any?("#{options[:namespace]}_#{plural_name}")
 
     inject_into_file 'config/routes.rb', after: " namespace :#{options[:namespace]} do\n" do
-      "    resources :#{plural_name}\n"
+      "    resources :#{plural_name} do\n      get 'export_csv', on: :collection\n    end\n"
     end
   end
 

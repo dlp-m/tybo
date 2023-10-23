@@ -2,11 +2,12 @@
 
 module Input
   class DatetimeComponent < ViewComponent::Base
-    def initialize(item:, field:, form:)
+    def initialize(item:, field:, form:, disabled: false)
       @item = item
       @field = field
       @form = form
       @label = label
+      @disabled = disabled
     end
 
     def label
