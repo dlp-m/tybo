@@ -218,6 +218,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  arm64-darwin-22
 
 DEPENDENCIES
   puma
@@ -226,4 +227,4 @@ DEPENDENCIES
   tybo!
 
 BUNDLED WITH
-   2.4.13
+   2.4.19
