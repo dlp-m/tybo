@@ -1,11 +1,11 @@
 PATH
   remote: .
   specs:
-    tybo (0.3.4)
+    tybo (0.3.13)
       devise (~> 4.8, >= 4.8.1)
       pagy (~> 6.0, >= 6.0.1)
       rails (~> 7)
-      ransack
+      ransack (~> 3.2.1)
       view_component (~> 2.82)
 
 GEM
@@ -179,7 +179,7 @@ GEM
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
     rake (13.1.0)
-    ransack (4.1.1)
+    ransack (3.2.1)
       activerecord (>= 6.1.5)
       activesupport (>= 6.1.5)
       i18n

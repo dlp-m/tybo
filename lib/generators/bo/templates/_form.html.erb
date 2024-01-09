@@ -14,7 +14,7 @@
   <%- end -%>
   <!-- RichText Associations -->
   <%- rich_text_assoc.each do |association| -%>
-  <label class="block my-5 block text-sm font-medium text-gray-700 string optional text-sm font-medium text-gray-600">
+  <label class="block my-5 text-sm font-medium text-gray-600 text-gray-700 string optional">
     <%%= I18n.t('bo.<%= class_name.underscore %>.attributes.<%=- association.name.to_s.singularize.to_s.remove('rich_text_') -%>') %>
   </label>
   <%%= f.rich_text_area :<%= association.name.to_s.singularize.to_s.remove('rich_text_')%> %>

@@ -12,6 +12,7 @@
     <!-- columns -->
     <%- bo_model.columns.group_by(&:type).each do |type| -%>
     <%- type.second.sort_by(&:type).each do |col| -%>
+    <%- next if excluded_columns.include?(col.name.to_sym) || bo_model.reflect_on_all_associations.map(&:foreign_key).include?(col.name) -%>
     <%- next if bo_model.reflect_on_all_associations.map(&:foreign_key).include?(col.name) -%>
     <%- if col.type == :string || col.type == :text -%>
     <%%= render(Forms::SearchInputComponent.new(label: I18n.t('bo.<%= class_name.underscore %>.attributes.<%= col.name %>'))) do %>
