@@ -1,12 +1,12 @@
 PATH
   remote: .
   specs:
-    tybo (0.3.13)
+    tybo (0.3.14)
       devise (~> 4.8, >= 4.8.1)
       pagy (~> 6.0, >= 6.0.1)
       rails (~> 7)
       ransack (~> 3.2.1)
-      view_component (~> 2.82)
+      view_component (~> 3.9.0)
 
 GEM
   remote: https://rubygems.org/
@@ -204,7 +204,7 @@ GEM
     timeout (0.4.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    view_component (2.82.0)
+    view_component (3.9.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
