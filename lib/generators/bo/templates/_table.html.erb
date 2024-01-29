@@ -3,6 +3,8 @@
   <%- bo_model.column_names.each do |column| -%>
     <%%= thead.with_active_record_th(column_name: '<%= column %>',  ransack_object: @q) %>
   <%- end -%>
+    <%%= thead.with_active_record_th(column_name: '',  ransack_object: @q) %>
+    <%%= thead.with_active_record_th(column_name: '',  ransack_object: @q) %>
   <%% end %>
 
   <%% table.with_tbody do |tbody| %>

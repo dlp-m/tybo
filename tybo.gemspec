@@ -15,10 +15,10 @@ Gem::Specification.new do |spec|
     Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   end
 
-  spec.add_dependency 'rails', '~> 7.1'
+  spec.add_dependency 'rails', '~> 7'
   spec.add_development_dependency 'puma'
-  spec.add_dependency 'view_component', '~> 2.82'
-  spec.add_dependency 'ransack', '~> 3.2', '>= 3.2.1'
+  spec.add_dependency 'view_component', '~> 3.9.0'
+  spec.add_dependency 'ransack', '~> 4.1'
   spec.add_dependency 'pagy', '~> 6.0', '>= 6.0.1'
   spec.add_dependency 'devise', '~> 4.8', '>= 4.8.1'
 end

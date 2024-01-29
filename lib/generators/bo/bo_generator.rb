@@ -73,7 +73,7 @@ class BoGenerator < Rails::Generators::NamedBase
   end
 
   def excluded_columns
-    %i[id created_at updated_at encrypted_password]
+    %i[id created_at updated_at encrypted_password reset_password_token reset_password_sent_at remember_created_at remember_token confirmation_token]
   end
 
   def permited_params
