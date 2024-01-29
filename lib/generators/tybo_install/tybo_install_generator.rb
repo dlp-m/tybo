@@ -31,8 +31,6 @@ class TyboInstallGenerator < Rails::Generators::Base
     route "mount Tybo::Engine => \"/tybo\""
   end
 
-
-
   def install_administrators
     run 'rails g bo_namespace Administrator'
   end
@@ -44,6 +42,16 @@ class TyboInstallGenerator < Rails::Generators::Base
 
     inject_into_file 'app/javascript/controllers/application.js', before: "export { application }" do 
       "application.register('dropdown', Dropdown)\napplication.register('flash', Flash)\napplication.register('search-form', SearchForm)\napplication.register('ts--search', TsSearch)\napplication.register('ts--select', TsSelect)\n"
+    end
+  end
+
+  def add_ransack_attributes
+    inject_into_file 'app/models/application_record.rb', after: "primary_abstract_class\n" do
+      "def self.ransackable_attributes(_auth_object = nil)
+        column_names + _ransackers.keys
+    end\ndef self.ransackable_associations(_auth_object = nil)
+        reflect_on_all_associations.map { |a| a.name.to_s }
+      end\n"
     end
   end
 end
