@@ -17,8 +17,8 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'rails', '~> 7'
   spec.add_development_dependency 'puma'
-  spec.add_dependency 'view_component', '~> 3.9.0'
+  spec.add_dependency 'view_component', '~> 3.11.0'
   spec.add_dependency 'ransack', '~> 4.1'
-  spec.add_dependency 'pagy', '~> 6.0', '>= 6.0.1'
-  spec.add_dependency 'devise', '~> 4.8', '>= 4.8.1'
+  spec.add_dependency 'pagy', '~> 7.0', '>= 7.0.11'
+  spec.add_dependency 'devise', '~> 4.9', '>= 4.9.3'
 end
