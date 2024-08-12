@@ -1,6 +1,6 @@
 <% if @column_name %>
   <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 hover:cursor-pointer">
-    <%= sort_link(@q, @column_name, {label: @label, default_order: :asc}) %>
+    <%= sort_link(@q, @column_name,  @label, default_order: :asc) %>
   </th>
 <% else %>
   <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
