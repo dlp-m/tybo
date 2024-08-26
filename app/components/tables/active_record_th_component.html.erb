@@ -1,8 +1,8 @@
 <% if @column_name %>
-  <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 hover:cursor-pointer">
+  <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 hover:cursor-pointer whitespace-nowrap">
     <%= sort_link(@q, @column_name,  @label, default_order: :asc) %>
   </th>
 <% else %>
-  <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+  <th class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 whitespace-nowrap">
   </th>
 <% end %>
