@@ -11,7 +11,11 @@
     <%% @<%= class_name.underscore.pluralize %>&.each_with_index do |<%= class_name.underscore %>, i| %>
       <%%= tbody.with_tr(index: i) do |tr| %>
         <%- bo_model.column_names.each do |column| -%>
+          <%- if %i[date datetime].include?(bo_model.attribute_types[column].type)  -%>
+          <%%= tr.with_td { I18n.l(<%= class_name.underscore %>.<%= column %>, format: :long) if <%= class_name.underscore %>.<%= column %> } %>
+          <%- else -%>
           <%%= tr.with_td { <%= class_name.underscore %>.<%= column %>.to_s } %>
+          <%- end -%>
         <%- end -%>
         <%%= tr.with_td do %>
           <%%= link_to <%="#{options[:namespace]}_#{class_name.underscore}_path(#{class_name.underscore})"%>, class: "text-tybo-600 hover:text-tybo-900"  do %>
