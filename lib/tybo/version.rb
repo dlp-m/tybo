@@ -1,3 +1,3 @@
 module Tybo
-  VERSION = '0.3.23'
+  VERSION = '0.3.26'
 end

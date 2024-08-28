@@ -4,6 +4,8 @@
   <%- next if excluded_columns.include?(column.name.to_sym) || bo_model.reflect_on_all_associations.map(&:foreign_key).include?(column.name) -%>
   <%- if column.type == :datetime -%>
   <%%= render(Input::DatetimeComponent.new(item: <%= class_name.underscore %>, field: '<%= column.name %>', form: f)) %>
+  <%- elsif column.type == :date -%>
+  <%%= render(Input::DateComponent.new(item: <%= class_name.underscore %>, field: '<%= column.name %>', form: f)) %>
   <%- else -%>
   <%%= f.input :<%= column.name %>,label: I18n.t('bo.<%= class_name.underscore %>.attributes.<%= column.name %>') %>
   <%- end -%>
