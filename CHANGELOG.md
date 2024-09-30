@@ -1,3 +1,31 @@
+### 0.4.0
+
+Update your all `model_name.html.erb` with the following HTML structure.
+Example for `administrator.html.erb`:
+```erb
+<body class="h-full bg-home">
+  <div>
+    <% if administrator_signed_in? %>
+      <%= render('administrators/layouts/side_bar') %>
+    <% end %>
+    <div class="lg:pl-72">
+      <main class="py-10">
+        <div class="px-4 sm:px-6 lg:px-8">
+          <%= yield %>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+```
+Make sure the body structure matches this format to ensure compatibility with the update.
+And import `Sidebar` in your `application.js`
+````javascript
+import { Dropdown, Flash, SearchForm, TsSearch, TsSelect, Sidebar } from "@tymate/tybo_js"
+...
+application.register('sidebar', Sidebar)
+```
+
 ### 0.3.0
 To add a CSV export with Tybo, you need to add the following methods.
 Example for a BlogPost model:

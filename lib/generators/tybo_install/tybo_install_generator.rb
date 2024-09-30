@@ -37,11 +37,11 @@ class TyboInstallGenerator < Rails::Generators::Base
 
   def add_javascript_controllers
     inject_into_file 'app/javascript/controllers/application.js', after: "const application = Application.start()\n" do 
-      "import { Dropdown, Flash, SearchForm, TsSearch, TsSelect } from \"@tymate/tybo_js\"\n"
+      "import { Dropdown, Flash, SearchForm, TsSearch, TsSelect, Sidebar } from \"@tymate/tybo_js\"\n"
     end
 
     inject_into_file 'app/javascript/controllers/application.js', before: "export { application }" do 
-      "application.register('dropdown', Dropdown)\napplication.register('flash', Flash)\napplication.register('search-form', SearchForm)\napplication.register('ts--search', TsSearch)\napplication.register('ts--select', TsSelect)\n"
+      "application.register('dropdown', Dropdown)\napplication.register('flash', Flash)\napplication.register('search-form', SearchForm)\napplication.register('ts--search', TsSearch)\napplication.register('ts--select', TsSelect)\napplication.register('sidebar', Sidebar)\n"
     end
   end
 
