@@ -19,6 +19,10 @@ Example for `administrator.html.erb`:
 </body>
 ```
 Make sure the body structure matches this format to ensure compatibility with the update.
+Update tybo_js dependencie with:
+```shell
+./bin/importmap pin @tymate/tybo_js@0.1.3
+```
 And import `Sidebar` in your `application.js`
 ````javascript
 import { Dropdown, Flash, SearchForm, TsSearch, TsSelect, Sidebar } from "@tymate/tybo_js"
