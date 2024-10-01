@@ -8,7 +8,7 @@ module <%= options[:namespace].camelize %>
       @q = authorized_scope(
         <%=class_name%>.all,
         with: Bo::<%= options[:namespace].camelize %>::<%= class_name %>Policy
-      ).ransack(params[:q])
+      ).order(:created_at).ransack(params[:q])
       @pagy, @<%= class_name.pluralize.underscore %> = pagy(@q.result(distinct: true))
     end
 

@@ -5,7 +5,7 @@ class TyboInstallGenerator < Rails::Generators::Base
   require_relative "./utils/translations.rb"
 
   def install_dependencies
-    gem 'tailwindcss-rails', '~> 2.0', '>= 2.0.21' unless Bundler.locked_gems.specs.any? { |gem| gem.name == 'tailwindcss-rails' }
+    run './bin/bundle add tailwindcss-rails' unless Bundler.locked_gems.specs.any? { |gem| gem.name == 'tailwindcss-rails' }
     gem 'simple_form' unless Bundler.locked_gems.specs.any? { |gem| gem.name == 'simple_form' }
     gem 'simple_form-tailwind', '~> 0.1.1' unless Bundler.locked_gems.specs.any? { |gem| gem.name == 'simple_form-tailwind' }
     run 'bundle install'
@@ -37,11 +37,11 @@ class TyboInstallGenerator < Rails::Generators::Base
 
   def add_javascript_controllers
     inject_into_file 'app/javascript/controllers/application.js', after: "const application = Application.start()\n" do 
-      "import { Dropdown, Flash, SearchForm, TsSearch, TsSelect } from \"@tymate/tybo_js\"\n"
+      "import { Dropdown, Flash, SearchForm, TsSearch, TsSelect, Sidebar } from \"@tymate/tybo_js\"\n"
     end
 
     inject_into_file 'app/javascript/controllers/application.js', before: "export { application }" do 
-      "application.register('dropdown', Dropdown)\napplication.register('flash', Flash)\napplication.register('search-form', SearchForm)\napplication.register('ts--search', TsSearch)\napplication.register('ts--select', TsSelect)\n"
+      "application.register('dropdown', Dropdown)\napplication.register('flash', Flash)\napplication.register('search-form', SearchForm)\napplication.register('ts--search', TsSearch)\napplication.register('ts--select', TsSelect)\napplication.register('sidebar', Sidebar)\n"
     end
   end
 
@@ -55,4 +55,3 @@ class TyboInstallGenerator < Rails::Generators::Base
     end
   end
 end
-

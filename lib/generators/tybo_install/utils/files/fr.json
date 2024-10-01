@@ -31,5 +31,6 @@
   "showing": "Affichage de",
   "of": "de",
   "results": "résultats",
-  "export_btn": "Export CSV"
+  "export_btn": "Export CSV",
+  "add_ressource_btn": "+"
 }
