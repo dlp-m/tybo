@@ -3,7 +3,7 @@
 class TyboInstallGenerator < Rails::Generators::Base
   source_root File.expand_path("templates", __dir__)
   require_relative "./utils/translations.rb"
-  
+
   def install_dependencies
     run './bin/bundle add tailwindcss-rails' unless Bundler.locked_gems.specs.any? { |gem| gem.name == 'tailwindcss-rails' }
     gem 'simple_form' unless Bundler.locked_gems.specs.any? { |gem| gem.name == 'simple_form' }
@@ -55,4 +55,3 @@ class TyboInstallGenerator < Rails::Generators::Base
     end
   end
 end
-
