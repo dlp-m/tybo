@@ -4,7 +4,7 @@ Gem::Specification.new do |spec|
   spec.name        = "tybo"
   spec.version     = Tybo::VERSION
   spec.authors     = ["Michel Delpierre", "Julien Camblan"]
-  spec.email       = ["tech@tymate.com"]
+  spec.email       = ["michel@tymate.com"]
   spec.homepage    = "https://rubygems.org/gems/tybo"
   spec.summary       = "A tailwind custom admin engine for Ruby on Rails"
   spec.description   = "Custom admin engine for Ruby on Rails working with generators"

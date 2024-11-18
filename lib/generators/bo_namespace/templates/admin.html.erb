@@ -10,15 +10,14 @@
     <%%= javascript_importmap_tags %>
     <%%= hotwire_livereload_tags if Rails.env.development? %>
   </head>
-
   <body class="h-full bg-home">
     <%% if <%= class_name.underscore %>_signed_in? %>
-      <%%= render('<%= class_name.underscore.pluralize %>/layouts/side_bar') %>
+    <%%= render('<%= class_name.underscore.pluralize %>/layouts/side_bar') %>
     <%% end %>
-    <div class="<%%= 'md:pl-64' if <%= class_name.underscore %>_signed_in? %> flex flex-col flex-1">
-      <main>
-        <div class="py-6">
-        <%%= render('layouts/flash') %>
+    <div class="lg:pl-72">
+      <main class="py-10">
+        <div class="px-4 sm:px-6 lg:px-8">
+          <%%= render('layouts/flash') %>
           <%%= yield %>
         </div>
       </main>
