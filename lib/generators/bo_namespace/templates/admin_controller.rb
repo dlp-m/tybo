@@ -1,6 +1,4 @@
 # frozen_string_literal: true
-require 'csv'
-
 class <%= class_name %>Controller < ApplicationController
   include Pagy::Backend
   layout 'administrator'
