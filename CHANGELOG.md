@@ -1,3 +1,5 @@
+### Tybo version 0.5.x
+Require tailwwind v3
 ### 0.4.0
 
 Update your all `model_name.html.erb` with the following HTML structure.
