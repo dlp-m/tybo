@@ -6,8 +6,10 @@ class TyboInstallGenerator < Rails::Generators::Base
 
   def install_dependencies
     run './bin/bundle add tailwindcss-rails' unless Bundler.locked_gems.specs.any? { |gem| gem.name == 'tailwindcss-rails' }
+    gem "tailwindcss-rails", "~> 3" unless Bundler.locked_gems.specs.any? { |gem| gem.name == 'tailwindcss-rails' }
     gem 'simple_form' unless Bundler.locked_gems.specs.any? { |gem| gem.name == 'simple_form' }
     gem 'simple_form-tailwind', '~> 0.1.1' unless Bundler.locked_gems.specs.any? { |gem| gem.name == 'simple_form-tailwind' }
+    gem 'action_policy', '~> 0.7.5' unless Bundler.locked_gems.specs.any? { |gem| gem.name == 'actionpolicy' }
     run 'bundle install'
     run "rails tailwindcss:install"
   end
