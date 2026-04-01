@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tybo (0.5.1)
+    tybo (0.6.1)
       action_policy (~> 0.7.5)
       devise (>= 4.9, < 6)
       pagy (~> 7.0)

@@ -11,7 +11,6 @@ class TyboInstallGenerator < Rails::Generators::Base
     gem 'simple_form-tailwind', '~> 0.1.1' unless Bundler.locked_gems.specs.any? { |gem| gem.name == 'simple_form-tailwind' }
     gem 'action_policy', '~> 0.7.5' unless Bundler.locked_gems.specs.any? { |gem| gem.name == 'actionpolicy' }
     run 'bundle install'
-    run "rails tailwindcss:install"
   end
 
   def create_configuration_files
@@ -24,8 +23,7 @@ class TyboInstallGenerator < Rails::Generators::Base
   end
 
   def pin_js_dependencies
-    run "./bin/importmap pin tom-select --download"
-    run "./bin/importmap pin @tymate/tybo_js"
+    run "./bin/importmap pin tom-select --from jsdelivr"
   end
 
   def create_routes
