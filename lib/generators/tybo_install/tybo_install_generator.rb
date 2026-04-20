@@ -11,12 +11,11 @@ class TyboInstallGenerator < Rails::Generators::Base
     gem 'simple_form-tailwind', '~> 0.1.1' unless Bundler.locked_gems.specs.any? { |gem| gem.name == 'simple_form-tailwind' }
     gem 'action_policy', '~> 0.7.5' unless Bundler.locked_gems.specs.any? { |gem| gem.name == 'actionpolicy' }
     run 'bundle install'
-    run "rails tailwindcss:install"
   end
 
   def create_configuration_files
     create_base_translation_files
-    template 'application.tailwind.css', File.join('app/assets/stylesheets/application.tailwind.css'), force: true
+    template 'tybo_admin.tailwind.css', File.join('app/assets/stylesheets/tybo_admin.tailwind.css')
     template 'tailwind.config.js', File.join('config/tailwind.config.js'), force: true
     template 'tom-select.css', File.join('app/assets/stylesheets/tom-select.css')
     template 'simple_form_tailwind.rb', File.join('config/initializers/simple_form_tailwind.rb')
@@ -24,8 +23,23 @@ class TyboInstallGenerator < Rails::Generators::Base
   end
 
   def pin_js_dependencies
-    run "./bin/importmap pin tom-select --download"
-    run "./bin/importmap pin @tymate/tybo_js"
+    inject_into_file 'config/importmap.rb', before: /\z/ do
+      <<~RUBY
+
+        pin "tom-select", to: "https://esm.sh/tom-select"
+        pin "@rails/request.js", to: "https://esm.sh/@rails/request.js"
+      RUBY
+    end
+  end
+
+  def setup_puma_plugin
+    inject_into_file 'config/puma.rb', before: /\z/ do
+      "\nplugin :tybo if ENV.fetch(\"RAILS_ENV\", \"development\") == \"development\"\n"
+    end
+  end
+
+  def build_css
+    rake "tybo:build_css"
   end
 
   def create_routes
@@ -37,13 +51,19 @@ class TyboInstallGenerator < Rails::Generators::Base
     run 'rails g bo_namespace Administrator'
   end
 
-  def add_javascript_controllers
-    inject_into_file 'app/javascript/controllers/application.js', after: "const application = Application.start()\n" do 
-      "import { Dropdown, Flash, SearchForm, TsSearch, TsSelect, Sidebar } from \"@tymate/tybo_js\"\n"
-    end
+  def copy_javascript_controllers
+    js_source = Tybo::Engine.root.join("app/assets/javascripts/tybo/controllers")
+    js_dest   = "app/javascript/tybo/controllers"
 
-    inject_into_file 'app/javascript/controllers/application.js', before: "export { application }" do 
-      "application.register('dropdown', Dropdown)\napplication.register('flash', Flash)\napplication.register('search-form', SearchForm)\napplication.register('ts--search', TsSearch)\napplication.register('ts--select', TsSelect)\napplication.register('sidebar', Sidebar)\n"
+    directory js_source.to_s, js_dest
+  end
+
+  def add_javascript_controllers
+    template 'application_tybo_admin.js', 'app/javascript/tybo/application_tybo_admin.js'
+
+    inject_into_file 'config/importmap.rb', before: /\z/ do
+      "\npin \"application_tybo_admin\", to: \"tybo/application_tybo_admin.js\"\n" \
+      "pin_all_from \"app/javascript/tybo/controllers\", under: \"tybo/controllers\"\n"
     end
   end
 

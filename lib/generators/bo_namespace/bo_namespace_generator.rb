@@ -6,7 +6,7 @@ class BoNamespaceGenerator < Rails::Generators::NamedBase
 
   def create_bo_namespace_files
     run "bundle exec rails g devise #{file_name.capitalize}"
-    run 'bundle exec rails db:migrate'
+    rails_command "db:migrate"
     create_routes_and_views
     template 'admin.html.erb', File.join('app/views/layouts/', "#{singular_name}.html.erb")
     template 'admin_controller.rb', File.join('app/controllers/', "#{singular_name}_controller.rb")
