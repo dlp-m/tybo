@@ -4,13 +4,23 @@ class TyboUpgradeGenerator < Rails::Generators::Base
   # Reuse the install templates (application_tybo_admin.js, tybo_admin.tailwind.css)
   source_root File.expand_path("../tybo_install/templates", __dir__)
 
+  TYBO_CONTROLLERS = %w[
+    attachments_controller
+    dropdown_controller
+    flash_controller
+    search_form_controller
+    sidebar_controller
+    ts/search_controller
+    ts/select_controller
+  ].freeze
+
   def upgrade_css
     say_status :upgrade, "CSS → tybo_admin.css", :blue
 
     unless File.exist?("app/assets/stylesheets/tybo_admin.tailwind.css")
       if File.exist?("app/assets/stylesheets/application.tailwind.css")
-        copy_file "app/assets/stylesheets/application.tailwind.css",
-                  "app/assets/stylesheets/tybo_admin.tailwind.css"
+        FileUtils.cp("app/assets/stylesheets/application.tailwind.css",
+                     "app/assets/stylesheets/tybo_admin.tailwind.css")
         say_status :info, "Copied application.tailwind.css → tybo_admin.tailwind.css", :green
       else
         template "tybo_admin.tailwind.css", "app/assets/stylesheets/tybo_admin.tailwind.css"
@@ -31,7 +41,7 @@ class TyboUpgradeGenerator < Rails::Generators::Base
       content = File.read(layout)
       next unless content.include?("tailwind") || content.include?("@tymate")
 
-      # stylesheet
+      # stylesheet : retire "application" + remplace "tailwind"
       gsub_file layout,
         /[ \t]*<%=[ \t]*stylesheet_link_tag[ \t]+"application"[^%]*%>\n/, ""
       gsub_file layout,
@@ -44,10 +54,6 @@ class TyboUpgradeGenerator < Rails::Generators::Base
       gsub_file layout,
         /javascript_importmap_tags(?!\s+"application_tybo_admin")/,
         'javascript_importmap_tags "application_tybo_admin"'
-
-      # hotwire_livereload
-      gsub_file layout,
-        /[ \t]*<%=[ \t]*hotwire_livereload_tags[^%]*%>\n/, ""
     end
   end
 
@@ -80,28 +86,49 @@ class TyboUpgradeGenerator < Rails::Generators::Base
   def upgrade_javascript
     say_status :upgrade, "JavaScript entry point", :blue
 
-    # Create application_tybo_admin.js
+    # Copy JS controllers from engine into the host app
+    js_source = Tybo::Engine.root.join("app/assets/javascripts/tybo/controllers")
+    js_dest   = "app/javascript/tybo/controllers"
+    directory js_source.to_s, js_dest, force: false
+    say_status :info, "Copied Tybo controllers to #{js_dest} (existing files kept)", :green
+
+    # Create application_tybo_admin.js (entry point for admin)
     template "application_tybo_admin.js", "app/javascript/tybo/application_tybo_admin.js"
 
-    # Mark old index.js as removable (replaced by application_tybo_admin.js)
+    # In index.js, comment out the tybo controller exports that are now
+    # handled by application_tybo_admin.js — without deleting anything
     old_index = "app/javascript/tybo/controllers/index.js"
     if File.exist?(old_index)
-      FileUtils.mv(old_index, "app/javascript/tybo/controllers/index.remove_me.js")
-      say_status :info,
-        "Renamed index.js → index.remove_me.js (no longer needed, review and delete)", :yellow
+      content = File.read(old_index, encoding: "UTF-8")
+      TYBO_CONTROLLERS.each do |ctrl|
+        basename = File.basename(ctrl)
+        content = content.gsub(
+          /^(export \{ default as \w+ \} from ".*#{Regexp.escape(basename)}.*")/,
+          '// [tybo 0.7] registered in application_tybo_admin.js — \1'
+        )
+      end
+      File.write(old_index, content, encoding: "UTF-8")
+      say_status :info, "Commented out tybo exports in index.js", :yellow
     end
 
-    # Clean old tybo registrations from application.js
+    # Comment out (not delete) old tybo registrations from application.js
     app_js = "app/javascript/controllers/application.js"
-    if File.exist?(app_js) && File.read(app_js).include?("@tymate/tybo_js")
-      gsub_file app_js, /^import \{[^}]+\} from "@tymate\/tybo_js"\n/, ""
-      gsub_file app_js, /^application\.register\('dropdown'.*\n/, ""
-      gsub_file app_js, /^application\.register\('flash'.*\n/, ""
-      gsub_file app_js, /^application\.register\('search-form'.*\n/, ""
-      gsub_file app_js, /^application\.register\('ts--search'.*\n/, ""
-      gsub_file app_js, /^application\.register\('ts--select'.*\n/, ""
-      gsub_file app_js, /^application\.register\('sidebar'.*\n/, ""
-      say_status :info, "Removed @tymate/tybo_js registrations from application.js", :green
+    if File.exist?(app_js)
+      content = File.read(app_js, encoding: "UTF-8")
+      if content.include?("@tymate/tybo_js")
+        content = content.gsub(
+          /^(import \{[^}]+\} from "@tymate\/tybo_js")/,
+          '// [tybo 0.7] moved to application_tybo_admin.js — \1'
+        )
+        %w[dropdown flash search-form ts--search ts--select sidebar].each do |name|
+          content = content.gsub(
+            /^(application\.register\('#{Regexp.escape(name)}'.*)/,
+            '// [tybo 0.7] moved to application_tybo_admin.js — \1'
+          )
+        end
+        File.write(app_js, content, encoding: "UTF-8")
+        say_status :info, "Commented out @tymate/tybo_js lines in application.js", :yellow
+      end
     end
   end
 
@@ -111,9 +138,8 @@ class TyboUpgradeGenerator < Rails::Generators::Base
     views = Dir.glob("app/views/**/*.html.erb") + Dir.glob("app/components/**/*.html.erb")
 
     views.each do |file|
-      content = File.read(file)
+      content = File.read(file, encoding: "UTF-8")
 
-      # Skip files that don't reference old controller names
       next unless content.match?(/
         data-controller="(sidebar|flash|dropdown|search-form|ts--|attachments)" |
         ->sidebar\# | ->flash\# | ->dropdown\# | ->search-form\# |
@@ -121,47 +147,30 @@ class TyboUpgradeGenerator < Rails::Generators::Base
         data-sidebar-target | data-dropdown-target
       /x)
 
-      # data-controller
-      gsub_file file, 'data-controller="sidebar"',     'data-controller="tybo--sidebar"'
-      gsub_file file, 'data-controller="flash"',       'data-controller="tybo--flash"'
-      gsub_file file, 'data-controller="dropdown"',    'data-controller="tybo--dropdown"'
-      gsub_file file, 'data-controller="search-form"', 'data-controller="tybo--search-form"'
-      gsub_file file, 'data-controller="ts--select"',  'data-controller="tybo--ts--select"'
-      gsub_file file, 'data-controller="ts--search"',  'data-controller="tybo--ts--search"'
-      gsub_file file, 'data-controller="attachments"', 'data-controller="tybo--attachments"'
+      {
+        'data-controller="sidebar"'     => 'data-controller="tybo--sidebar"',
+        'data-controller="flash"'       => 'data-controller="tybo--flash"',
+        'data-controller="dropdown"'    => 'data-controller="tybo--dropdown"',
+        'data-controller="search-form"' => 'data-controller="tybo--search-form"',
+        'data-controller="ts--select"'  => 'data-controller="tybo--ts--select"',
+        'data-controller="ts--search"'  => 'data-controller="tybo--ts--search"',
+        'data-controller="attachments"' => 'data-controller="tybo--attachments"',
+        'data-sidebar-target'           => 'data-tybo--sidebar-target',
+        'data-dropdown-target'          => 'data-tybo--dropdown-target',
+        '->sidebar#'                    => '->tybo--sidebar#',
+        '->flash#'                      => '->tybo--flash#',
+        '->dropdown#'                   => '->tybo--dropdown#',
+        '->search-form#'                => '->tybo--search-form#',
+        '->ts--select#'                 => '->tybo--ts--select#',
+        '->ts--search#'                 => '->tybo--ts--search#',
+        '->attachments#'                => '->tybo--attachments#',
+        'search_form_target:'           => '"tybo--search-form-target":',
+        "controller: 'ts--select'"      => "controller: 'tybo--ts--select'",
+        'controller: "search-form"'     => 'controller: "tybo--search-form"'
+      }.each { |from, to| content = content.gsub(from, to) }
 
-      # targets
-      gsub_file file, 'data-sidebar-target',  'data-tybo--sidebar-target'
-      gsub_file file, 'data-dropdown-target', 'data-tybo--dropdown-target'
-
-      # actions
-      gsub_file file, '->sidebar#',     '->tybo--sidebar#'
-      gsub_file file, '->flash#',       '->tybo--flash#'
-      gsub_file file, '->dropdown#',    '->tybo--dropdown#'
-      gsub_file file, '->search-form#', '->tybo--search-form#'
-      gsub_file file, '->ts--select#',  '->tybo--ts--select#'
-      gsub_file file, '->ts--search#',  '->tybo--ts--search#'
-      gsub_file file, '->attachments#', '->tybo--attachments#'
-
-      # Ruby data hash actions (search_form_target → "tybo--search-form-target")
-      gsub_file file, 'search_form_target:',  '"tybo--search-form-target":'
-      gsub_file file, "controller: 'ts--select'", "controller: 'tybo--ts--select'"
-      gsub_file file, 'controller: "search-form"', 'controller: "tybo--search-form"'
-    end
-  end
-
-  def upgrade_translations
-    say_status :upgrade, "Translations", :blue
-
-    %w[en fr].each do |locale|
-      file = "config/locales/bo.#{locale}.yml"
-      next unless File.exist?(file)
-      next if File.read(file).include?("add_ressource_btn")
-
-      gsub_file file, /(\s+export_btn:.+)/ do |match|
-        value = locale == "fr" ? '"+"' : '"+"'
-        "#{match}\n  add_ressource_btn: #{value}"
-      end
+      File.write(file, content, encoding: "UTF-8")
+      say_status :gsub, file, :green
     end
   end
 
@@ -174,11 +183,11 @@ class TyboUpgradeGenerator < Rails::Generators::Base
     say ""
     say "✓ Tybo upgraded to 0.7.x", :green
     say ""
-    say "Files to review and delete:", :yellow
-    say "  app/javascript/tybo/controllers/index.remove_me.js", :yellow
+    say "Files to review:", :yellow
+    say "  app/javascript/tybo/controllers/ (controllers copied from engine)", :yellow
+    say "  app/javascript/tybo/controllers/index.js (exports commented out)", :yellow
+    say "  app/javascript/controllers/application.js (registrations commented out)", :yellow
     say ""
-    say "Next steps:"
-    say "  1. Review *.remove_me.js files and delete them"
-    say "  2. Run your test suite"
+    say "Once reviewed, you can delete the commented lines safely."
   end
 end
