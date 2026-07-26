@@ -1,3 +1,137 @@
+## 0.7.0 — Breaking changes
+
+### What's new
+
+- **Dedicated CSS build** : Tybo now ships its own `tybo_admin.css` instead of writing into `application.tailwind.css`. The engine exposes `bin/rails tybo:build_css` and `bin/rails tybo:watch_css` Rake tasks (loaded automatically, no copy needed). `assets:precompile` hooks into `tybo:build_css` automatically.
+- **Isolated JS entry point** : a dedicated `application_tybo_admin.js` is generated in `app/javascript/tybo/`. Admin layouts use `javascript_importmap_tags "application_tybo_admin"` — no longer injecting into the host app's `application.js`.
+- **Puma plugin** : `plugin :tybo` injected into `config/puma.rb` starts the CSS watch automatically when running `bin/rails server` in development.
+- **Namespaced Stimulus controllers** : all controllers are now registered under the `tybo--` namespace (`tybo--sidebar`, `tybo--flash`, etc.) following the official Stimulus convention for engines.
+
+---
+
+### Upgrade from 0.6.x
+
+#### 1. CSS
+
+Remove references to `tailwind.css` from your admin layouts and replace with `tybo_admin.css`:
+
+```erb
+<%# before %>
+<%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+<%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+<%# after %>
+<%= stylesheet_link_tag "tybo_admin", "data-turbo-track": "reload" %>
+```
+
+Create `app/assets/stylesheets/tybo_admin.tailwind.css` (copy the content from your existing `application.tailwind.css` if you had customised it), then build:
+
+```shell
+bin/rails tybo:build_css
+```
+
+For development watch mode, add `plugin :tybo` to `config/puma.rb`:
+
+```ruby
+plugin :tybo if ENV.fetch("RAILS_ENV", "development") == "development"
+```
+
+#### 2. JavaScript
+
+Replace the old `@tymate/tybo_js` setup with the new entry point.
+
+In `config/importmap.rb`, remove:
+```ruby
+pin "@tymate/tybo_js", to: "tybo/controllers/index.js"
+```
+
+Add:
+```ruby
+pin "application_tybo_admin", to: "tybo/application_tybo_admin.js"
+pin_all_from "app/javascript/tybo/controllers", under: "tybo/controllers"
+pin "tom-select", to: "https://esm.sh/tom-select"
+pin "@rails/request.js", to: "https://esm.sh/@rails/request.js"
+```
+
+Copy the JS controllers from the engine into your app:
+
+```shell
+bin/rails g tybo_install  # or copy manually from the engine
+```
+
+Create `app/javascript/tybo/application_tybo_admin.js`:
+
+```javascript
+import "@hotwired/turbo-rails"
+import { Application } from "@hotwired/stimulus"
+
+import Attachments from "tybo/controllers/attachments_controller"
+import Dropdown from "tybo/controllers/dropdown_controller"
+import Flash from "tybo/controllers/flash_controller"
+import SearchForm from "tybo/controllers/search_form_controller"
+import TsSearch from "tybo/controllers/ts/search_controller"
+import TsSelect from "tybo/controllers/ts/select_controller"
+import Sidebar from "tybo/controllers/sidebar_controller"
+
+const application = Application.start()
+
+application.register("tybo--attachments", Attachments)
+application.register("tybo--dropdown", Dropdown)
+application.register("tybo--flash", Flash)
+application.register("tybo--search-form", SearchForm)
+application.register("tybo--ts--search", TsSearch)
+application.register("tybo--ts--select", TsSelect)
+application.register("tybo--sidebar", Sidebar)
+```
+
+Update your admin layouts to use the new JS entry point:
+
+```erb
+<%# before %>
+<%= javascript_importmap_tags %>
+
+<%# after %>
+<%= javascript_importmap_tags "application_tybo_admin" %>
+```
+
+Remove the old Tybo registrations from your `app/javascript/controllers/application.js` if present:
+
+```javascript
+// remove these lines
+import { Dropdown, Flash, SearchForm, TsSearch, TsSelect, Sidebar } from "@tymate/tybo_js"
+application.register('dropdown', Dropdown)
+application.register('flash', Flash)
+// etc.
+```
+
+#### 3. Stimulus data-controller attributes
+
+All generated views and engine components now use the `tybo--` prefix. If you have **manually written** views that reference old controller names, update them:
+
+| Before | After |
+|---|---|
+| `data-controller="sidebar"` | `data-controller="tybo--sidebar"` |
+| `data-controller="flash"` | `data-controller="tybo--flash"` |
+| `data-controller="dropdown"` | `data-controller="tybo--dropdown"` |
+| `data-controller="search-form"` | `data-controller="tybo--search-form"` |
+| `data-controller="ts--select"` | `data-controller="tybo--ts--select"` |
+| `data-controller="ts--search"` | `data-controller="tybo--ts--search"` |
+| `data-controller="attachments"` | `data-controller="tybo--attachments"` |
+| `data-sidebar-target="..."` | `data-tybo--sidebar-target="..."` |
+| `data-dropdown-target="..."` | `data-tybo--dropdown-target="..."` |
+| `action: "input->search-form#search"` | `action: "input->tybo--search-form#search"` |
+
+#### 4. Translations
+
+Add the missing key to your `config/locales/bo.en.yml` and `bo.fr.yml`:
+
+```yaml
+bo:
+  add_ressource_btn: "+"
+```
+
+---
+
 ### Tybo version 0.5.x
 Require tailwwind v3
 ### 0.4.0

@@ -44,7 +44,7 @@
                 <%= association.klass.name %>.all.map { |item| [item.<%=bo_model_title(association.klass.name.constantize)%>, item.id] },
                 { include_blank: true },
                 multiple: true,
-                data: { controller: 'ts--select' } %>
+                data: { controller: 'tybo--ts--select' } %>
   <%% end %>
   <%- end -%>
   <%%= render(Forms::SubmitButtonComponent.new) %>

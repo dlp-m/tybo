@@ -5,6 +5,10 @@ require 'view_component'
 
 module Tybo
   class Engine < ::Rails::Engine
+    rake_tasks do
+      load "#{root}/lib/tasks/tybo.rake"
+    end
+
     # Devise
     config.to_prepare do
       Devise::ConfirmationsController.layout "devise_admin"
